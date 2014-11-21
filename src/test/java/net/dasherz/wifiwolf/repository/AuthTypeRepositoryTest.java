@@ -34,15 +34,15 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 	@Test
 	public void findOne() {
 		AuthType authType = authTypeRepository.findOne(Long.valueOf(1));
-		assertEquals(1, authType.getStatus());
+		assertEquals(Integer.valueOf(1), authType.getStatus());
 		assertEquals("USER_UNAUTHENTICATION", authType.getAuthType());
 	}
 
 	@Test
 	public void save() {
 		AuthType type = authTypeRepository.save(authType);
-		assertEquals(0, authType.getStatus());
-		Assert.assertNotNull(authType.getId());
+		assertEquals(Integer.valueOf(0), type.getStatus());
+		Assert.assertNotNull(type.getId());
 	}
 
 	@Test

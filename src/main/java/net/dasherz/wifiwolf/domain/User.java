@@ -63,19 +63,19 @@ public class User extends IdLong {
 		this.password = password;
 	}
 
-	public int getSex() {
+	public Integer getSex() {
 		return sex;
 	}
 
-	public void setSex(int sex) {
+	public void setSex(Integer sex) {
 		this.sex = sex;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 
@@ -103,27 +103,27 @@ public class User extends IdLong {
 		this.email = email;
 	}
 
-	public int getWifiStatus() {
+	public Integer getWifiStatus() {
 		return wifiStatus;
 	}
 
-	public void setWifiStatus(int wifiStatus) {
+	public void setWifiStatus(Integer wifiStatus) {
 		this.wifiStatus = wifiStatus;
 	}
 
-	public int getAccountStatus() {
+	public Integer getAccountStatus() {
 		return accountStatus;
 	}
 
-	public void setAccountStatus(int accountStatus) {
+	public void setAccountStatus(Integer accountStatus) {
 		this.accountStatus = accountStatus;
 	}
 
-	public int getUserType() {
+	public Integer getUserType() {
 		return userType;
 	}
 
-	public void setUserType(int userType) {
+	public void setUserType(Integer userType) {
 		this.userType = userType;
 	}
 
@@ -135,19 +135,19 @@ public class User extends IdLong {
 		this.createTime = createTime;
 	}
 
-	public int getIsPhoneVerified() {
+	public Integer getIsPhoneVerified() {
 		return isPhoneVerified;
 	}
 
-	public void setIsPhoneVerified(int isPhoneVerified) {
+	public void setIsPhoneVerified(Integer isPhoneVerified) {
 		this.isPhoneVerified = isPhoneVerified;
 	}
 
-	public int getIsEmailVerified() {
+	public Integer getIsEmailVerified() {
 		return isEmailVerified;
 	}
 
-	public void setIsEmailVerified(int isEmailVerified) {
+	public void setIsEmailVerified(Integer isEmailVerified) {
 		this.isEmailVerified = isEmailVerified;
 	}
 
