@@ -35,6 +35,16 @@ CREATE TABLE `t_auth_page` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `t_auth_page`
+--
+
+LOCK TABLES `t_auth_page` WRITE;
+/*!40000 ALTER TABLE `t_auth_page` DISABLE KEYS */;
+INSERT INTO `t_auth_page` VALUES (1,1,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `t_auth_page` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `t_auth_type`
 --
 
@@ -48,6 +58,16 @@ CREATE TABLE `t_auth_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_auth_type`
+--
+
+LOCK TABLES `t_auth_type` WRITE;
+/*!40000 ALTER TABLE `t_auth_type` DISABLE KEYS */;
+INSERT INTO `t_auth_type` VALUES (1,'USER_UNAUTHENTICATION',1),(2,'USER_AUTHENTIVATED',1),(3,'PHONEUSER_UNAUTHENTICATION',1),(4,'PHONEUSER_AUTHENTIVATED',1);
+/*!40000 ALTER TABLE `t_auth_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `t_connection`
@@ -74,6 +94,15 @@ CREATE TABLE `t_connection` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `t_connection`
+--
+
+LOCK TABLES `t_connection` WRITE;
+/*!40000 ALTER TABLE `t_connection` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_connection` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `t_dict`
 --
 
@@ -93,6 +122,15 @@ CREATE TABLE `t_dict` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `t_dict`
+--
+
+LOCK TABLES `t_dict` WRITE;
+/*!40000 ALTER TABLE `t_dict` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_dict` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `t_log`
 --
 
@@ -107,6 +145,15 @@ CREATE TABLE `t_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_log`
+--
+
+LOCK TABLES `t_log` WRITE;
+/*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `t_node`
@@ -125,10 +172,20 @@ CREATE TABLE `t_node` (
   `last_heartbeat_sys_memfree` int(11) DEFAULT NULL,
   `last_heartbeat_sys_load` decimal(10,0) DEFAULT NULL,
   `last_heartbeat_ip` varchar(16) DEFAULT NULL,
-  `last_heartbeat_timestamp` timestamp NULL DEFAULT NULL,
+  `last_heartbeat_timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='table for router information';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_node`
+--
+
+LOCK TABLES `t_node` WRITE;
+/*!40000 ALTER TABLE `t_node` DISABLE KEYS */;
+INSERT INTO `t_node` VALUES (1,'wifiwolf','asus',1,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `t_node` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `t_phone_user`
@@ -147,6 +204,15 @@ CREATE TABLE `t_phone_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_phone_user`
+--
+
+LOCK TABLES `t_phone_user` WRITE;
+/*!40000 ALTER TABLE `t_phone_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_phone_user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `t_portal_page`
@@ -168,6 +234,16 @@ CREATE TABLE `t_portal_page` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `t_portal_page`
+--
+
+LOCK TABLES `t_portal_page` WRITE;
+/*!40000 ALTER TABLE `t_portal_page` DISABLE KEYS */;
+INSERT INTO `t_portal_page` VALUES (1,1,NULL,NULL,NULL,1,NULL);
+/*!40000 ALTER TABLE `t_portal_page` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `t_token`
 --
 
@@ -185,6 +261,15 @@ CREATE TABLE `t_token` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_token`
+--
+
+LOCK TABLES `t_token` WRITE;
+/*!40000 ALTER TABLE `t_token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_token` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `t_user`
@@ -210,6 +295,16 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='table for user information';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_user`
+--
+
+LOCK TABLES `t_user` WRITE;
+/*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
+INSERT INTO `t_user` VALUES (1,'admin','admin',1,25,'13134524356','admin@wifiwolf.com',1,1,1,'2014-11-20 16:24:38',1,1);
+/*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -220,4 +315,4 @@ CREATE TABLE `t_user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-20 17:49:22
+-- Dump completed on 2014-11-21 10:55:04
