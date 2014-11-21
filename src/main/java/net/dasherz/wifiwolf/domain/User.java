@@ -2,58 +2,43 @@ package net.dasherz.wifiwolf.domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
 @Entity
-@Table(name = "t_user")
 public class User extends IdLong {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4164149619614793584L;
-	@Column(name = "username")
 	private String username;
 
-	@Column(name = "password")
 	private String password;
 
-	@Column(name = "sex")
 	private int sex;
 
-	@Column(name = "age")
 	private int age;
 
 	@Transient
 	private String plainPassword;
 
-	@Column(name = "phone")
 	private String phone;
 
-	@Column(name = "email")
 	private String email;
 
-	@Column(name = "wifi_status")
 	private int wifiStatus;
 
-	@Column(name = "account_status")
 	private int accountStatus;
 
-	@Column(name = "user_type")
 	private int userType;
 
-	@Column(name = "create_time")
 	private Date createTime;
 
-	@Column(name = "is_phone_verified")
 	private int isPhoneVerified;
 
-	@Column(name = "is_email_verified")
 	private int isEmailVerified;
 
 	public String getUsername() {
