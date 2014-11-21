@@ -22,23 +22,11 @@ public class Node extends IdLong {
 
 	private int lastHeartbeatSysUptime;
 
-	
 	private int lastHeartbeatWifidogUptime;
-	
+
 	private int lastHeartbeatSysMemfree;
-	
+
 	private float lastHeartbeatSysLoad;
-	
-	private String lastHeartbeatIp;
-	
-	private Date lastHeartbeatTimestamp;
-
-
-	private int lastHeartbeatWifidogUptime;
-
-	private int lastHeartbeatSysMemfree;
-
-	private Float lastHeartbeatSysLoad;
 
 	private String lastHeartbeatIp;
 
@@ -94,12 +82,10 @@ public class Node extends IdLong {
 
 	public float getLasHeartbeatSysLoad() {
 
-
 		return lastHeartbeatSysLoad;
 	}
 
 	public void setLasHeartbeatSysLoad(float lastHeartbeatSysLoad) {
-
 
 		this.lastHeartbeatSysLoad = lastHeartbeatSysLoad;
 	}
