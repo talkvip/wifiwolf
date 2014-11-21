@@ -7,6 +7,8 @@ import javax.persistence.Transient;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 public class User extends IdLong {
 
@@ -14,6 +16,8 @@ public class User extends IdLong {
 	 * 
 	 */
 	private static final long serialVersionUID = -4164149619614793584L;
+
+	@Length(max = 20)
 	private String username;
 
 	private String password;
