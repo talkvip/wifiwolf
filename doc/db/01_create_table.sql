@@ -170,7 +170,7 @@ CREATE TABLE `t_node` (
   `last_heartbeat_sys_uptime` int(11) DEFAULT NULL,
   `last_heartbeat_wifidog_uptime` int(11) DEFAULT NULL,
   `last_heartbeat_sys_memfree` int(11) DEFAULT NULL,
-  `last_heartbeat_sys_load` decimal(10,0) DEFAULT NULL,
+  `last_heartbeat_sys_load` float DEFAULT NULL,
   `last_heartbeat_ip` varchar(16) DEFAULT NULL,
   `last_heartbeat_timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -315,4 +315,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-21 11:09:11
+-- Dump completed on 2014-11-21 14:54:08
