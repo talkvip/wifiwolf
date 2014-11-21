@@ -140,7 +140,7 @@ DROP TABLE IF EXISTS `t_log`;
 CREATE TABLE `t_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `log_type` int(11) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
   `exception` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
@@ -163,7 +163,7 @@ DROP TABLE IF EXISTS `t_node`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_node` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL,
   `gateway_id` varchar(45) NOT NULL,
   `node_name` varchar(255) DEFAULT NULL,
   `owner_id` bigint(20) NOT NULL DEFAULT '1',
@@ -174,7 +174,7 @@ CREATE TABLE `t_node` (
   `last_heartbeat_ip` varchar(16) DEFAULT NULL,
   `last_heartbeat_timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='table for router information';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='table for router information';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,4 +315,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-21 17:31:01
+-- Dump completed on 2014-11-21 11:09:11
