@@ -53,19 +53,19 @@ public class Dict extends IdLong {
 		this.name = name;
 	}
 
-	public int getOrderNum() {
+	public Integer getOrderNum() {
 		return orderNum;
 	}
 
-	public void setOrderNum(int orderNum) {
+	public void setOrderNum(Integer orderNum) {
 		this.orderNum = orderNum;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -76,4 +76,5 @@ public class Dict extends IdLong {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 }

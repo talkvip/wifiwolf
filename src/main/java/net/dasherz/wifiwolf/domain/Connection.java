@@ -87,27 +87,27 @@ public class Connection extends IdLong {
 		this.token = token;
 	}
 
-	public long getOutgoing() {
+	public Long getOutgoing() {
 		return outgoing;
 	}
 
-	public void setOutgoing(long outgoing) {
+	public void setOutgoing(Long outgoing) {
 		this.outgoing = outgoing;
 	}
 
-	public long getIncoming() {
+	public Long getIncoming() {
 		return incoming;
 	}
 
-	public void setIncoming(long incoming) {
+	public void setIncoming(Long incoming) {
 		this.incoming = incoming;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -142,4 +142,5 @@ public class Connection extends IdLong {
 	public void setAuthType(AuthType authType) {
 		this.authType = authType;
 	}
+
 }

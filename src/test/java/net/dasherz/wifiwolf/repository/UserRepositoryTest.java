@@ -34,7 +34,7 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 	@Test
 	public void find() {
 		User user = userRepository.findOne(Long.valueOf(1));
-		assertEquals(25, user.getAge());
+		assertEquals(Integer.valueOf(25), user.getAge());
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 		User user = userRepository.findOne(Long.valueOf(1));
 		user.setAge(18);
 		user = userRepository.save(user);
-		assertEquals(18, user.getAge());
+		assertEquals(Integer.valueOf(18), user.getAge());
 	}
 
 	@Test
