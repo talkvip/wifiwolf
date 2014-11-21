@@ -2,29 +2,34 @@ package net.dasherz.wifiwolf.repository;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.validation.Validator;
+import javax.inject.Inject;
 
+import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.Token;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class TokenRepositoryTest extends BaseRepositoryTest {
 
-	@Autowired
+	@Inject
 	private TokenRepository tokenRepository;
-	@Autowired
-	private Validator validator;
+	@Inject
+	private UserRepository userRepository;
+	@Inject
+	private PhoneUserRepository phoneUserRepository;
+	@Inject
+	private AuthTypeRepository authTypeRepository;
+
 	Token token;
 
 	@Before
 	public void init() {
 		token = new Token();
-		token.setPhoneUserId(1L);
-		token.setRegisteredUserId(1L);
+		token.setPhoneUser(phoneUserRepository.save(new PhoneUser()));
+		token.setRegisteredUser(userRepository.findOne(1L));
 		token.setStatus(1);
-		token.setAuthTypeId(1L);
+		token.setAuthType(authTypeRepository.findOne(1L));
 		token.setCreateTime(null);
 		tokenRepository.save(token);
 	}
@@ -32,19 +37,19 @@ public class TokenRepositoryTest extends BaseRepositoryTest {
 	@Test
 	public void find() {
 		Token result = tokenRepository.findOne(token.getId());
-		assertEquals(1, result.getAuthTypeId().intValue());
+		assertEquals(1L, result.getAuthType().getId().longValue());
 	}
 
 	@Test
 	public void update() {
 		// Given
-		token.setAuthTypeId(2L);
+		token.setStatus(0);
 
 		// When
 		Token result = tokenRepository.save(token);
 
 		// Then
-		assertEquals(2, result.getAuthTypeId().intValue());
+		assertEquals(0, result.getStatus().intValue());
 		assertEquals(token.getId(), result.getId());
 	}
 

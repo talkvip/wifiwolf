@@ -4,26 +4,26 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import javax.validation.Validator;
+import javax.inject.Inject;
 
 import net.dasherz.wifiwolf.domain.PortalPage;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class PortalPageRepositoryTest extends BaseRepositoryTest {
 
-	@Autowired
+	@Inject
 	private PortalPageRepository PortalPageRepository;
-	@Autowired
-	private Validator validator;
+	@Inject
+	private NodeRepository nodeRepository;
+
 	PortalPage portalPage;
 
 	@Before
 	public void init() {
 		portalPage = new PortalPage();
-		portalPage.setNodeId(1L);
+		portalPage.setNode(nodeRepository.findOne(1L));
 		portalPage.setUseOriginUrl(1);
 		PortalPageRepository.save(portalPage);
 	}

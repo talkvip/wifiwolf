@@ -1,8 +1,15 @@
 package net.dasherz.wifiwolf.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 public class PortalPage extends IdLong {
@@ -12,7 +19,11 @@ public class PortalPage extends IdLong {
 	 */
 	private static final long serialVersionUID = -1600308966679704193L;
 
-	private Long nodeId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "node_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@NotNull
+	private Node node;
 
 	private String templatePage;
 
@@ -24,12 +35,12 @@ public class PortalPage extends IdLong {
 
 	private String customizeUrl;
 
-	public Long getNodeId() {
-		return nodeId;
+	public Node getNode() {
+		return node;
 	}
 
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
+	public void setNode(Node node) {
+		this.node = node;
 	}
 
 	public String getTemplatePage() {

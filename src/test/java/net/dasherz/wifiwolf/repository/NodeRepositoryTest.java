@@ -4,20 +4,19 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import javax.validation.Validator;
+import javax.inject.Inject;
 
 import net.dasherz.wifiwolf.domain.Node;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class NodeRepositoryTest extends BaseRepositoryTest {
 
-	@Autowired
+	@Inject
 	private NodeRepository nodeRepository;
-	@Autowired
-	private Validator validator;
+	@Inject
+	private UserRepository userRepository;
 	Node node;
 
 	@Before
@@ -25,7 +24,7 @@ public class NodeRepositoryTest extends BaseRepositoryTest {
 		node = new Node();
 		node.setGatewayId("gw");
 		node.setNodeName("asus");
-		node.setOwnerId(1L);
+		node.setOwner(userRepository.findOne(1L));
 		nodeRepository.save(node);
 	}
 

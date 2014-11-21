@@ -3,8 +3,16 @@ package net.dasherz.wifiwolf.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 public class Token extends IdLong {
@@ -16,11 +24,22 @@ public class Token extends IdLong {
 
 	private String token;
 
-	private Long authTypeId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "auth_type_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@NotNull
+	private AuthType authType;
 
-	private Long registeredUserId;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "registered_user_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@NotNull
+	private User registeredUser;
 
-	private Long phoneUserId;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "phone_user_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private PhoneUser phoneUser;
 
 	private Integer status;
 
@@ -34,28 +53,28 @@ public class Token extends IdLong {
 		this.token = token;
 	}
 
-	public Long getAuthTypeId() {
-		return authTypeId;
+	public AuthType getAuthType() {
+		return authType;
 	}
 
-	public void setAuthTypeId(Long authTypeId) {
-		this.authTypeId = authTypeId;
+	public void setAuthType(AuthType authType) {
+		this.authType = authType;
 	}
 
-	public Long getRegisteredUserId() {
-		return registeredUserId;
+	public User getRegisteredUser() {
+		return registeredUser;
 	}
 
-	public void setRegisteredUserId(Long registeredUserId) {
-		this.registeredUserId = registeredUserId;
+	public void setRegisteredUser(User registeredUser) {
+		this.registeredUser = registeredUser;
 	}
 
-	public Long getPhoneUserId() {
-		return phoneUserId;
+	public PhoneUser getPhoneUser() {
+		return phoneUser;
 	}
 
-	public void setPhoneUserId(Long phoneUserId) {
-		this.phoneUserId = phoneUserId;
+	public void setPhoneUser(PhoneUser phoneUser) {
+		this.phoneUser = phoneUser;
 	}
 
 	public Integer getStatus() {

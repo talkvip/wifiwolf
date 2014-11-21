@@ -3,8 +3,15 @@ package net.dasherz.wifiwolf.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 public class Node extends IdLong {
@@ -18,8 +25,6 @@ public class Node extends IdLong {
 
 	private String nodeName;
 
-	private Long ownerId;
-
 	private Integer lastHeartbeatSysUptime;
 
 	private Integer lastHeartbeatWifidogUptime;
@@ -31,6 +36,12 @@ public class Node extends IdLong {
 	private String lastHeartbeatIp;
 
 	private Date lastHeartbeatTimestamp;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ownerId")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@NotNull
+	private User user;
 
 	public String getGatewayId() {
 		return gatewayId;
@@ -48,12 +59,12 @@ public class Node extends IdLong {
 		this.nodeName = nodeName;
 	}
 
-	public Long getOwnerId() {
-		return ownerId;
+	public User getOwner() {
+		return user;
 	}
 
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
+	public void setOwner(User user) {
+		this.user = user;
 	}
 
 	public Integer getLastHeartbeatSysUptime() {
