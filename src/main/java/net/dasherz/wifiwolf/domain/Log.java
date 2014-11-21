@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
-
 @Entity
 public class Log extends IdLong {
 
@@ -15,28 +14,18 @@ public class Log extends IdLong {
 	 */
 	private static final long serialVersionUID = -1600308966679704193L;
 
-	private int logType;
+	private Integer logType;
 
-	private String nodeName;
-	
 	private Date createTime;
-	
+
 	private String exception;
 
-	public int getLogType() {
+	public Integer getLogType() {
 		return logType;
 	}
 
-	public void setLogType(int logType) {
+	public void setLogType(Integer logType) {
 		this.logType = logType;
-	}
-
-	public String getNodeName() {
-		return nodeName;
-	}
-
-	public void setNodeName(String nodeName) {
-		this.nodeName = nodeName;
 	}
 
 	public Date getCreateTime() {

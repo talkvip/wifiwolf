@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
-
 @Entity
 public class PortalPage extends IdLong {
 
@@ -16,13 +15,13 @@ public class PortalPage extends IdLong {
 	private Long nodeId;
 
 	private String templatePage;
-	
+
 	private String customizeCss;
-	
+
 	private String customizeHtml;
-	
-	private int useOriginUrl;
-	
+
+	private Integer useOriginUrl;
+
 	private String customizeUrl;
 
 	public Long getNodeId() {
@@ -57,11 +56,11 @@ public class PortalPage extends IdLong {
 		this.customizeHtml = customizeHtml;
 	}
 
-	public int getUseOriginUrl() {
+	public Integer getUseOriginUrl() {
 		return useOriginUrl;
 	}
 
-	public void setUseOriginUrl(int useOriginUrl) {
+	public void setUseOriginUrl(Integer useOriginUrl) {
 		this.useOriginUrl = useOriginUrl;
 	}
 

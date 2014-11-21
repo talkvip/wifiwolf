@@ -20,13 +20,13 @@ public class Node extends IdLong {
 
 	private Long ownerId;
 
-	private int lastHeartbeatSysUptime;
+	private Integer lastHeartbeatSysUptime;
 
-	private int lastHeartbeatWifidogUptime;
+	private Integer lastHeartbeatWifidogUptime;
 
-	private int lastHeartbeatSysMemfree;
+	private Integer lastHeartbeatSysMemfree;
 
-	private float lastHeartbeatSysLoad;
+	private Float lastHeartbeatSysLoad;
 
 	private String lastHeartbeatIp;
 
@@ -56,37 +56,35 @@ public class Node extends IdLong {
 		this.ownerId = ownerId;
 	}
 
-	public int getLastHeartbeatSysUptime() {
+	public Integer getLastHeartbeatSysUptime() {
 		return lastHeartbeatSysUptime;
 	}
 
-	public void setLastHeartbeatSysUptime(int lastHeartbeatSysUptime) {
+	public void setLastHeartbeatSysUptime(Integer lastHeartbeatSysUptime) {
 		this.lastHeartbeatSysUptime = lastHeartbeatSysUptime;
 	}
 
-	public int getLastHeartbeatWifidogUptime() {
+	public Integer getLastHeartbeatWifidogUptime() {
 		return lastHeartbeatWifidogUptime;
 	}
 
-	public void setLastHeartbeatWifidogUptime(int lastHeartbeatWifidogUptime) {
+	public void setLastHeartbeatWifidogUptime(Integer lastHeartbeatWifidogUptime) {
 		this.lastHeartbeatWifidogUptime = lastHeartbeatWifidogUptime;
 	}
 
-	public int getLastHeartbeatSysMemfree() {
+	public Integer getLastHeartbeatSysMemfree() {
 		return lastHeartbeatSysMemfree;
 	}
 
-	public void setLastHeartbeatSysMemfree(int lastHeartbeatSysMemfree) {
+	public void setLastHeartbeatSysMemfree(Integer lastHeartbeatSysMemfree) {
 		this.lastHeartbeatSysMemfree = lastHeartbeatSysMemfree;
 	}
 
-	public float getLasHeartbeatSysLoad() {
-
+	public Float getLasHeartbeatSysLoad() {
 		return lastHeartbeatSysLoad;
 	}
 
-	public void setLasHeartbeatSysLoad(float lastHeartbeatSysLoad) {
-
+	public void setLasHeartbeatSysLoad(Float lastHeartbeatSysLoad) {
 		this.lastHeartbeatSysLoad = lastHeartbeatSysLoad;
 	}
 

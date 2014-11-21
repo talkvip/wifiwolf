@@ -18,12 +18,12 @@ public class PhoneUser extends IdLong {
 
 	private String verifyCode;
 
-	private int status;
+	private Integer status;
 
 	private Date createTime;
 
 	private Date verifyTime;
-	
+
 	public String getPhoneNum() {
 		return phoneNum;
 	}
@@ -40,11 +40,11 @@ public class PhoneUser extends IdLong {
 		this.verifyCode = verifyCode;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

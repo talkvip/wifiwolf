@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
-
 @Entity
 public class Token extends IdLong {
 
@@ -22,9 +21,9 @@ public class Token extends IdLong {
 	private Long registeredUserId;
 
 	private Long phoneUserId;
-	
-	private int status;
-	
+
+	private Integer status;
+
 	private Date createTime;
 
 	public String getToken() {
@@ -59,11 +58,11 @@ public class Token extends IdLong {
 		this.phoneUserId = phoneUserId;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
