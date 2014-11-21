@@ -27,7 +27,7 @@ public class Node extends IdLong {
 	
 	private int lastHeartbeatSysMemfree;
 	
-	private float lasHeartbeatSysLoad;
+	private float lastHeartbeatSysLoad;
 	
 	private String lastHeartbeatIp;
 	
@@ -83,11 +83,11 @@ public class Node extends IdLong {
 	}
 
 	public float getLasHeartbeatSysLoad() {
-		return lasHeartbeatSysLoad;
+		return lastHeartbeatSysLoad;
 	}
 
-	public void setLasHeartbeatSysLoad(float lasHeartbeatSysLoad) {
-		this.lasHeartbeatSysLoad = lasHeartbeatSysLoad;
+	public void setLasHeartbeatSysLoad(float lastHeartbeatSysLoad) {
+		this.lastHeartbeatSysLoad = lastHeartbeatSysLoad;
 	}
 
 	public String getLastHeartbeatIp() {
