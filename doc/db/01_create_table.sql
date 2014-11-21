@@ -40,7 +40,7 @@ CREATE TABLE `t_auth_page` (
 
 LOCK TABLES `t_auth_page` WRITE;
 /*!40000 ALTER TABLE `t_auth_page` DISABLE KEYS */;
-INSERT INTO `t_auth_page` VALUES (1,1,NULL,NULL,NULL);
+INSERT INTO `t_auth_page` VALUES (1,1,'css','html','template');
 /*!40000 ALTER TABLE `t_auth_page` ENABLE KEYS */;
 UNLOCK TABLES;
 

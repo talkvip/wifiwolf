@@ -16,7 +16,7 @@ public class AuthType extends IdLong {
 	@Size(max = 45)
 	private String authType;
 
-	private int status;
+	private Integer status;
 
 	public String getAuthType() {
 		return authType;

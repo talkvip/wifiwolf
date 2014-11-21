@@ -22,9 +22,9 @@ public class Dict extends IdLong {
 	@Size(max = 50)
 	private String name;
 
-	private int orderNum;
+	private Integer orderNum;
 
-	private int status;
+	private Integer status;
 
 	@Size(max = 255)
 	private String description;

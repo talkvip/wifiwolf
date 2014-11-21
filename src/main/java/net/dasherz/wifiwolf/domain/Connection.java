@@ -37,11 +37,11 @@ public class Connection extends IdLong {
 	@NotNull
 	private Token token;
 
-	private long outgoing;
+	private Long outgoing;
 
-	private long incoming;
+	private Long incoming;
 
-	private int status;
+	private Integer status;
 
 	private Date updateTime;
 

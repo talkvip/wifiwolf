@@ -22,9 +22,9 @@ public class User extends IdLong {
 	@Size(max = 100)
 	private String password;
 
-	private int sex;
+	private Integer sex;
 
-	private int age;
+	private Integer age;
 
 	@Transient
 	private String plainPassword;
@@ -35,17 +35,17 @@ public class User extends IdLong {
 	@Size(max = 100)
 	private String email;
 
-	private int wifiStatus;
+	private Integer wifiStatus;
 
-	private int accountStatus;
+	private Integer accountStatus;
 
-	private int userType;
+	private Integer userType;
 
 	private Date createTime;
 
-	private int isPhoneVerified;
+	private Integer isPhoneVerified;
 
-	private int isEmailVerified;
+	private Integer isEmailVerified;
 
 	public String getUsername() {
 		return username;
