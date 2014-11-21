@@ -4,10 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
-
-import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class User extends IdLong {
@@ -17,9 +16,10 @@ public class User extends IdLong {
 	 */
 	private static final long serialVersionUID = -4164149619614793584L;
 
-	@Length(max = 20)
+	@Size(max = 20)
 	private String username;
 
+	@Size(max = 100)
 	private String password;
 
 	private int sex;
@@ -29,8 +29,10 @@ public class User extends IdLong {
 	@Transient
 	private String plainPassword;
 
+	@Size(max = 20)
 	private String phone;
 
+	@Size(max = 100)
 	private String email;
 
 	private int wifiStatus;
@@ -147,10 +149,6 @@ public class User extends IdLong {
 
 	public void setIsEmailVerified(int isEmailVerified) {
 		this.isEmailVerified = isEmailVerified;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

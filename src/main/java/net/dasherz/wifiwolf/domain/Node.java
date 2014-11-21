@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
-
 @Entity
 public class Node extends IdLong {
 
@@ -22,17 +21,16 @@ public class Node extends IdLong {
 	private Long ownerId;
 
 	private int lastHeartbeatSysUptime;
-	
-	private int lastHeartbeatWifidogUptime;
-	
-	private int lastHeartbeatSysMemfree;
-	
-	private float lastHeartbeatSysLoad;
-	
-	private String lastHeartbeatIp;
-	
-	private Date lastHeartbeatTimestamp;
 
+	private int lastHeartbeatWifidogUptime;
+
+	private int lastHeartbeatSysMemfree;
+
+	private float lastHeartbeatSysLoad;
+
+	private String lastHeartbeatIp;
+
+	private Date lastHeartbeatTimestamp;
 
 	public String getGatewayId() {
 		return gatewayId;
@@ -83,10 +81,12 @@ public class Node extends IdLong {
 	}
 
 	public float getLasHeartbeatSysLoad() {
+
 		return lastHeartbeatSysLoad;
 	}
 
 	public void setLasHeartbeatSysLoad(float lastHeartbeatSysLoad) {
+
 		this.lastHeartbeatSysLoad = lastHeartbeatSysLoad;
 	}
 
