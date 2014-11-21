@@ -17,11 +17,11 @@ public class Token extends IdLong {
 
 	private String token;
 
-	private int authTypeId;
+	private Long authTypeId;
 
-	private int registeredUserId;
+	private Long registeredUserId;
 
-	private int phoneUserId;
+	private Long phoneUserId;
 	
 	private int status;
 	
@@ -35,27 +35,27 @@ public class Token extends IdLong {
 		this.token = token;
 	}
 
-	public int getAuthTypeId() {
+	public Long getAuthTypeId() {
 		return authTypeId;
 	}
 
-	public void setAuthTypeId(int authTypeId) {
+	public void setAuthTypeId(Long authTypeId) {
 		this.authTypeId = authTypeId;
 	}
 
-	public int getRegisteredUserId() {
+	public Long getRegisteredUserId() {
 		return registeredUserId;
 	}
 
-	public void setRegisteredUserId(int registeredUserId) {
+	public void setRegisteredUserId(Long registeredUserId) {
 		this.registeredUserId = registeredUserId;
 	}
 
-	public int getPhoneUserId() {
+	public Long getPhoneUserId() {
 		return phoneUserId;
 	}
 
-	public void setPhoneUserId(int phoneUserId) {
+	public void setPhoneUserId(Long phoneUserId) {
 		this.phoneUserId = phoneUserId;
 	}
 

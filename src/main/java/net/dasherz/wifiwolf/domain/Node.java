@@ -19,7 +19,7 @@ public class Node extends IdLong {
 
 	private String nodeName;
 
-	private int ownerId;
+	private Long ownerId;
 
 	private int lastHeartbeatSysUptime;
 	
@@ -50,11 +50,11 @@ public class Node extends IdLong {
 		this.nodeName = nodeName;
 	}
 
-	public int getOwnerId() {
+	public Long getOwnerId() {
 		return ownerId;
 	}
 
-	public void setOwnerId(int ownerId) {
+	public void setOwnerId(Long ownerId) {
 		this.ownerId = ownerId;
 	}
 
