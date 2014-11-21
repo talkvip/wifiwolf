@@ -170,7 +170,7 @@ CREATE TABLE `t_node` (
   `last_heartbeat_sys_uptime` int(11) DEFAULT NULL,
   `last_heartbeat_wifidog_uptime` int(11) DEFAULT NULL,
   `last_heartbeat_sys_memfree` int(11) DEFAULT NULL,
-  `last_heartbeat_sys_load` decimal(10,0) DEFAULT NULL,
+  `last_heartbeat_sys_load` float DEFAULT NULL,
   `last_heartbeat_ip` varchar(16) DEFAULT NULL,
   `last_heartbeat_timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
