@@ -92,8 +92,4 @@ public class Token extends IdLong {
 		this.createTime = createTime;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 }

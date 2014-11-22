@@ -44,8 +44,4 @@ public class Log extends IdLong {
 		this.exception = exception;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 }

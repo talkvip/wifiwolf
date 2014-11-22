@@ -64,7 +64,4 @@ public class PhoneUser extends IdLong {
 		this.verifyTime = verifyTime;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 }

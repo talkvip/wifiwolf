@@ -58,7 +58,7 @@ public class Node extends IdLong {
 	@NotNull
 	private List<PortalPage> portalPages;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private List<Connection> connections;
@@ -157,10 +157,6 @@ public class Node extends IdLong {
 
 	public void setLastHeartbeatTimestamp(Date lastHeartbeatTimestamp) {
 		this.lastHeartbeatTimestamp = lastHeartbeatTimestamp;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

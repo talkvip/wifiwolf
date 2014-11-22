@@ -83,8 +83,4 @@ public class PortalPage extends IdLong {
 		this.customizeUrl = customizeUrl;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 }
