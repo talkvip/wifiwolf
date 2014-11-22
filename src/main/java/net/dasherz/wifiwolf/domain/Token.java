@@ -46,6 +46,18 @@ public class Token extends IdLong {
 	@NotNull
 	private Node node;
 
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "token")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private Connection connection;
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
+
 	private Integer status;
 
 	private Date createTime;
