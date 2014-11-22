@@ -33,6 +33,7 @@ public class ConnectionRepositoryTest extends BaseRepositoryTest {
 	public void init() {
 		token = new Token();
 		token.setAuthType(authTypeRepository.findOne(1L));
+		token.setNode(nodeRepository.findOne(1L));
 		tokenRepository.save(token);
 		connection = new Connection();
 		connection.setIp("10.167.12.1");

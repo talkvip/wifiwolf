@@ -40,9 +40,23 @@ public class Token extends IdLong {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PhoneUser phoneUser;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "node_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@NotNull
+	private Node node;
+
 	private Integer status;
 
 	private Date createTime;
+
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
 
 	public String getToken() {
 		return token;

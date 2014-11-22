@@ -61,14 +61,14 @@ public class Node extends IdLong {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id")
 	@NotFound(action = NotFoundAction.IGNORE)
-	private List<Connection> connections;
+	private List<Token> tokens;
 
-	public List<Connection> getConnections() {
-		return connections;
+	public List<Token> getTokens() {
+		return tokens;
 	}
 
-	public void setConnections(List<Connection> connections) {
-		this.connections = connections;
+	public void setTokens(List<Token> tokens) {
+		this.tokens = tokens;
 	}
 
 	public List<PortalPage> getPortalPages() {

@@ -23,6 +23,9 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 	TokenRepository tokenRepository;
 
 	@Inject
+	NodeRepository nodeRepository;
+
+	@Inject
 	AuthTypeRepository authTypeRepository;
 	@Inject
 	private Validator validator;
@@ -42,6 +45,7 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 		token = new Token();
 		token.setRegisteredUser(userRepository.findOne(1L));
 		token.setAuthType(authTypeRepository.findOne(1L));
+		token.setNode(nodeRepository.findOne(1L));
 		tokenRepository.save(token);
 	}
 

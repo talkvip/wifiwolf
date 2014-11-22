@@ -20,6 +20,8 @@ public class TokenRepositoryTest extends BaseRepositoryTest {
 	private PhoneUserRepository phoneUserRepository;
 	@Inject
 	private AuthTypeRepository authTypeRepository;
+	@Inject
+	private NodeRepository nodeRepository;
 
 	Token token;
 
@@ -28,6 +30,7 @@ public class TokenRepositoryTest extends BaseRepositoryTest {
 		token = new Token();
 		token.setPhoneUser(phoneUserRepository.save(new PhoneUser()));
 		token.setRegisteredUser(userRepository.findOne(1L));
+		token.setNode(nodeRepository.findOne(1L));
 		token.setStatus(1);
 		token.setAuthType(authTypeRepository.findOne(1L));
 		token.setCreateTime(null);

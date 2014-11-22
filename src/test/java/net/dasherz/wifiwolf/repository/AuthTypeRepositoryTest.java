@@ -43,6 +43,7 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 		token = new Token();
 		token.setAuthType(authTypeRepository.findOne(1L));
 		token.setRegisteredUser(userRepository.findOne(1L));
+		token.setNode(nodeRepository.findOne(1L));
 		tokenRepository.save(token);
 
 		connection = new Connection();
