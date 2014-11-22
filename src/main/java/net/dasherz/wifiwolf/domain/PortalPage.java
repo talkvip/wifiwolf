@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
@@ -25,6 +26,7 @@ public class PortalPage extends IdLong {
 	@NotNull
 	private Node node;
 
+	@Size(max = 45)
 	private String templatePage;
 
 	private String customizeCss;

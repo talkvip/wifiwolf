@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
@@ -22,6 +23,7 @@ public class Token extends IdLong {
 	 */
 	private static final long serialVersionUID = -5031216348093957234L;
 
+	@Size(max = 40)
 	private String token;
 
 	@ManyToOne(fetch = FetchType.LAZY)

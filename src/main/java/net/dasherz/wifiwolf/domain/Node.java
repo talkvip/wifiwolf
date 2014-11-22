@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
@@ -24,8 +25,10 @@ public class Node extends IdLong {
 	 */
 	private static final long serialVersionUID = -1600308966679704193L;
 
+	@Size(max = 45)
 	private String gatewayId;
 
+	@Size(max = 255)
 	private String nodeName;
 
 	private Integer lastHeartbeatSysUptime;
@@ -36,6 +39,7 @@ public class Node extends IdLong {
 
 	private Float lastHeartbeatSysLoad;
 
+	@Size(max = 16)
 	private String lastHeartbeatIp;
 
 	private Date lastHeartbeatTimestamp;

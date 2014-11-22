@@ -3,6 +3,7 @@ package net.dasherz.wifiwolf.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
@@ -14,8 +15,10 @@ public class PhoneUser extends IdLong {
 	 */
 	private static final long serialVersionUID = -8344343211510285576L;
 
+	@Size(max = 20)
 	private String phoneNum;
 
+	@Size(max = 6)
 	private String verifyCode;
 
 	private Integer status;
