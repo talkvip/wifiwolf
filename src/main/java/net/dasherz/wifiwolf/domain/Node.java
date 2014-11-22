@@ -1,11 +1,14 @@
 package net.dasherz.wifiwolf.domain;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
@@ -38,10 +41,51 @@ public class Node extends IdLong {
 	private Date lastHeartbeatTimestamp;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ownerId")
+	@JoinColumn(name = "owner_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
 	private User user;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "node_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@NotNull
+	private List<AuthPage> authPages;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "node_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@NotNull
+	private List<PortalPage> portalPages;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "node_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private List<Connection> connections;
+
+	public List<Connection> getConnections() {
+		return connections;
+	}
+
+	public void setConnections(List<Connection> connections) {
+		this.connections = connections;
+	}
+
+	public List<PortalPage> getPortalPages() {
+		return portalPages;
+	}
+
+	public void setPortalPages(List<PortalPage> portalPages) {
+		this.portalPages = portalPages;
+	}
+
+	public List<AuthPage> getAuthPages() {
+		return authPages;
+	}
+
+	public void setAuthPages(List<AuthPage> authPages) {
+		this.authPages = authPages;
+	}
 
 	public String getGatewayId() {
 		return gatewayId;

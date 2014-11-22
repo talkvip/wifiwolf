@@ -30,10 +30,9 @@ public class Token extends IdLong {
 	@NotNull
 	private AuthType authType;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "registered_user_id")
 	@NotFound(action = NotFoundAction.IGNORE)
-	@NotNull
 	private User registeredUser;
 
 	@OneToOne(fetch = FetchType.LAZY)
