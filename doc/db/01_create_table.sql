@@ -78,7 +78,6 @@ DROP TABLE IF EXISTS `t_connection`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_connection` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `node_id` bigint(20) DEFAULT NULL,
   `ip` varchar(16) DEFAULT NULL,
   `mac` char(17) DEFAULT NULL,
   `token_id` bigint(20) DEFAULT NULL,
@@ -257,6 +256,7 @@ CREATE TABLE `t_token` (
   `phone_user_id` bigint(20) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
+  `node_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -314,4 +314,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-21 14:54:08
+-- Dump completed on 2014-11-22 13:05:26

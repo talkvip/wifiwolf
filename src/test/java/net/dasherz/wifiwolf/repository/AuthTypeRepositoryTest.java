@@ -47,7 +47,7 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 
 		connection = new Connection();
 		// connection.setAuthType(authTypeRepository.findOne(1L));
-		connection.setNode(nodeRepository.findOne(1L));
+		// connection.setNode(nodeRepository.findOne(1L));
 		connection.setToken(token);
 		connectionRepository.save(connection);
 

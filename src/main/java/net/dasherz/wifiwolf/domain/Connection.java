@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -21,12 +20,6 @@ public class Connection extends IdLong {
 	 * 
 	 */
 	private static final long serialVersionUID = -2934172236674120862L;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "node_id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	@NotNull
-	private Node node;
 
 	private String ip;
 
@@ -49,14 +42,6 @@ public class Connection extends IdLong {
 	private Date createTime;
 
 	private String originUrl;
-
-	public Node getNode() {
-		return node;
-	}
-
-	public void setNode(Node node) {
-		this.node = node;
-	}
 
 	public String getIp() {
 		return ip;

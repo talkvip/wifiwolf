@@ -44,7 +44,7 @@ public class ConnectionRepositoryTest extends BaseRepositoryTest {
 		connection.setCreateTime(new Date());
 		connection.setOriginUrl("http://www.qq.com/");
 
-		connection.setNode(nodeRepository.findOne(1L));
+		// connection.setNode(nodeRepository.findOne(1L));
 		connection.setToken(token);
 		connectionRepository.save(connection);
 
