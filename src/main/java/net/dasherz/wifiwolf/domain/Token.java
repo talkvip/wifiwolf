@@ -28,7 +28,6 @@ public class Token extends IdLong {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "auth_type_id")
-	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
 	private AuthType authType;
 
@@ -44,7 +43,6 @@ public class Token extends IdLong {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id")
-	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
 	private Node node;
 

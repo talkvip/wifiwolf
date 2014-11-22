@@ -9,9 +9,6 @@ import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 @Entity
 public class PortalPage extends IdLong {
 
@@ -22,7 +19,6 @@ public class PortalPage extends IdLong {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id")
-	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
 	private Node node;
 

@@ -46,19 +46,16 @@ public class Node extends IdLong {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id")
-	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
 	private User user;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "node_id")
-	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
 	private List<AuthPage> authPages;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "node_id")
-	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
 	private List<PortalPage> portalPages;
 
