@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
@@ -25,7 +25,7 @@ public class Connection extends IdLong {
 
 	private String mac;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "token_id", unique = true)
 	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
