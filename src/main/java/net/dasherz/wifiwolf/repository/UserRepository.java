@@ -4,5 +4,7 @@ import net.dasherz.wifiwolf.common.repository.BaseRepository;
 import net.dasherz.wifiwolf.domain.User;
 
 public interface UserRepository extends BaseRepository<User, Long> {
+	User findByUsername(String username);
 
+	User findByPhone(String phone);
 }

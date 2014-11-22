@@ -55,8 +55,7 @@
 	<!-- Spring Data Jpa配置 -->
 	<jpa:repositories base-package="net.dasherz.wifiwolf.**.repository"
 		transaction-manager-ref="transactionManager"
-		entity-manager-factory-ref="entityManagerFactory" 
-		/>
+		entity-manager-factory-ref="entityManagerFactory" />
 
 	<!-- JSR303 Validator定义 -->
 	<bean id="validator"

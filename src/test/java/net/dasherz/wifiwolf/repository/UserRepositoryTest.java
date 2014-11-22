@@ -93,4 +93,16 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 		assertEquals(1, admin.getTokens().size());
 	}
 
+	@Test
+	public void findByUsername() {
+		User user = userRepository.findByUsername("admin");
+		assertEquals(25, user.getAge().intValue());
+	}
+
+	@Test
+	public void findByPhone() {
+		User user = userRepository.findByPhone("13134524356");
+		assertEquals(25, user.getAge().intValue());
+	}
+
 }
