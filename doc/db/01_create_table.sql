@@ -88,7 +88,6 @@ CREATE TABLE `t_connection` (
   `update_time` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `origin_url` text,
-  `auth_type_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

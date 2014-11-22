@@ -46,7 +46,7 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 		tokenRepository.save(token);
 
 		connection = new Connection();
-		connection.setAuthType(authTypeRepository.findOne(1L));
+		// connection.setAuthType(authTypeRepository.findOne(1L));
 		connection.setNode(nodeRepository.findOne(1L));
 		connection.setToken(token);
 		connectionRepository.save(connection);
@@ -85,13 +85,6 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 	public void delete() {
 		authTypeRepository.delete(Long.valueOf(1));
 		assertEquals(3, authTypeRepository.count());
-	}
-
-	@Test
-	public void readConnections() {
-		AuthType type = authTypeRepository.findOne(1L);
-		Assert.assertNotNull(type.getConnections());
-		assertEquals(1, type.getConnections().size());
 	}
 
 	@Test

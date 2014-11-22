@@ -32,6 +32,7 @@ public class ConnectionRepositoryTest extends BaseRepositoryTest {
 	@Before
 	public void init() {
 		token = new Token();
+		token.setAuthType(authTypeRepository.findOne(1L));
 		tokenRepository.save(token);
 		connection = new Connection();
 		connection.setIp("10.167.12.1");
@@ -42,7 +43,7 @@ public class ConnectionRepositoryTest extends BaseRepositoryTest {
 		connection.setUpdateTime(new Date());
 		connection.setCreateTime(new Date());
 		connection.setOriginUrl("http://www.qq.com/");
-		connection.setAuthType(authTypeRepository.findOne(1L));
+
 		connection.setNode(nodeRepository.findOne(1L));
 		connection.setToken(token);
 		connectionRepository.save(connection);

@@ -29,11 +29,6 @@ public class AuthType extends IdLong {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authType")
 	@OrderBy("id DESC")
 	@NotFound(action = NotFoundAction.IGNORE)
-	private List<Connection> connections;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authType")
-	@OrderBy("id DESC")
-	@NotFound(action = NotFoundAction.IGNORE)
 	private List<Token> tokens;
 
 	public String getAuthType() {
@@ -50,14 +45,6 @@ public class AuthType extends IdLong {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public List<Connection> getConnections() {
-		return connections;
-	}
-
-	public void setConnections(List<Connection> connections) {
-		this.connections = connections;
 	}
 
 	public List<Token> getTokens() {

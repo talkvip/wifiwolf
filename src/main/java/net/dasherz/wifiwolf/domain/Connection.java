@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
@@ -31,7 +32,7 @@ public class Connection extends IdLong {
 
 	private String mac;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "token_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
@@ -48,12 +49,6 @@ public class Connection extends IdLong {
 	private Date createTime;
 
 	private String originUrl;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "auth_type_id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	@NotNull
-	private AuthType authType;
 
 	public Node getNode() {
 		return node;
@@ -133,14 +128,6 @@ public class Connection extends IdLong {
 
 	public void setOriginUrl(String originUrl) {
 		this.originUrl = originUrl;
-	}
-
-	public AuthType getAuthType() {
-		return authType;
-	}
-
-	public void setAuthType(AuthType authType) {
-		this.authType = authType;
 	}
 
 }
