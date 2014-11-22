@@ -10,9 +10,6 @@ import javax.validation.constraints.NotNull;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 @Entity
 public class Connection extends IdLong {
 
@@ -27,7 +24,6 @@ public class Connection extends IdLong {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "token_id", unique = true)
-	@NotFound(action = NotFoundAction.IGNORE)
 	@NotNull
 	private Token token;
 
