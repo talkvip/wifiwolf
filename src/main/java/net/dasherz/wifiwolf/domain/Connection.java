@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
@@ -18,8 +19,10 @@ public class Connection extends IdLong {
 	 */
 	private static final long serialVersionUID = -2934172236674120862L;
 
+	@Size(max = 16)
 	private String ip;
 
+	@Size(max = 17)
 	private String mac;
 
 	@OneToOne(fetch = FetchType.LAZY)

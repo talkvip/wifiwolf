@@ -14,6 +14,8 @@ import net.dasherz.wifiwolf.common.persistence.IdLong;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class User extends IdLong {
@@ -24,6 +26,7 @@ public class User extends IdLong {
 	private static final long serialVersionUID = -4164149619614793584L;
 
 	@Size(max = 20)
+	@NotBlank
 	private String username;
 
 	@Size(max = 100)
@@ -40,6 +43,7 @@ public class User extends IdLong {
 	private String phone;
 
 	@Size(max = 100)
+	@Email
 	private String email;
 
 	private Integer wifiStatus;
