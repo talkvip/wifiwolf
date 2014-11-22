@@ -1,12 +1,19 @@
 package net.dasherz.wifiwolf.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 public class User extends IdLong {
@@ -46,6 +53,16 @@ public class User extends IdLong {
 	private Integer isPhoneVerified;
 
 	private Integer isEmailVerified;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OrderBy("id DESC")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private List<Node> nodes;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "registeredUser")
+	@OrderBy("id DESC")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private List<Token> tokens;
 
 	public String getUsername() {
 		return username;
@@ -149,6 +166,22 @@ public class User extends IdLong {
 
 	public void setIsEmailVerified(Integer isEmailVerified) {
 		this.isEmailVerified = isEmailVerified;
+	}
+
+	public List<Node> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(List<Node> nodes) {
+		this.nodes = nodes;
+	}
+
+	public List<Token> getTokens() {
+		return tokens;
+	}
+
+	public void setTokens(List<Token> tokens) {
+		this.tokens = tokens;
 	}
 
 }

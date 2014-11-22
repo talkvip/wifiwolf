@@ -7,8 +7,10 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 
 import net.dasherz.wifiwolf.common.beanvalidator.BeanValidators;
+import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.domain.User;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,9 +18,16 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 
 	@Inject
 	private UserRepository userRepository;
+
+	@Inject
+	TokenRepository tokenRepository;
+
+	@Inject
+	AuthTypeRepository authTypeRepository;
 	@Inject
 	private Validator validator;
 	User user;
+	Token token;
 
 	@Before
 	public void init() {
@@ -29,6 +38,11 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 		user.setEmail("lh@lh.com");
 		user.setSex(1);
 		user.setWifiStatus(0);
+
+		token = new Token();
+		token.setRegisteredUser(userRepository.findOne(1L));
+		token.setAuthType(authTypeRepository.findOne(1L));
+		tokenRepository.save(token);
 	}
 
 	@Test
@@ -65,4 +79,18 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 		BeanValidators.validateWithException(validator, user);
 		userRepository.save(user);
 	}
+
+	public void readNodes() {
+		User admin = userRepository.findOne(1L);
+		Assert.assertNotNull(admin.getNodes());
+		assertEquals(1, admin.getNodes().size());
+		assertEquals("wifiwolf", admin.getNodes().get(0).getGatewayId());
+	}
+
+	public void readTokens() {
+		User admin = userRepository.findOne(1L);
+		Assert.assertNotNull(admin.getTokens());
+		assertEquals(1, admin.getTokens().size());
+	}
+
 }

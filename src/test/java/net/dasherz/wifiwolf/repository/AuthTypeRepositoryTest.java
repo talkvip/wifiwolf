@@ -7,6 +7,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import net.dasherz.wifiwolf.domain.AuthType;
+import net.dasherz.wifiwolf.domain.Connection;
+import net.dasherz.wifiwolf.domain.Token;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,13 +18,39 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 	@Inject
 	AuthTypeRepository authTypeRepository;
 
+	@Inject
+	ConnectionRepository connectionRepository;
+
+	@Inject
+	TokenRepository tokenRepository;
+
+	@Inject
+	NodeRepository nodeRepository;
+
+	@Inject
+	UserRepository userRepository;
+
 	AuthType authType;
+	Connection connection;
+	Token token;
 
 	@Before
 	public void init() {
 		authType = new AuthType();
 		authType.setAuthType("test");
 		authType.setStatus(0);
+
+		token = new Token();
+		token.setAuthType(authTypeRepository.findOne(1L));
+		token.setRegisteredUser(userRepository.findOne(1L));
+		tokenRepository.save(token);
+
+		connection = new Connection();
+		connection.setAuthType(authTypeRepository.findOne(1L));
+		connection.setNode(nodeRepository.findOne(1L));
+		connection.setToken(token);
+		connectionRepository.save(connection);
+
 	}
 
 	@Test
@@ -58,4 +86,19 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 		authTypeRepository.delete(Long.valueOf(1));
 		assertEquals(3, authTypeRepository.count());
 	}
+
+	@Test
+	public void readConnections() {
+		AuthType type = authTypeRepository.findOne(1L);
+		Assert.assertNotNull(type.getConnections());
+		assertEquals(1, type.getConnections().size());
+	}
+
+	@Test
+	public void readTokens() {
+		AuthType type = authTypeRepository.findOne(1L);
+		Assert.assertNotNull(type.getTokens());
+		assertEquals(1, type.getTokens().size());
+	}
+
 }
