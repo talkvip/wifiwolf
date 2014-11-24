@@ -84,6 +84,7 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 		userRepository.save(user);
 	}
 
+	@Test
 	public void readNodes() {
 		User admin = userRepository.findOne(1L);
 		Assert.assertNotNull(admin.getNodes());
@@ -91,6 +92,7 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 		assertEquals("wifiwolf", admin.getNodes().get(0).getGatewayId());
 	}
 
+	@Test
 	public void readTokens() {
 		User admin = userRepository.findOne(1L);
 		Assert.assertNotNull(admin.getTokens());

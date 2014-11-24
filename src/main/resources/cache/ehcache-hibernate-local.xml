@@ -4,9 +4,53 @@
 	<diskStore path="java.io.tmpdir/wifiwolf/ehcache/hibernate" />
 
 	<!-- DefaultCache setting. -->
-	<defaultCache maxEntriesLocalHeap="1000" eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600" 
-		overflowToDisk="true" maxEntriesLocalDisk="100000" />
-	
-	<cache name="net.dasherz.wifiwolf.domain.AuthPage" maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true" maxEntriesLocalDisk="100000" />
-	<cache name="net.dasherz.wifiwolf.domain.AuthType" maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true" maxEntriesLocalDisk="100000" />
+	<defaultCache maxEntriesLocalHeap="1000" eternal="false"
+		timeToIdleSeconds="300" timeToLiveSeconds="600" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+
+	<cache name="net.dasherz.wifiwolf.domain.AuthPage"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.AuthType"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Connection"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Dict"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Log"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Node"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Node.authPages"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Node.portalPages"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Node.tokens"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.PhoneUser"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.PortalPage"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Token"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.User"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.User.nodes"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.User.tokens"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
 </ehcache>

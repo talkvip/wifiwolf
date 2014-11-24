@@ -12,12 +12,15 @@ import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User extends IdLong {
 
 	/**
@@ -61,11 +64,13 @@ public class User extends IdLong {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	@OrderBy("id DESC")
 	@NotFound(action = NotFoundAction.IGNORE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<Node> nodes;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "registeredUser")
 	@OrderBy("id DESC")
 	@NotFound(action = NotFoundAction.IGNORE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<Token> tokens;
 
 	public String getUsername() {

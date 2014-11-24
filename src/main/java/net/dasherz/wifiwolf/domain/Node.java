@@ -14,10 +14,13 @@ import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Node extends IdLong {
 
 	/**
@@ -51,17 +54,18 @@ public class Node extends IdLong {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "node_id")
-	@NotNull
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<AuthPage> authPages;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "node_id")
-	@NotNull
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<PortalPage> portalPages;
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id")
 	@NotFound(action = NotFoundAction.IGNORE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<Token> tokens;
 
 	public List<Token> getTokens() {
