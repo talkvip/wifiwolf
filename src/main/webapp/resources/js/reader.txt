@@ -1,0 +1,57 @@
+1、ui-bootstrap-tpls.js
+/*Modified By LanXiu At 2014-10-27，新增div的html元素，实现totalItems为0时不显示分页，以及实现第几页的页面跳转；Modified By LanXiu At 2014-11-19，针对弹窗内totalItems不为0时报错并不显示分页，更改ng-if的位置以避免该问题的出现*/
+line 3974:
+由：
+angular.module("template/pagination/pagination.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/pagination/pagination.html",
+    "<ul class=\"pagination\">\n" +
+    "  <li ng-if=\"boundaryLinks\" ng-class=\"{disabled: noPrevious()}\"><a href ng-click=\"selectPage(1)\">{{getText('first')}}</a></li>\n" +
+    "  <li ng-if=\"directionLinks\" ng-class=\"{disabled: noPrevious()}\"><a href ng-click=\"selectPage(page - 1)\">{{getText('previous')}}</a></li>\n" +
+    "  <li ng-repeat=\"page in pages track by $index\" ng-class=\"{active: page.active}\"><a href ng-click=\"selectPage(page.number)\">{{page.text}}</a></li>\n" +
+    "  <li ng-if=\"directionLinks\" ng-class=\"{disabled: noNext()}\"><a href ng-click=\"selectPage(page + 1)\">{{getText('next')}}</a></li>\n" +
+    "  <li ng-if=\"boundaryLinks\" ng-class=\"{disabled: noNext()}\"><a href ng-click=\"selectPage(totalPages)\">{{getText('last')}}</a></li>\n" +
+    "</ul>");
+}]);
+改为：
+angular.module("template/pagination/pagination.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/pagination/pagination.html",
+    "<div class=\"area-box text-right form-inline\">\n" +
+    "<ul class=\"pagination\" ng-if=\"totalItems>0\">\n" +
+    "  <li ng-if=\"boundaryLinks\" ng-class=\"{disabled: noPrevious()}\"><a href ng-click=\"selectPage(1)\">{{getText('first')}}</a></li>\n" +
+    "  <li ng-if=\"directionLinks\" ng-class=\"{disabled: noPrevious()}\"><a href ng-click=\"selectPage(page - 1)\">{{getText('previous')}}</a></li>\n" +
+    "  <li ng-repeat=\"page in pages track by $index\" ng-class=\"{active: page.active}\"><a href ng-click=\"selectPage(page.number)\">{{page.text}}</a></li>\n" +
+    "  <li ng-if=\"directionLinks\" ng-class=\"{disabled: noNext()}\"><a href ng-click=\"selectPage(page + 1)\">{{getText('next')}}</a></li>\n" +
+    "  <li ng-if=\"boundaryLinks\" ng-class=\"{disabled: noNext()}\"><a href ng-click=\"selectPage(totalPages)\">{{getText('last')}}</a></li>\n" +
+    "</ul>\n" +
+    "<div class=\"form-group\" ng-if=\"totalItems>0\">\n" +
+    "<p class=\"form-control-static\">\n" +
+    "共{{totalPages}}页,到第\n" +
+    "<input type=\"number\" class=\"form-control length-4 text-center\" max=\"{{totalPages}}\" min=\"1\" ng-model=\"pageNum\" />\n"  +
+    "页\n"  +
+    "<button type=\"submit\" class=\"btn btn-default\" ng-click=\"selectPage(pageNum)\">确定</button>\n"  +
+    "</p>\n" +
+    "</div>"+
+    "</div>");
+}]);
+
+2、ui-bootstrap-tpls.js
+/*Modified By LanXiu At 2014-11-1，增加modal-outside、modal-inside类的div标签，使得弹窗垂直居中；Modified By LanXiu At 2014-11-10，增加modal-lger类，针对点菜弹窗的宽度设置*/
+line 3959:
+由：
+angular.module("template/modal/window.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/modal/window.html",
+    "<div tabindex=\"-1\" role=\"dialog\" class=\"modal fade\" ng-class=\"{in: animate}\" ng-style=\"{'z-index': 1050 + index*10, display: 'block'}\" ng-click=\"close($event)\">\n" +
+    "    <div class=\"modal-dialog\" ng-class=\"{'modal-sm': size == 'sm', 'modal-lg': size == 'lg'}\"><div class=\"modal-content\" ng-transclude></div></div>\n" +
+    "</div>");
+}]);
+改为：
+angular.module("template/modal/window.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/modal/window.html",
+    "<div tabindex=\"-1\" role=\"dialog\" class=\"modal fade\" ng-class=\"{in: animate}\" ng-style=\"{'z-index': 1050 + index*10, display: 'block'}\" ng-click=\"close($event)\">\n" +
+    "  <div class=\"modal-outside\">\n" +
+    "    <div class=\"modal-inside\">\n" +
+    "      <div class=\"modal-dialog\" ng-class=\"{'modal-sm': size == 'sm', 'modal-lg': size == 'lg', 'modal-lger': size == 'lger'}\"><div class=\"modal-content\" ng-transclude></div></div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>");
+}]);
