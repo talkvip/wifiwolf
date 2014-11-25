@@ -2,7 +2,6 @@ package net.dasherz.wifiwolf.user.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value = "/user")
-public class UserController {
+@RequestMapping(value = "/wifi")
+public class WIFIUserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String username, String password, String wifidogHost,
