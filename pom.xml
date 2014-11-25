@@ -124,17 +124,23 @@
 			<artifactId>javax.el</artifactId>
 			<version>${javax.el.version}</version>
 		</dependency>
-<!-- ehcache -->
-<dependency>
-	<groupId>net.sf.ehcache</groupId>
-	<artifactId>ehcache-core</artifactId>
-	<version>${ehcache.version}</version>
-</dependency>
-<dependency>
-  <groupId>org.hibernate</groupId>
-  <artifactId>hibernate-ehcache</artifactId>
-  <version>${hibernate.version}</version>
-</dependency>
+		<!-- ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>${ehcache.version}</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.hibernate</groupId>
+  			<artifactId>hibernate-ehcache</artifactId>
+  			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
 
 		<dependency>
 			<groupId>opensymphony</groupId>

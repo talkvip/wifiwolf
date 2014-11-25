@@ -8,6 +8,8 @@ package net.dasherz.wifiwolf.common.shiro;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.annotation.PostConstruct;
+
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.service.UserService;
 
@@ -17,16 +19,17 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 
-	// protected AccountService accountService;
 	protected UserService userService;
 
 	/**
@@ -41,8 +44,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			String password = user.getPassword();
 			if (password == null)
 				throw new AuthenticationException("密码错误，请再次输入密码");
+
+			byte[] salt = Encodes.decodeHex(password.substring(0, 16));
 			AuthenticationInfo info = new SimpleAuthenticationInfo(
-					new ShiroUser(user.getId(), user.getUsername()), password,
+					new ShiroUser(user.getId(), user.getUsername()),
+					password.substring(16), ByteSource.Util.bytes(salt),
 					getName());
 			this.setSession("user", user);
 
@@ -60,6 +66,18 @@ public class ShiroDbRealm extends AuthorizingRealm {
 				session.setAttribute(key, value);
 			}
 		}
+	}
+
+	/**
+	 * 设定Password校验的Hash算法与迭代次数.
+	 */
+	@PostConstruct
+	public void initCredentialsMatcher() {
+		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(
+				UserService.HASH_ALGORITHM);
+		matcher.setHashIterations(UserService.HASH_INTERATIONS);
+
+		setCredentialsMatcher(matcher);
 	}
 
 	/**
