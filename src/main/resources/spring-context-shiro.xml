@@ -25,6 +25,12 @@
 			<value>
 				/user/login = authc
 				/logout = logout
+				/auth = anon
+				/ping = anon
+				/gw_message.php = anon
+				/portal = anon
+				/wifi/login = anon
+				/login = anon
 				/** = user
 			</value>
 		</property>

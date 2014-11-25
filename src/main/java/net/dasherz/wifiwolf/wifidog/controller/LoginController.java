@@ -22,6 +22,6 @@ public class LoginController {
 		logger.debug("gateway url: " + url);
 		model.addAttribute("wifidogHost", gw_address);
 		model.addAttribute("wifidogPort", gw_port);
-		return "login";
+		return "/wifi/login";
 	}
 }
