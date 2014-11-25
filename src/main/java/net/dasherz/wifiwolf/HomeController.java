@@ -4,6 +4,10 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import net.dasherz.wifiwolf.controller.UserController;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -34,6 +38,9 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 
 		model.addAttribute("serverTime", formattedDate);
+		Subject subject = SecurityUtils.getSubject();
+		String username = subject.getPrincipal().toString();
+		UserController.isValidateCodeLogin(username, false, true);
 
 		return "index";
 	}
@@ -49,7 +56,9 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 
 		model.addAttribute("serverTime", formattedDate);
-
+		Subject subject = SecurityUtils.getSubject();
+		String username = subject.getPrincipal().toString();
+		UserController.isValidateCodeLogin(username, false, true);
 		return "home";
 	}
 }

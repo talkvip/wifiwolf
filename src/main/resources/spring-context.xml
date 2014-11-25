@@ -72,5 +72,17 @@
 		<property name="user" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
+	
+		<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:${ehcache.configFile}" />
+	</bean>
+	
+<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod" value="net.dasherz.wifiwolf.common.util.CacheUtils.setCacheManager"/>
+    <property name="arguments">
+        <list>
+            <ref bean="cacheManager"/>
+        </list>
+   </property>
+</bean>
 </beans>

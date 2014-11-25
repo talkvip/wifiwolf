@@ -9,7 +9,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
-
+import net.dasherz.wifiwolf.controller.UserController;
+import net.dasherz.wifiwolf.controller.ValidateCodeController;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.service.UserService;
 
@@ -18,7 +19,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -39,6 +39,19 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+
+		if (UserController.isValidateCodeLogin(token.getUsername(), false,
+				false)) {
+			// 判断验证码
+			Session session = SecurityUtils.getSubject().getSession();
+			String code = (String) session
+					.getAttribute(ValidateCodeController.VALIDATE_CODE);
+			if (token.getCaptcha() == null
+					|| !token.getCaptcha().toUpperCase().equals(code)) {
+				throw new CaptchaException("验证码错误.");
+			}
+		}
+
 		User user = userService.findUserByUsername(token.getUsername());
 		if (user != null) {
 			String password = user.getPassword();

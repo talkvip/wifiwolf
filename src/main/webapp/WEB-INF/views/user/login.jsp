@@ -39,6 +39,12 @@
             <input type="checkbox" id="rememberMe" name="rememberMe"> 记住我
           </label>
         </div>
+        <p>${isValidateCodeLogin}</p>
+        <c:if test="${isValidateCodeLogin}">
+        <input type="text" id="validateCode" name="validateCode" maxlength="5" class="txt required" style="font-weight:bold;width:45px;"/>
+<img src="${ctx}/resources/validationCode" onclick="$('.validateCodeRefresh').click();" class="mid validateCode"/>
+<a href="javascript:" onclick="$('.validateCode').attr('src','${ctx}/resources/validationCode?'+new Date().getTime());" class="mid validateCodeRefresh">看不清</a>
+</c:if>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
       </form>
     </div>
