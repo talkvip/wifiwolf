@@ -48,15 +48,18 @@ public class UserService {
 	/**
 	 * 判断是否超级管理员.
 	 */
-	private boolean isSupervisor(Integer userType) {
+	public boolean isSupervisor(Integer userType) {
 		return userType == 1;
 	}
 
 	/**
 	 * 取出Shiro中的当前用户LoginName.
 	 */
-	private String getCurrentUserName() {
+	public String getCurrentUserName() {
 		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		if (user == null) {
+			return "";
+		}
 		return user.toString();
 	}
 }

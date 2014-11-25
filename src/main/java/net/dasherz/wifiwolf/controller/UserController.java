@@ -5,6 +5,10 @@
  *******************************************************************************/
 package net.dasherz.wifiwolf.controller;
 
+import javax.inject.Inject;
+
+import net.dasherz.wifiwolf.service.UserService;
+
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +21,22 @@ import org.springframework.web.bind.annotation.RequestParam;
  * 
  * 真正登录的POST请求由Filter完成,
  * 
- * @author calvin
+ * @author Jonas
  */
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
 
+	@Inject
+	private UserService userService;
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
-		return "/user/login";
+		if (userService.getCurrentUserName().isEmpty()) {
+			return "/user/login";
+		} else {
+			return "redirect:/";
+		}
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
