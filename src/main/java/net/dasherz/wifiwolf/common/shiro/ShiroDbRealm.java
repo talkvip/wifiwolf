@@ -5,6 +5,9 @@
  *******************************************************************************/
 package net.dasherz.wifiwolf.common.shiro;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.service.UserService;
 
@@ -43,9 +46,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			String password = user.getPassword();
 			if (password == null)
 				throw new AuthenticationException("account error...");
-			AuthenticationInfo info = new SimpleAuthenticationInfo(user,
-					password, getName());
-			// this.setSession("user", user);
+			AuthenticationInfo info = new SimpleAuthenticationInfo(
+					new ShiroUser(user.getId(), user.getUsername()), password,
+					getName());
+			this.setSession("user", user);
 
 			return info;
 		} else {
@@ -69,8 +73,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-		User user = (User) principals.getPrimaryPrincipal();
-		User userInDb = userService.findUserByUsername(user.getUsername());
+		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
+		User userInDb = userService.findUserByUsername(shiroUser.toString());
 		if (userInDb != null && userInDb.getUserType() == 1) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 			// info.addRoles("admin");
@@ -93,5 +97,60 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
+	 */
+	public static class ShiroUser implements Serializable {
+		private static final long serialVersionUID = -1373760761780840081L;
+		public Long id;
+		public String loginName;
+
+		public ShiroUser(Long id, String loginName) {
+			this.id = id;
+			this.loginName = loginName;
+		}
+
+		/**
+		 * 本函数输出将作为默认的<shiro:principal/>输出.
+		 */
+		@Override
+		public String toString() {
+			return loginName;
+		}
+
+		/**
+		 * 重载hashCode,只计算loginName;
+		 */
+		@Override
+		public int hashCode() {
+			return Objects.hashCode(loginName);
+		}
+
+		/**
+		 * 重载equals,只计算loginName;
+		 */
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (getClass() != obj.getClass()) {
+				return false;
+			}
+			ShiroUser other = (ShiroUser) obj;
+			if (loginName == null) {
+				if (other.loginName != null) {
+					return false;
+				}
+			} else if (!loginName.equals(other.loginName)) {
+				return false;
+			}
+			return true;
+		}
 	}
 }

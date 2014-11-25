@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import net.dasherz.wifiwolf.common.shiro.ShiroDbRealm.ShiroUser;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.UserRepository;
 
@@ -47,15 +48,15 @@ public class UserService {
 	/**
 	 * 判断是否超级管理员.
 	 */
-	private boolean isSupervisor(Long id) {
-		return id == 1;
+	private boolean isSupervisor(Integer userType) {
+		return userType == 1;
 	}
 
 	/**
 	 * 取出Shiro中的当前用户LoginName.
 	 */
 	private String getCurrentUserName() {
-		User user = (User) SecurityUtils.getSubject().getPrincipal();
-		return user.getUsername();
+		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		return user.toString();
 	}
 }
