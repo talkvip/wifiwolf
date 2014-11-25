@@ -38,11 +38,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		User user = userService.findUserByUsername(token.getUsername());
 		if (user != null) {
-
-			if (user.getUserType() == 0) {
-				throw new AuthenticationException("您没有权限登录此系统");
-			}
-
 			String password = user.getPassword();
 			if (password == null)
 				throw new AuthenticationException("密码错误，请再次输入密码");
