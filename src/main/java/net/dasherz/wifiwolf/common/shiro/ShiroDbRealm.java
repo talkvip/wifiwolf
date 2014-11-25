@@ -45,7 +45,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 			String password = user.getPassword();
 			if (password == null)
-				throw new AuthenticationException("account error...");
+				throw new AuthenticationException("密码错误，请再次输入密码");
 			AuthenticationInfo info = new SimpleAuthenticationInfo(
 					new ShiroUser(user.getId(), user.getUsername()), password,
 					getName());
@@ -75,9 +75,13 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			PrincipalCollection principals) {
 		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
 		User userInDb = userService.findUserByUsername(shiroUser.toString());
-		if (userInDb != null && userInDb.getUserType() == 1) {
+		if (userInDb != null) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-			// info.addRoles("admin");
+			if (userInDb.getUserType() == 1) {
+				info.addRole("admin");
+			} else {
+				info.addRole("user");
+			}
 			return info;
 		} else {
 			return null;
