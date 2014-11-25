@@ -4,16 +4,24 @@
 <%@ page import="org.apache.shiro.authc.IncorrectCredentialsException"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<html>
-<head>
-	<title>登录页</title>
-	<script src="${ctx}/resources/js/jquery-min.js"></script>
-</head>
+<html lang="en">
+  <head>
+    <title>WifiWolf登录页面</title>
+	<link href="${ctx}/resources/css/signin.css" type="text/css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
-<body>
-	<h1>登录页</h1>
-	<form id="loginForm" action="${ctx}/user/login" method="post">
-		<%
+  <body>
+
+	<div class="container">
+
+      <form class="form-signin" role="form" action="${ctx}/user/login" method="post">
+        <h2 class="form-signin-heading">WifiWolf</h2>
+        <%
 		String error = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
 		if(error != null){
 		%>
@@ -23,31 +31,16 @@
 		<%
 		}
 		%>
-		<div class="control-group">
-			<label for="username" class="control-label">名称:</label>
-			<div class="controls">
-				<input type="text" id="username" name="username" value="${username}" class="input-medium required"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label for="password" class="control-label">密码:</label>
-			<div class="controls">
-				<input type="password" id="password" name="password" class="input-medium required"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<div class="controls">
-				<label class="checkbox inline" for="rememberMe"> <input type="checkbox" id="rememberMe" name="rememberMe"/> 记住我</label>
-				<input id="submit_btn" class="btn" type="submit" value="登录"/>
-				<p class="help-block">(管理员：<b>admin/admin</b>, 普通用户：<b>user/user</b>)</p>
-			</div>
-		</div>
-	</form>
-	
-	<script>
-		$(document).ready(function() {
-			$("#loginForm").validate();
-		});
-	</script>
-</body>
+        <input class="form-control" type="text" id="username" name="username" placeholder="User ID" value="${username}" required autofocus/>
+        <br>
+        <input class="form-control" type="password" id="password" name="password" required/>
+        <div class="checkbox">
+          <label for="rememberMe">
+            <input type="checkbox" id="rememberMe" name="rememberMe"> 记住我
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+      </form>
+    </div>
+  </body>
 </html>
