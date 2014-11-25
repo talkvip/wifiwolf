@@ -39,7 +39,6 @@
             <input type="checkbox" id="rememberMe" name="rememberMe"> 记住我
           </label>
         </div>
-        <p>${isValidateCodeLogin}</p>
         <c:if test="${isValidateCodeLogin}">
         <input type="text" id="validateCode" name="validateCode" maxlength="5" class="txt required" style="font-weight:bold;width:45px;"/>
 <img src="${ctx}/resources/validationCode" onclick="$('.validateCodeRefresh').click();" class="mid validateCode"/>
