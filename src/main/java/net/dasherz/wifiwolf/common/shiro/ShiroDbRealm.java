@@ -79,9 +79,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 			if (userInDb.getUserType() == 1) {
 				info.addRole("admin");
-			} else {
-				info.addRole("user");
 			}
+			info.addRole("user");
+
 			return info;
 		} else {
 			return null;
