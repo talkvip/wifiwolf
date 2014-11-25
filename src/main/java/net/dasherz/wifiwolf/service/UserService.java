@@ -53,6 +53,13 @@ public class UserService {
 	}
 
 	/**
+	 * 判断是否超级管理员.
+	 */
+	public boolean isSupervisorForCurrentUser() {
+		return SecurityUtils.getSubject().hasRole("admin");
+	}
+
+	/**
 	 * 取出Shiro中的当前用户LoginName.
 	 */
 	public String getCurrentUserName() {
