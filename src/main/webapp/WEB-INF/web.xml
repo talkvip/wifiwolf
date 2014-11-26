@@ -9,19 +9,16 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:/spring-context*.xml</param-value>
 	</context-param>
-	<!-- http://stackoverflow.com/questions/23750619/spring-jndi-namingexception-name-spring-livebeansview-mbeandomain-is-not-boun -->
-	<context-param>
-		<param-name>spring.profiles.active</param-name>
-		<param-value>dev</param-value>
-	</context-param>
+	
+	<context-param>  
+    <param-name>spring.profiles.active</param-name>  
+    <param-value>development</param-value>  
+</context-param> 
 	<context-param>
 		<param-name>spring.profiles.default</param-name>
-		<param-value>dev</param-value>
+		<param-value>development</param-value>
 	</context-param>
-	<context-param>
-		<param-name>spring.liveBeansView.mbeanDomain</param-name>
-		<param-value>dev</param-value>
-	</context-param>
+
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
