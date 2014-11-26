@@ -288,7 +288,7 @@ CREATE TABLE `t_user` (
   `phone` varchar(20) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `wifi_status` int(11) DEFAULT '1' COMMENT '0 means wifi is not avalibale currently, 1 means user can use the network',
-  `account_status` int(11) DEFAULT NULL,
+  `account_status` int(11) DEFAULT '1',
   `user_type` int(11) DEFAULT NULL COMMENT 'Since we only has two user types, so use 0 to indicate current user is a normal user, on the other side, 1 means admin user.',
   `create_time` datetime DEFAULT NULL,
   `is_phone_verified` int(11) DEFAULT NULL,
@@ -303,7 +303,7 @@ CREATE TABLE `t_user` (
 
 LOCK TABLES `t_user` WRITE;
 /*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
-INSERT INTO `t_user` VALUES (1,'admin','a17b951f12a1e1c8cbae85507daf44cd656f5425310470eaa0cb0315',1,25,'13134524356','admin@wifiwolf.com',1,1,1,'2014-11-20 16:24:38',1,1),(2,'user','bfaac9bc44f437aeb85ebe02ce39ce91abb1145c0b0efe8e95e84106',0,NULL,NULL,NULL,1,NULL,0,NULL,NULL,NULL);
+INSERT INTO `t_user` VALUES (1,'admin','a17b951f12a1e1c8cbae85507daf44cd656f5425310470eaa0cb0315',1,25,'13134524356','admin@wifiwolf.com',1,1,1,'2014-11-20 16:24:38',1,1),(2,'user','bfaac9bc44f437aeb85ebe02ce39ce91abb1145c0b0efe8e95e84106',0,NULL,NULL,NULL,1,1,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -316,4 +316,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-25 22:30:43
+-- Dump completed on 2014-11-26 15:11:34
