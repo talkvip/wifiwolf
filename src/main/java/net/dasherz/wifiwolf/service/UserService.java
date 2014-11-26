@@ -1,8 +1,14 @@
 package net.dasherz.wifiwolf.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import net.dasherz.wifiwolf.common.shiro.Digests;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
@@ -11,6 +17,9 @@ import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.UserRepository;
 
 import org.apache.shiro.SecurityUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,23 +29,22 @@ public class UserService {
 	public static final int HASH_INTERATIONS = 1024;
 	public static final int SALT_SIZE = 8;
 
+	private Specification<User> spec = new Specification<User>() {
+
+		public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query,
+				CriteriaBuilder cb) {
+			Path<String> accountStatus = root.get("accountStatus");
+			/**
+			 * 连接查询条件, 不定参数，可以连接0..N个查询条件
+			 */
+			query.where(cb.like(accountStatus, "%1%")); // 这里可以设置任意条查询条件
+
+			return null;
+		}
+	};
+
 	@Inject
 	private UserRepository userDao;
-
-	// 获取所有用户列表
-	// public Page<User> getAllUser(PageInfo page) {
-	// return userDao.findAll(page);
-	// }
-
-	// 通过编号查找用户
-	public User getUser(Long userId) {
-		return userDao.findOne(userId);
-	}
-
-	// 通过用户名查找用户
-	public User findUserByUsername(String username) {
-		return userDao.findByUsername(username);
-	}
 
 	// 增加用户
 	public void createUser(User user) {
@@ -45,6 +53,26 @@ public class UserService {
 		user.setCreateTime(new Date());
 		user.setPassword(entryptPassword(user.getPassword()));
 		userDao.saveAndFlush(user);
+	}
+
+	// 通过编号查找用户
+	public User getUser(Long userId) {
+		return userDao.findByUserId(userId);
+	}
+
+	// 通过页码查找用户
+	public Page<User> getPageUsers(PageRequest page) {
+		return userDao.findAll(spec, page);
+	}
+
+	// 查找所有用户
+	public List<User> getAllUser() {
+		return userDao.findAll(spec);
+	}
+
+	// 通过用户名查找用户
+	public User findUserByUsername(String username) {
+		return userDao.findByUsername(username);
 	}
 
 	public boolean isExist(String username) {
@@ -75,6 +103,24 @@ public class UserService {
 			return "";
 		}
 		return user.toString();
+	}
+
+	public void remove(Long id) {
+		User u = getUser(id);
+		u.setAccountStatus(1);
+		userDao.saveAndFlush(u);
+	}
+
+	public void updateUser(User user) {
+		userDao.saveAndFlush(user);
+	}
+
+	public void changePassword(User user) {
+		// 更新密码
+		if (user.getPassword() != null) {
+			user.setPassword(entryptPassword(user.getPassword()));
+		}
+		userDao.saveAndFlush(user);
 	}
 
 	/**
