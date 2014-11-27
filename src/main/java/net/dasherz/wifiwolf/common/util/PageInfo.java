@@ -14,26 +14,22 @@ public class PageInfo {
 	private int currentPage;
 	private List<Integer> pageList = new ArrayList<Integer>();
 
-	private static int PAGE_SIZE = 10;
-	private static int PAGE_LIST_SIZE = 10;
+	public static int PAGE_SIZE = 10;
+	public static int PAGE_LIST_SIZE = 10;
 
-	public PageInfo(int dataCount, int currentPage) {
+	public PageInfo(int pages, int currentPage) {
 		this.currentPage = currentPage;
 
-		int totalPage = dataCount / PAGE_SIZE;
-		if (dataCount % PAGE_SIZE != 0) {
-			totalPage += 1;
-		}
 		int start = 1;
 		if (currentPage >= PAGE_LIST_SIZE) {
 			start = currentPage / PAGE_LIST_SIZE * PAGE_LIST_SIZE;
 		}
 		int num = start;
-		while (!(num > totalPage || num > start + PAGE_LIST_SIZE)) {
+		while (!(num > pages || num > start + PAGE_LIST_SIZE)) {
 			pageList.add(new Integer(num));
 			++num;
 		}
-		this.totalPage = totalPage;
+		this.totalPage = pages;
 		this.pageSize = PAGE_SIZE;
 	}
 

@@ -1,5 +1,6 @@
 package net.dasherz.wifiwolf.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,20 +32,6 @@ public class UserService {
 	public static final int HASH_INTERATIONS = 1024;
 	public static final int SALT_SIZE = 8;
 
-	private Specification<User> spec = new Specification<User>() {
-
-		public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query,
-				CriteriaBuilder cb) {
-			Path<String> accountStatus = root.get("accountStatus");
-			/**
-			 * 连接查询条件, 不定参数，可以连接0..N个查询条件
-			 */
-			query.where(cb.equal(accountStatus, 1)); // 这里可以设置任意条查询条件
-
-			return null;
-		}
-	};
-
 	@Inject
 	private UserRepository userDao;
 
@@ -70,12 +57,20 @@ public class UserService {
 
 	// 通过页码查找用户
 	public Page<User> getPageUsers(int pageNum, int pageSize) {
-		return userDao.findAll(spec, new PageRequest(pageNum - 1, pageSize));
+
+		return userDao.findAll(buildSpecification(null), new PageRequest(
+				pageNum - 1, pageSize));
+	}
+
+	// 带动态条件分页查找用户
+	public Page<User> searchUsers(int pageNum, int pageSize, User user) {
+		return userDao.findAll(buildSpecification(user), new PageRequest(
+				pageNum - 1, pageSize));
 	}
 
 	// 查找所有用户
 	public List<User> getAllUser() {
-		return userDao.findAll(spec);
+		return userDao.findAll(buildSpecification(null));
 	}
 
 	// 通过用户名查找用户
@@ -156,5 +151,49 @@ public class UserService {
 				HASH_INTERATIONS);
 		return password.equals(Encodes.encodeHex(salt)
 				+ Encodes.encodeHex(hashPassword));
+	}
+
+	private Specification<User> buildSpecification(final User user) {
+		if (user != null) {
+			return new Specification<User>() {
+
+				public Predicate toPredicate(Root<User> root,
+						CriteriaQuery<?> query, CriteriaBuilder cb) {
+					/**
+					 * 连接查询条件, 不定参数，可以连接0..N个查询条件
+					 */
+					List<Predicate> list = new ArrayList<Predicate>();
+					if (user.getUsername() != null
+							&& !user.getUsername().isEmpty()) {
+						list.add(cb.equal(root.get("username"),
+								user.getUsername()));
+					}
+					if (user.getPhone() != null && !user.getPhone().isEmpty()) {
+						list.add(cb.equal(root.get("phone"), user.getPhone()));
+					}
+					if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+						list.add(cb.equal(root.get("email"), user.getEmail()));
+					}
+					list.add(cb.equal(root.get("accountStatus"), 1));
+
+					Predicate[] p = new Predicate[list.size()];
+					return cb.and(list.toArray(p));
+				}
+			};
+		} else {
+			return new Specification<User>() {
+
+				public Predicate toPredicate(Root<User> root,
+						CriteriaQuery<?> query, CriteriaBuilder cb) {
+					Path<String> accountStatus = root.get("accountStatus");
+					/**
+					 * 连接查询条件, 不定参数，可以连接0..N个查询条件
+					 */
+					query.where(cb.equal(accountStatus, 1)); // 这里可以设置任意条查询条件
+
+					return null;
+				}
+			};
+		}
 	}
 }

@@ -18,6 +18,7 @@ import net.dasherz.wifiwolf.service.UserService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -72,21 +73,21 @@ public class UserController extends BaseController {
 		return "/user/login";
 	}
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String listUsers(HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/list")
+	public String listUsers(User user, HttpServletRequest request, Model model) {
 
-		int userCount = userService.getUserCount();
 		String currentPage = request.getParameter("page");
 		int pageNum = 1;
 		if (StringUtils.isNumeric(currentPage)) {
 			pageNum = Integer.parseInt(currentPage);
 		}
 
-		PageInfo pageInfo = new PageInfo(userCount, pageNum);
+		Page<User> users = userService.searchUsers(pageNum, PageInfo.PAGE_SIZE,
+				user);
 
-		model.addAttribute("users",
-				userService.getPageUsers(pageNum, pageInfo.getPageSize())
-						.getContent());
+		PageInfo pageInfo = new PageInfo(users.getTotalPages(), pageNum);
+
+		model.addAttribute("users", users.getContent());
 		model.addAttribute("totalPages", pageInfo.getTotalPage());
 		model.addAttribute("page", pageNum);
 		model.addAttribute("pageList", pageInfo.getPageList());
