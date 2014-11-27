@@ -12,7 +12,7 @@
 
 <body>
 
-	<div class="container">
+	<div class="container-fluid">
 
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="${ctx}/user/list">用户列表</a></li>
