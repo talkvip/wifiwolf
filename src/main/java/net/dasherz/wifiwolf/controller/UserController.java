@@ -17,6 +17,7 @@ import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.service.UserService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,6 @@ import com.google.common.collect.Maps;
  * @author Jonas
  */
 @Controller
-@RequestMapping(value = "/user")
 public class UserController extends BaseController {
 
 	@Inject
@@ -52,7 +52,7 @@ public class UserController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
 	public String login() {
 		if (userService.getCurrentUserName().isEmpty()) {
 			return "/user/login";
@@ -62,7 +62,7 @@ public class UserController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public String fail(
 			@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM) String username,
 			Model model) {
@@ -73,7 +73,7 @@ public class UserController extends BaseController {
 		return "/user/login";
 	}
 
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = "/manage/list", method = RequestMethod.GET)
 	public String listUsers(User user, HttpServletRequest request, Model model) {
 
 		String currentPage = request.getParameter("page");
@@ -91,16 +91,47 @@ public class UserController extends BaseController {
 		model.addAttribute("totalPages", pageInfo.getTotalPage());
 		model.addAttribute("page", pageNum);
 		model.addAttribute("pageList", pageInfo.getPageList());
-		return "/user/list";
+		return "/manage/list";
 	}
 
-	@RequestMapping(value = "/form", method = RequestMethod.GET)
+	@RequestMapping(value = "/manage/form", method = RequestMethod.GET)
 	public String form(User user, Model model) {
+		model.addAttribute("user", user);
+		return "/manage/userForm";
+	}
+
+	@RequestMapping(value = "/user/myinfo", method = RequestMethod.GET)
+	public String myInfo(Model model) {
+		String username = SecurityUtils.getSubject().getPrincipal().toString();
+		User user = userService.findUserByUsername(username);
 		model.addAttribute("user", user);
 		return "/user/userForm";
 	}
 
-	@RequestMapping(value = "save")
+	@RequestMapping(value = "/user/save")
+	public String saveNormalUser(User user, HttpServletRequest request,
+			Model model, RedirectAttributes redirectAttributes) {
+		// 如果新密码为空，则不更换密码
+		if (StringUtils.isNotBlank(user.getPlainPassword())) {
+			user.setPassword(UserService.entryptPassword(user
+					.getPlainPassword()));
+		}
+		if (!beanValidator(model, user)) {
+			return form(user, model);
+		}
+		// restore major properties
+		User oldUser = userService.getUser(user.getId());
+		user.setAccountStatus(oldUser.getAccountStatus());
+		user.setWifiStatus(oldUser.getWifiStatus());
+		user.setUserType(oldUser.getUserType());
+		user.setIsPhoneVerified(oldUser.getIsPhoneVerified());
+		user.setIsEmailVerified(oldUser.getIsEmailVerified());
+		userService.updateUser(user);
+		addMessage(redirectAttributes, "保存用户'" + user.getUsername() + "'成功");
+		return "redirect:/user/myinfo";
+	}
+
+	@RequestMapping(value = "/manage/save")
 	public String save(User user, HttpServletRequest request, Model model,
 			RedirectAttributes redirectAttributes) {
 		// 如果新密码为空，则不更换密码
@@ -117,7 +148,7 @@ public class UserController extends BaseController {
 			userService.updateUser(user);
 		}
 		addMessage(redirectAttributes, "保存用户'" + user.getUsername() + "'成功");
-		return "redirect:/user/form?id=" + user.getId();
+		return "redirect:/manage/form?id=" + user.getId();
 	}
 
 	public static boolean isValidateCodeLogin(String useruame, boolean isFail,

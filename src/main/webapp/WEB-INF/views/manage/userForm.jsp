@@ -9,12 +9,13 @@
 <body>
 	<div class="container-fluid">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="${ctx}/user/myinfo">用户信息修改</a></li>
+			<li><a href="${ctx}/manage/list">用户列表</a></li>
+			<li class="active"><a href="${ctx}/manage/form?id=${user.id}">用户${not empty user.id?'修改':'添加'}</a></li>
 		</ul>
 		<br />
 		<tags:message content="${message}" />
 		<form:form id="inputForm" modelAttribute="user"
-			action="${ctx}/user/save" method="post" class="form-horizontal">
+			action="${ctx}/manage/save" method="post" class="form-horizontal">
 			<form:hidden path="id" />
 
 			<div class="form-group">
@@ -76,6 +77,22 @@
 				<div class="col-xs-6 col-sm-6">
 					<form:input path="email" class="form-control" htmlEscape="false"
 						maxlength="100" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-2 col-sm-2 control-label" for="wifiStatus">WIFI使用:</label>
+				<div class="col-xs-6 col-sm-6">
+					<form:select path="wifiStatus" class="form-control">
+						<form:options items="${ww:getDictList('wifi_status')}" itemLabel="name" itemValue="code" htmlEscape="false"/>
+					</form:select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-2 col-sm-2 control-label" for="userType">用户类型:</label>
+				<div class="col-xs-6 col-sm-6">
+					<form:select path="userType" class="form-control">
+						<form:options items="${ww:getDictList('user_type')}" itemLabel="name" itemValue="code" htmlEscape="false"/>
+					</form:select>
 				</div>
 			</div>
 

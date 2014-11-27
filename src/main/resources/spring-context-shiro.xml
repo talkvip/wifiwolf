@@ -37,6 +37,7 @@
 				/portal = anon
 				/wifi/login = anon
 				/login = anon
+				/manage/** = roles[admin]
 				/** = user
 			</value>
 		</property>
