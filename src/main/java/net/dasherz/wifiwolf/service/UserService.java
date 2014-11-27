@@ -50,6 +50,7 @@ public class UserService {
 	// 增加用户
 	public void createUser(User user) {
 
+		user.setAccountStatus(1);
 		// 生成用户密码和加密
 		user.setCreateTime(new Date());
 		user.setPassword(entryptPassword(user.getPassword()));

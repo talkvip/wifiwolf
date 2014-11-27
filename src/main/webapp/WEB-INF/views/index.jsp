@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
 <title>WifiWolf</title>
@@ -28,12 +28,9 @@
 					</button>
 					<a class="navbar-brand" href="#"><b>WifiWolf</b></a>
 				</div>
-
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
-
-
 					<ul class="nav navbar-nav navbar-right">
 						<li><p class="navbar-text">
 								您好,
@@ -44,12 +41,13 @@
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
+
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
 		<div class="container-fluid">
 			<div id="content" class="row">
-				<div id="left" class="col-md-3">
+				<div id="left" class="col-xs-3 col-md-3">
 					<div class="panel-group" id="menu" role="tablist"
 						aria-multiselectable="true">
 						<shiro:hasRole name="user">
@@ -65,7 +63,7 @@
 									role="tabpanel" aria-labelledby="heading0">
 									<div class="panel-body">
 										<ul class="nav nav-list">
-											<li><a href="./home" target="mainFrame">&nbsp;个人信息</a></li>
+											<li><a href="${ctx}/user/form?id=1000" target="mainFrame">&nbsp;个人信息</a></li>
 											<li><a href="" target="mainFrame">&nbsp;修改密码</a></li>
 
 										</ul>
@@ -106,7 +104,7 @@
 										<ul class="nav nav-list">
 											<li><a href="" target="mainFrame">&nbsp;认证页面设置</a></li>
 											<li><a href="" target="mainFrame">&nbsp;认证后页面设置</a></li>
-
+											<li><a href="" target="mainFrame">&nbsp;认证类型浏览</a></li>
 										</ul>
 									</div>
 								</div>
@@ -144,10 +142,8 @@
 										<ul class="nav nav-list">
 											<li><a href="" target="mainFrame">&nbsp;活跃连接</a></li>
 											<li><a href="" target="mainFrame">&nbsp;手机统计</a></li>
-											<li><a href="" target="mainFrame">&nbsp;认证类型浏览</a></li>
 											<li><a href="" target="mainFrame">&nbsp;日志</a></li>
 											<li><a href="" target="mainFrame">&nbsp;字典</a></li>
-
 										</ul>
 									</div>
 								</div>
@@ -157,7 +153,7 @@
 
 				</div>
 				<div id="openClose" class="close">&nbsp;</div>
-				<div id="right" class="col-md-9">
+				<div id="right" class="col-xs-9 col-md-9">
 					<iframe id="mainFrame" name="mainFrame" src=""
 						style="overflow: visible;" scrolling="yes" frameborder="no"
 						width="100%" height="650"></iframe>

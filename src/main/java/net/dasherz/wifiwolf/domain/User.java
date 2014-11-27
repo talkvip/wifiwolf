@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
@@ -37,6 +39,8 @@ public class User extends IdLong {
 
 	private Integer sex;
 
+	@Max(150)
+	@Min(1)
 	private Integer age;
 
 	@Transient
