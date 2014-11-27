@@ -36,8 +36,7 @@
 				<div class="col-xs-6 col-sm-6">
 					<form:select path="sex" class="form-control">
 						<form:option value="" label="请选择" />
-						<form:option value="1" label="男" />
-						<form:option value="0" label="女" />
+						<form:options items="${ww:getDictList('gender')}" itemLabel="name" itemValue="code" htmlEscape="false"/>
 					</form:select>
 				</div>
 			</div>
@@ -84,9 +83,7 @@
 				<label class="col-xs-2 col-sm-2 control-label" for="wifiStatus">WIFI使用:</label>
 				<div class="col-xs-6 col-sm-6">
 					<form:select path="wifiStatus" class="form-control">
-						<form:option value="" label="请选择" />
-						<form:option value="1" label="可用" />
-						<form:option value="0" label="不可用" />
+						<form:options items="${ww:getDictList('wifi_status')}" itemLabel="name" itemValue="code" htmlEscape="false"/>
 					</form:select>
 				</div>
 			</div>
@@ -94,8 +91,7 @@
 				<label class="col-xs-2 col-sm-2 control-label" for="userType">用户类型:</label>
 				<div class="col-xs-6 col-sm-6">
 					<form:select path="userType" class="form-control">
-						<form:option value="0" label="普通用户" />
-						<form:option value="1" label="管理员" />
+						<form:options items="${ww:getDictList('user_type')}" itemLabel="name" itemValue="code" htmlEscape="false"/>
 					</form:select>
 				</div>
 			</div>

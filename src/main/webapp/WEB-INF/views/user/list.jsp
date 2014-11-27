@@ -52,7 +52,7 @@
 						<td>${user.phone}(${user.isPhoneVerified == 1 ?'已验证':'未验证'})&nbsp;</td>
 						<td>${user.email}(${user.isEmailVerified == 1 ?'已验证':'未验证'})&nbsp;</td>
 						<td>${user.wifiStatus == 1 ?'可接入互联网':'不可使用网络'}&nbsp;</td>
-						<td>${user.userType == 1 ?'管理员':'用户'}&nbsp;</td>
+						<td>${ww:getLabel('user_type',user.userType,'') }&nbsp;</td>
 						<td>${user.createTime}&nbsp;</td>
 						<td><a href="${ctx}/user/form?id=${user.id}"
 							id="editLink-${user.username}">修改</a> <a

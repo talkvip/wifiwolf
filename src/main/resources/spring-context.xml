@@ -45,6 +45,17 @@
 		</property>
 	</bean>
 
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="net.dasherz.wifiwolf.common.util.DictUtils.setDictRepository" />
+		<property name="arguments">
+			<list>
+				<ref bean="dictRepository" />
+			</list>
+		</property>
+	</bean>
+
 
 	<!-- Jpa 事务配置 -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -60,6 +71,8 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.ejb.naming_strategy">net.dasherz.wifiwolf.common.persistence.ConstraintNamingStrategy
+				</prop>
+				<prop key="hibernate.connection.release_mode">after_transaction
 				</prop>
 				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
 				</prop>

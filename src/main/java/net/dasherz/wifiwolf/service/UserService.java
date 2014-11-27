@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import net.dasherz.wifiwolf.common.shiro.Digests;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
@@ -23,6 +24,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class UserService {
 
 	public static final String HASH_ALGORITHM = "SHA-1";

@@ -126,6 +126,7 @@ CREATE TABLE `t_dict` (
 
 LOCK TABLES `t_dict` WRITE;
 /*!40000 ALTER TABLE `t_dict` DISABLE KEYS */;
+INSERT INTO `t_dict` VALUES (1000,'gender','1','男',1,1,NULL),(1001,'gender','0','女',2,1,NULL),(1002,'user_type','1','管理员',2,1,NULL),(1003,'user_type','2','普通用户',1,1,NULL),(1004,'wifi_status','1','可接入互联网',1,1,NULL),(1005,'wifi_status','2','不可使用网络',2,1,NULL),(1006,'is_verified','1','已验证',1,1,NULL),(1007,'is_verified','2','未验证',2,1,NULL);
 /*!40000 ALTER TABLE `t_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
