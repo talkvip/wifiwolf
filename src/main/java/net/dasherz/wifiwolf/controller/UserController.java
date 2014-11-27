@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+
 import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.util.CacheUtils;
 import net.dasherz.wifiwolf.domain.User;
@@ -74,7 +74,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String listUsers(ServletRequest request, Model model) {
+	public String listUsers(HttpServletRequest request, Model model) {
 
 		int userCount = userService.getUserCount();
 		String currentPage = request.getParameter("page");

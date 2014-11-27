@@ -8,11 +8,12 @@
 </head>
 <body>
 <div class="container">
-	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/sys/user/">用户列表</a></li>
-		<li class="active"><a href="${ctx}/user/form?id=${user.id}">用户${not empty user.id?'修改':'添加'}</a></li>
-	</ul><br/>
-	<tags:message content="${message}"/>
+		<ul class="nav nav-tabs">
+			<li><a href="${ctx}/user/list">用户列表</a></li>
+			<li class="active"><a href="${ctx}/user/form?id=${user.id}">用户${not empty user.id?'修改':'添加'}</a></li>
+		</ul>
+		<br />
+		<tags:message content="${message}"/>
 	<form:form id="inputForm" modelAttribute="user" action="${ctx}/user/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		

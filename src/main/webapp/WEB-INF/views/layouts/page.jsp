@@ -48,7 +48,7 @@ function jumpTo(maxPage){
 		</c:otherwise>
 	</c:choose>
 	<!-- 直接跳转 -->
-	共${totalPages}页 -向<input type="text" id="jumpTo" />页 <input
+	共${totalPages}页 -向<input type="text" style="width:40px;" id="jumpTo" />页 <input
 		type="button" value="跳转" onclick="jumpTo(${totalPages})" />
 	<c:choose>
 		<c:when test="${item == page}">

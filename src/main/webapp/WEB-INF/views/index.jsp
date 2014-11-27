@@ -63,7 +63,7 @@
 									role="tabpanel" aria-labelledby="heading0">
 									<div class="panel-body">
 										<ul class="nav nav-list">
-											<li><a href="${ctx}/user/form?id=1000" target="mainFrame">&nbsp;个人信息</a></li>
+											<li><a href="${ctx}/user/myinfo" target="mainFrame">&nbsp;个人信息</a></li>
 											<li><a href="" target="mainFrame">&nbsp;修改密码</a></li>
 
 										</ul>
@@ -84,7 +84,7 @@
 									role="tabpanel" aria-labelledby="heading1">
 									<div class="panel-body">
 										<ul class="nav nav-list">
-											<li><a href="./user/list" target="mainFrame">&nbsp;用户列表</a></li>
+											<li><a href="${ctx}/user/list" target="mainFrame">&nbsp;用户列表</a></li>
 
 										</ul>
 									</div>
