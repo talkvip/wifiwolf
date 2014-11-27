@@ -5,8 +5,6 @@
  *******************************************************************************/
 package net.dasherz.wifiwolf.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -14,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.util.CacheUtils;
+import net.dasherz.wifiwolf.common.util.PageInfo;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.service.UserService;
 
@@ -83,25 +82,14 @@ public class UserController extends BaseController {
 			pageNum = Integer.parseInt(currentPage);
 		}
 
-		int totalPage = userCount / UserService.PAGE_SIZE;
-		if (userCount % UserService.PAGE_SIZE != 0) {
-			totalPage += 1;
-		}
-		List<Integer> pageList = new ArrayList<Integer>();
-		int start = 1;
-		if (pageNum >= 10) {
-			start = pageNum / 10 * 10;
-		}
-		int num = start;
-		while (!(num > totalPage || num > start + 10)) {
-			pageList.add(new Integer(num));
-			++num;
-		}
-		model.addAttribute("users", userService.getPageUsers(pageNum)
-				.getContent());
-		model.addAttribute("totalPages", totalPage);
+		PageInfo pageInfo = new PageInfo(userCount, pageNum);
+
+		model.addAttribute("users",
+				userService.getPageUsers(pageNum, pageInfo.getPageSize())
+						.getContent());
+		model.addAttribute("totalPages", pageInfo.getTotalPage());
 		model.addAttribute("page", pageNum);
-		model.addAttribute("pageList", pageList);
+		model.addAttribute("pageList", pageInfo.getPageList());
 		return "/user/list";
 	}
 

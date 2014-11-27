@@ -28,7 +28,6 @@ public class UserService {
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
 	public static final int SALT_SIZE = 8;
-	public static int PAGE_SIZE = 10;
 
 	private Specification<User> spec = new Specification<User>() {
 
@@ -68,8 +67,8 @@ public class UserService {
 	}
 
 	// 通过页码查找用户
-	public Page<User> getPageUsers(int pageNum) {
-		return userDao.findAll(spec, new PageRequest(pageNum - 1, PAGE_SIZE));
+	public Page<User> getPageUsers(int pageNum, int pageSize) {
+		return userDao.findAll(spec, new PageRequest(pageNum - 1, pageSize));
 	}
 
 	// 查找所有用户
