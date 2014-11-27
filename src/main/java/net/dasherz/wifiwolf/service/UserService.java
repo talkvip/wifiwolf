@@ -28,6 +28,7 @@ public class UserService {
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
 	public static final int SALT_SIZE = 8;
+	public static int PAGE_SIZE = 10;
 
 	private Specification<User> spec = new Specification<User>() {
 
@@ -37,7 +38,7 @@ public class UserService {
 			/**
 			 * 连接查询条件, 不定参数，可以连接0..N个查询条件
 			 */
-			query.where(cb.like(accountStatus, "%1%")); // 这里可以设置任意条查询条件
+			query.where(cb.equal(accountStatus, 1)); // 这里可以设置任意条查询条件
 
 			return null;
 		}
@@ -55,14 +56,19 @@ public class UserService {
 		userDao.saveAndFlush(user);
 	}
 
+	// 增加用户
+	public int getUserCount() {
+		return userDao.getUserCount();
+	}
+
 	// 通过编号查找用户
 	public User getUser(Long userId) {
 		return userDao.findByUserId(userId);
 	}
 
 	// 通过页码查找用户
-	public Page<User> getPageUsers(PageRequest page) {
-		return userDao.findAll(spec, page);
+	public Page<User> getPageUsers(int pageNum) {
+		return userDao.findAll(spec, new PageRequest(pageNum - 1, PAGE_SIZE));
 	}
 
 	// 查找所有用户

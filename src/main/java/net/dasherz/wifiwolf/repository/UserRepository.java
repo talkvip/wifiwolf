@@ -14,4 +14,7 @@ public interface UserRepository extends BaseRepository<User, Long> {
 
 	@Query("select user from User user where user.username = ?1 and user.accountStatus = 1")
 	User findByPhone(String phone);
+
+	@Query("select count(user) from User user where user.accountStatus = 1")
+	int getUserCount();
 }
