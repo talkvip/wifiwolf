@@ -73,7 +73,7 @@ public class UserController extends BaseController {
 		return "/user/login";
 	}
 
-	@RequestMapping(value = "/manage/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/manage/list")
 	public String listUsers(User user, HttpServletRequest request, Model model) {
 
 		String currentPage = request.getParameter("page");

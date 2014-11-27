@@ -22,13 +22,13 @@
 		<tags:message content="${message}" />
 		<div class="row">
 			<div class="col-xs-12 col-sm-12">
-				<form class="form-search" action="#">
-					<label>登录名：</label> <input type="text" name="search_LIKE_loginName"
-						class="input-small" value="${param.search_LIKE_loginName}">
-					<label>邮件名：</label> <input type="text" name="search_EQ_email"
-						class="input-small" value="${param.search_EQ_email}">
-					<button type="submit" class="btn" id="search_btn">Search</button>
-				</form>
+				<form:form id="searchForm" modelAttribute="user" action="${ctx}/manage/list" method="post" class="breadcrumb form-search">
+					<label>登录名：</label> <form:input type="text" name="search_LIKE_username"
+						class="input-small" path="username"></form:input>
+					<label>邮件名：</label> <form:input type="text" name="search_EQ_email"
+						class="input-small" path="email"></form:input>
+					<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/>
+				</form:form>
 			</div>
 		</div>
 
