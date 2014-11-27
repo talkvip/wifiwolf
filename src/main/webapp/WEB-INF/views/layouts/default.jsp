@@ -26,6 +26,12 @@
 <script src="${ctx}/resources/js/jquery-ui.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/jquery.i18n.properties.js"
 	type="text/javascript"></script>
+<script src="${ctx}/resources/js/jquery.validate.min.js"
+	type="text/javascript"></script>
+<script src="${ctx}/resources/js/additional-methods.min.js"
+	type="text/javascript"></script>
+<script src="${ctx}/resources/js/localization/messages_zh.min.js"
+	type="text/javascript"></script>
 <link href="${ctx}/resources/css/bootstrap.min.css" type="text/css"
 	rel="stylesheet" />
 <link href="${ctx}/resources/css/bootstrap-theme.min.css"

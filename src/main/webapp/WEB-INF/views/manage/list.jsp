@@ -16,7 +16,7 @@
 
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="${ctx}/manage/list">用户列表</a></li>
-			<li><a href="${ctx}/user/form?id=${user.id}">用户${not empty user.id?'修改':'添加'}</a></li>
+			<li><a href="${ctx}/manage/form?id=${user.id}">用户${not empty user.id?'修改':'添加'}</a></li>
 		</ul>
 		<br />
 		<tags:message content="${message}" />
