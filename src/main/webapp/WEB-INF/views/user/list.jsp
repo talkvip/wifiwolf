@@ -20,7 +20,7 @@
 
 	<div class="row">
 		<div class="offset4">
-			<a href="${ctx}//user/add"> <input type="submit" name="add_btn"
+			<a href="${ctx}/user/add"> <input type="submit" name="add_btn"
 				value="添加新用户">
 			</a>
 		</div>

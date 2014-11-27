@@ -7,7 +7,7 @@ function jumpTo(maxPage){
     if(page > maxPage || page < 1){
         alert("对不起，无法到达该页")
     }else{
-        $('body').load('./user/list?page=' + page);
+        $('body').load('${ctx}/user/list?page=' + page);
     }
 }
 </script>
@@ -16,7 +16,7 @@ function jumpTo(maxPage){
 	<!-- 上一页 按钮 -->
 	<c:choose>
 		<c:when test="${page != 1}">
-			<a href="./user/list?page=${page-1}"><input type="button"
+			<a href="${ctx}/user/list?page=${page-1}"><input type="button"
 				name="lastPage" value="上一页" /></a>
 		</c:when>
 		<c:otherwise>
@@ -25,20 +25,20 @@ function jumpTo(maxPage){
 		</c:otherwise>
 	</c:choose>
 	<!-- 页数列表 -->
-	<c:forEach items="${model.pageList}" var="item">
+	<c:forEach items="${pageList}" var="item">
 		<c:choose>
 			<c:when test="${item == page}">
-				<a href="./user/list?page=${item}" class="currentPage">${item}</a>
+				<a href="${ctx}/user/list?page=${item}" class="currentPage">${item}</a>
 			</c:when>
 			<c:otherwise>
-				<a href="./user/list?page=${item}">${item}</a>
+				<a href="${ctx}/user/list?page=${item}">${item}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
 	<!-- 下一页 按钮 -->
 	<c:choose>
 		<c:when test="${page != totalPages}">
-			<a href="./user/list?page=${page+1}"> <input type="button"
+			<a href="${ctx}/user/list?page=${page+1}"> <input type="button"
 				name="nextPage" value="下一页" />
 			</a>
 		</c:when>
@@ -52,7 +52,7 @@ function jumpTo(maxPage){
 		type="button" value="跳转" onclick="jumpTo(${totalPages})" />
 	<c:choose>
 		<c:when test="${item == page}">
-			<a href="./user/list?page=${item}" class="currentPage">${item}</a>
+			<a href="${ctx}/user/list?page=${item}" class="currentPage">${item}</a>
 		</c:when>
 	</c:choose>
 </div>

@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.ServletRequest;
 
 import net.dasherz.wifiwolf.common.util.CacheUtils;
 import net.dasherz.wifiwolf.service.UserService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,8 +39,6 @@ public class UserController {
 	@Inject
 	private UserService userService;
 
-	private int currentPage = 1;
-
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		if (userService.getCurrentUserName().isEmpty()) {
@@ -61,30 +61,33 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String listUsers(Integer currentPage, Model model) {
+	public String listUsers(ServletRequest request, Model model) {
 
 		int userCount = userService.getUserCount();
-		if (currentPage != null) {
-			this.currentPage = currentPage.intValue();
+		String currentPage = request.getParameter("page");
+		int pageNum = 1;
+		if (StringUtils.isNumeric(currentPage)) {
+			pageNum = Integer.parseInt(currentPage);
 		}
+
 		int totalPage = userCount / UserService.PAGE_SIZE;
 		if (userCount % UserService.PAGE_SIZE != 0) {
 			totalPage += 1;
 		}
 		List<Integer> pageList = new ArrayList<Integer>();
 		int start = 1;
-		if (this.currentPage >= 10) {
-			start = this.currentPage / 10 * 10;
+		if (pageNum >= 10) {
+			start = pageNum / 10 * 10;
 		}
 		int num = start;
 		while (!(num > totalPage || num > start + 10)) {
 			pageList.add(new Integer(num));
 			++num;
 		}
-		model.addAttribute("users", userService.getPageUsers(this.currentPage)
+		model.addAttribute("users", userService.getPageUsers(pageNum)
 				.getContent());
 		model.addAttribute("totalPages", totalPage);
-		model.addAttribute("page", this.currentPage);
+		model.addAttribute("page", pageNum);
 		model.addAttribute("pageList", pageList);
 		return "/user/list";
 	}
