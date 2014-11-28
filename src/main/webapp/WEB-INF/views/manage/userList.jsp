@@ -61,19 +61,22 @@
 				<c:forEach items="${users}" var="user">
 					<tr>
 						<td>${user.username}&nbsp;</td>
-						<td>${user.phone}(${user.isPhoneVerified == 1 ?'已验证':'未验证'})&nbsp;</td>
-						<td>${user.email}(${user.isEmailVerified == 1 ?'已验证':'未验证'})&nbsp;</td>
-						<td>${user.wifiStatus == 1 ?'可接入互联网':'不可使用网络'}&nbsp;</td>
+						<td>${user.phone}(${ww:getLabel('is_verified',user.isPhoneVerified,'') })&nbsp;</td>
+						<td>${user.email}(${ww:getLabel('is_verified',user.isEmailVerified,'') })&nbsp;</td>
+						<td>${ww:getLabel('wifi_status',user.wifiStatus,'') }&nbsp;</td>
 						<td>${ww:getLabel('user_type',user.userType,'') }&nbsp;</td>
 						<td>${user.createTime}&nbsp;</td>
-						<td><a href="${ctx}/manage/userForm?id=${user.id}" id="editLink-${user.username}" class="confirm" >修改</a>
-							<a href="${ctx}/manage/deleteUser/${user.id}" id="editLink-${user.username}" onclick="return confirm('确定删除该用户？')">删除</a></td>
+						<td><a href="${ctx}/manage/userForm?id=${user.id}"
+							id="editLink-${user.username}">修改</a> <a
+							href="${ctx}/manage/deleteUser?id=${user.id}"
+							id="editLink-${user.username}" onclick="return confirm('确定删除该用户？')">删除</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<%@ include file="/WEB-INF/views/layouts/page.jsp"%>
+		
 
 	</div>
+	<%@ include file="/WEB-INF/views/layouts/page.jsp"%>
 </body>
 </html>

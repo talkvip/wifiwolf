@@ -142,6 +142,11 @@ public class UserController extends BaseController {
 		if (!beanValidator(model, user)) {
 			return form(user, model);
 		}
+		if (user.getId() == null
+				&& StringUtils.isEmpty(user.getPlainPassword())) {
+			addMessage(model, "数据验证失败,请填入密码！");
+			return form(user, model);
+		}
 		if (user.getId() == null) {
 			userService.createUser(user);
 		} else {
@@ -151,14 +156,14 @@ public class UserController extends BaseController {
 		return "redirect:/manage/userForm?id=" + user.getId();
 	}
 
-	@RequestMapping(value = "/manage/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/manage/deleteUser", method = RequestMethod.GET)
 	public String delete(User user, Model model,
 			RedirectAttributes redirectAttributes) {
 		if (user.getId() != null) {
 			userService.remove(user.getId());
 		}
 		addMessage(redirectAttributes, "删除用户成功");
-		return "redirect:/manage/list";
+		return "redirect:/manage/userList";
 	}
 
 	public static boolean isValidateCodeLogin(String useruame, boolean isFail,

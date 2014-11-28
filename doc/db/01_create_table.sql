@@ -292,8 +292,8 @@ CREATE TABLE `t_user` (
   `account_status` int(11) DEFAULT '1',
   `user_type` int(11) DEFAULT NULL COMMENT 'Since we only has two user types, so use 0 to indicate current user is a normal user, on the other side, 1 means admin user.',
   `create_time` datetime DEFAULT NULL,
-  `is_phone_verified` int(11) DEFAULT NULL,
-  `is_email_verified` int(11) DEFAULT NULL,
+  `is_phone_verified` int(11) DEFAULT '2',
+  `is_email_verified` int(11) DEFAULT '2',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='table for user information';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -304,7 +304,7 @@ CREATE TABLE `t_user` (
 
 LOCK TABLES `t_user` WRITE;
 /*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
-INSERT INTO `t_user` VALUES (1,'admin','a17b951f12a1e1c8cbae85507daf44cd656f5425310470eaa0cb0315',1,25,'13134524356','admin@wifiwolf.com',1,1,1,'2014-11-20 16:24:38',1,1),(2,'user','bfaac9bc44f437aeb85ebe02ce39ce91abb1145c0b0efe8e95e84106',0,20,NULL,NULL,1,1,2,NULL,NULL,NULL);
+INSERT INTO `t_user` VALUES (1,'admin','a17b951f12a1e1c8cbae85507daf44cd656f5425310470eaa0cb0315',1,25,'13134524356','admin@wifiwolf.com',1,1,1,'2014-11-20 16:24:38',1,1),(2,'user','bfaac9bc44f437aeb85ebe02ce39ce91abb1145c0b0efe8e95e84106',0,20,NULL,NULL,1,1,2,NULL,2,2);
 /*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

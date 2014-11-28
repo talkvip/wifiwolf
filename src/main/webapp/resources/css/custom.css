@@ -1,4 +1,31 @@
+.page-area {
+	height: 50px;
+}
 
+.page-no-margin {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
 
+.page-desc {
+	vertical-align: top;
+	margin-top: 8px;
+	margin-right: 10px;
+}
 
-.panel-title a:link { text-decoration: none}
+.page-button {
+	text-align: center;
+	vertical-align: top;
+}
+
+.page-editbox {
+	margin: 0px;
+	vertical-align: top;
+	width: 40px;
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.panel-title a:link {
+	text-decoration: none
+}
