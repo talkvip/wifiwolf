@@ -151,6 +151,16 @@ public class UserController extends BaseController {
 		return "redirect:/manage/form?id=" + user.getId();
 	}
 
+	@RequestMapping(value = "/manage/delete", method = RequestMethod.GET)
+	public String delete(User user, Model model,
+			RedirectAttributes redirectAttributes) {
+		if (user.getId() != null) {
+			userService.remove(user.getId());
+		}
+		addMessage(redirectAttributes, "删除用户成功");
+		return "redirect:/manage/list";
+	}
+
 	public static boolean isValidateCodeLogin(String useruame, boolean isFail,
 			boolean clean) {
 		@SuppressWarnings("unchecked")

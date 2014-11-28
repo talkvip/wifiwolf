@@ -110,7 +110,7 @@ public class UserService {
 
 	public void remove(Long id) {
 		User u = getUser(id);
-		u.setAccountStatus(1);
+		u.setAccountStatus(0);
 		userDao.saveAndFlush(u);
 	}
 
