@@ -73,7 +73,7 @@ public class UserController extends BaseController {
 		return "/user/login";
 	}
 
-	@RequestMapping(value = "/manage/list")
+	@RequestMapping(value = "/manage/userList")
 	public String listUsers(User user, HttpServletRequest request, Model model) {
 
 		String currentPage = request.getParameter("page");
@@ -91,10 +91,10 @@ public class UserController extends BaseController {
 		model.addAttribute("totalPages", pageInfo.getTotalPage());
 		model.addAttribute("page", pageNum);
 		model.addAttribute("pageList", pageInfo.getPageList());
-		return "/manage/list";
+		return "/manage/userList";
 	}
 
-	@RequestMapping(value = "/manage/form", method = RequestMethod.GET)
+	@RequestMapping(value = "/manage/userForm", method = RequestMethod.GET)
 	public String form(User user, Model model) {
 		model.addAttribute("user", user);
 		return "/manage/userForm";
@@ -131,7 +131,7 @@ public class UserController extends BaseController {
 		return "redirect:/user/myinfo";
 	}
 
-	@RequestMapping(value = "/manage/save")
+	@RequestMapping(value = "/manage/userSave")
 	public String save(User user, HttpServletRequest request, Model model,
 			RedirectAttributes redirectAttributes) {
 		// 如果新密码为空，则不更换密码
@@ -148,7 +148,7 @@ public class UserController extends BaseController {
 			userService.updateUser(user);
 		}
 		addMessage(redirectAttributes, "保存用户'" + user.getUsername() + "'成功");
-		return "redirect:/manage/form?id=" + user.getId();
+		return "redirect:/manage/userForm?id=" + user.getId();
 	}
 
 	@RequestMapping(value = "/manage/delete", method = RequestMethod.GET)

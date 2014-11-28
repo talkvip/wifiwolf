@@ -26,7 +26,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#"><b>WifiWolf</b></a>
+					<a class="navbar-brand" href="${ctx}/"><b>WifiWolf</b></a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse"
@@ -36,7 +36,7 @@
 								您好,
 								<shiro:principal />
 							</p></li>
-						<li><a href="./logout" title="退出登录">退出</a></li>
+						<li><a href="${ctx}/logout" title="退出登录">退出</a></li>
 						<li>&nbsp;</li>
 					</ul>
 				</div>
@@ -64,7 +64,7 @@
 									role="tabpanel" aria-labelledby="heading1">
 									<div class="panel-body">
 										<ul class="nav nav-list">
-											<li><a href="${ctx}/manage/list" target="mainFrame">&nbsp;用户列表</a></li>
+											<li><a href="${ctx}/manage/userList" target="mainFrame">&nbsp;用户列表</a></li>
 
 										</ul>
 									</div>

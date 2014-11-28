@@ -26,7 +26,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#"><b>WifiWolf</b></a>
+					<a class="navbar-brand" href="${ctx}/"><b>WifiWolf</b></a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse"
@@ -36,7 +36,7 @@
 								您好,
 								<shiro:principal />
 							</p></li>
-						<li><a href="./logout" title="退出登录">退出</a></li>
+						<li><a href="${ctx}/logout" title="退出登录">退出</a></li>
 						<li>&nbsp;</li>
 					</ul>
 				</div>
