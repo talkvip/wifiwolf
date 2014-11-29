@@ -2,11 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-	function jumpTo(maxPage) {
+	function jumpTo(maxPage, currentPage) {
 		var page = $("#jumpTo").val();
+		if (isNaN(page)) {
+			alert("请输入数字");
+		} 
 		if (page > maxPage || page < 1) {
 			alert("对不起，无法到达该页")
-		} else {
+		} else if(page == currentPage){
+		}else {
 			$('body').load('${ctx}/manage/userList?page=' + page);
 		}
 	}
@@ -49,12 +53,13 @@
 			</ul>
 			<c:choose>
 				<c:when test="${item == page}">
-					<a href="${ctx}/manage/userList?page=${item}" >${item}</a>
+					<a href="${ctx}/manage/userList?page=${item}">${item}</a>
 				</c:when>
 			</c:choose>
 			<input type="text" class="form-control page-editbox" id="jumpTo">
 
-			<button class="btn btn-default page-button" onclick="jumpTo(${totalPages})">跳转</button>
+			<button class="btn btn-default page-button"
+				onclick="jumpTo(${totalPages},${page})">跳转</button>
 
 
 		</div>
