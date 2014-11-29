@@ -11,7 +11,7 @@
 			alert("对不起，无法到达该页")
 		} else if(page == currentPage){
 		}else {
-			$('body').load('${ctx}/manage/userList?page=' + page);
+			$('body').load('${pagePath}?page=' + page);
 		}
 	}
 </script>
@@ -24,7 +24,7 @@
 				<!-- 上一页 按钮 -->
 				<c:choose>
 					<c:when test="${page != 1}">
-						<li><a href="${ctx}/manage/userList?page=${page-1}">&laquo;</a></li>
+						<li><a href="${pagePath}?page=${page-1}">&laquo;</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="disabled"><a href="#">&laquo;</a></li>
@@ -37,14 +37,14 @@
 							<li class="disabled"><a href="#" class="currentPage">${item}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${ctx}/manage/userList?page=${item}">${item}</a></li>
+							<li><a href="${pagePath}?page=${item}">${item}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<!-- 下一页 按钮 -->
 				<c:choose>
 					<c:when test="${page != totalPages}">
-						<li><a href="${ctx}/manage/userList?page=${page+1}">&raquo;</a></li>
+						<li><a href="${pagePath}?page=${page+1}">&raquo;</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="disabled"><a href="#">&raquo;</a></li>
@@ -53,7 +53,7 @@
 			</ul>
 			<c:choose>
 				<c:when test="${item == page}">
-					<a href="${ctx}/manage/userList?page=${item}">${item}</a>
+					<a href="${pagePath}?page=${item}">${item}</a>
 				</c:when>
 			</c:choose>
 			<input type="text" class="form-control page-editbox" id="jumpTo">
