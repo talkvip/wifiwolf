@@ -91,7 +91,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2 col-sm-2 control-label" for="phone">电话号码:</label>
+				<label class="col-xs-2 col-sm-2 control-label" for="phone">手机:</label>
 				<div class="col-xs-6 col-sm-6">
 					<form:input path="phone" class="form-control" htmlEscape="false" />
 				</div>
@@ -103,7 +103,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-2 col-sm-2 control-label" for="wifiStatus">WIFI使用:</label>
+				<label class="col-xs-2 col-sm-2 control-label" for="wifiStatus">WIFI-状态:</label>
 				<div class="col-xs-6 col-sm-6">
 					<form:select path="wifiStatus" class="form-control">
 						<form:options items="${ww:getDictList('wifi_status')}"

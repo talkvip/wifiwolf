@@ -49,11 +49,11 @@
 		<table id="contentTable" class="table table-striped table-bordered table-condensed">
 			<thead>
 				<tr>
-					<th>姓名</th>
+					<th>登录名</th>
 					<th>手机</th>
 					<th>邮箱</th>
 					<th>WIFI-状态</th>
-					<th>角色</th>
+					<th>用户类型</th>
 					<th>注册时间</th>
 					<th>操作</th>
 				</tr>

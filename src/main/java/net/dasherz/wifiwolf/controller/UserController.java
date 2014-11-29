@@ -116,6 +116,10 @@ public class UserController extends BaseController {
 			user.setPassword(UserService.entryptPassword(user
 					.getPlainPassword()));
 		}
+		if (user.getId() == null) {
+			addMessage(model, "数据验证失败,请重试！");
+			return form(user, model);
+		}
 		if (!beanValidator(model, user)) {
 			return form(user, model);
 		}
@@ -140,6 +144,10 @@ public class UserController extends BaseController {
 					.getPlainPassword()));
 		}
 		if (!beanValidator(model, user)) {
+			return form(user, model);
+		}
+		if (userService.findUserByUsername(user.getUsername()) != null) {
+			addMessage(model, "数据验证失败,用户名已存在！");
 			return form(user, model);
 		}
 		if (user.getId() == null
