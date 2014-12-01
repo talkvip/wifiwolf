@@ -26,7 +26,7 @@
 				phone : {
 					maxlength : 20
 				}
-			}
+			},message:{}
 		});
 	});
 </script>
