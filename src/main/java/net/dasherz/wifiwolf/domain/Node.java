@@ -35,7 +35,7 @@ public class Node extends IdLong {
 	private String gatewayId;
 
 	@Size(max = 255)
-	private String nodeName;
+	private String nodeDescription;
 
 	private Integer lastHeartbeatSysUptime;
 
@@ -110,12 +110,12 @@ public class Node extends IdLong {
 		this.gatewayId = gatewayId;
 	}
 
-	public String getNodeName() {
-		return nodeName;
+	public String getNodeDescription() {
+		return nodeDescription;
 	}
 
-	public void setNodeName(String nodeName) {
-		this.nodeName = nodeName;
+	public void setNodeDescription(String nodeDescription) {
+		this.nodeDescription = nodeDescription;
 	}
 
 	public User getOwner() {

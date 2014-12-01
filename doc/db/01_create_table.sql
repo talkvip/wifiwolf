@@ -165,7 +165,7 @@ DROP TABLE IF EXISTS `t_node`;
 CREATE TABLE `t_node` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `gateway_id` varchar(45) NOT NULL,
-  `node_name` varchar(255) DEFAULT NULL,
+  `node_description` varchar(255) DEFAULT NULL,
   `owner_id` bigint(20) NOT NULL DEFAULT '1',
   `last_heartbeat_sys_uptime` int(11) DEFAULT NULL,
   `last_heartbeat_wifidog_uptime` int(11) DEFAULT NULL,
@@ -341,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-01 16:16:04
+-- Dump completed on 2014-12-01 17:18:58
