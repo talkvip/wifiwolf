@@ -102,7 +102,7 @@
 									role="tabpanel" aria-labelledby="heading3">
 									<div class="panel-body">
 										<ul class="nav nav-list">
-											<li><a href="" target="mainFrame">&nbsp;路由器列表</a></li>
+											<li><a href="${ctx}/manage/nodeList" target="mainFrame">&nbsp;路由器列表</a></li>
 
 										</ul>
 									</div>
