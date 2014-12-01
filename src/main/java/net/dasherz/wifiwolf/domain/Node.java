@@ -81,11 +81,6 @@ public class Node extends IdLong {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<AuthType> authTypes;
 
-	public Node() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public List<Token> getTokens() {
 		return tokens;
 	}
@@ -209,6 +204,9 @@ public class Node extends IdLong {
 	@Transient
 	public List<String> getAuthTypeIdList() {
 		List<String> authTypeIdList = Lists.newArrayList();
+		if (authTypes == null) {
+			return authTypeIdList;
+		}
 		for (AuthType authType : authTypes) {
 			authTypeIdList.add(authType.getId().toString());
 		}
