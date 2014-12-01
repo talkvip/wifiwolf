@@ -38,8 +38,11 @@ public class NodeService {
 	}
 
 	public Node getNode(Long id) {
-
 		return nodeRepository.findOne(id);
+	}
+
+	public void remove(Long id) {
+		nodeRepository.delete(id);
 	}
 
 	public Page<Node> searchNodes(int pageNum, int pageSize, Node node) {
@@ -63,10 +66,10 @@ public class NodeService {
 					 * 连接查询条件, 不定参数，可以连接0..N个查询条件
 					 */
 					List<Predicate> list = new ArrayList<Predicate>();
-					if (node.getNodeName() != null
-							&& !node.getNodeName().isEmpty()) {
-						list.add(cb.equal(root.get("nodeName"),
-								node.getNodeName()));
+					if (node.getNodeDescription() != null
+							&& !node.getNodeDescription().isEmpty()) {
+						list.add(cb.equal(root.get("nodeDescription"),
+								node.getNodeDescription()));
 					}
 					if (node.getGatewayId() != null
 							&& !node.getGatewayId().isEmpty()) {

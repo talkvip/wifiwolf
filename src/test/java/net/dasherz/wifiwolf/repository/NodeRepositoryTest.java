@@ -38,7 +38,7 @@ public class NodeRepositoryTest extends BaseRepositoryTest {
 		authPage.setNode(node);
 		portalPage.setNode(node);
 		node.setGatewayId("gw");
-		node.setNodeName("asus");
+		node.setNodeDescription("asus");
 		node.setOwner(userRepository.findOne(1L));
 		node.setAuthPages(authPages);
 		node.setPortalPages(portalPages);
@@ -60,13 +60,13 @@ public class NodeRepositoryTest extends BaseRepositoryTest {
 	@Test
 	public void update() {
 		// Given
-		node.setNodeName("test");
+		node.setNodeDescription("test");
 
 		// When
 		Node result = nodeRepository.save(node);
 
 		// Then
-		assertEquals("test", result.getNodeName());
+		assertEquals("test", result.getNodeDescription());
 		assertEquals(node.getId(), result.getId());
 	}
 

@@ -34,9 +34,9 @@
 					action="${ctx}/manage/nodeList" method="post" class="form-inline"
 					role="form">
 					<div class="form-group">
-						<label for="nodename">路由器名：</label>
-						<form:input type="text" name="search_nodename"
-							class="form-control" path="nodeName"></form:input>
+						<label for="nodeDescription">路由器名：</label>
+						<form:input type="text" name="search_nodeDescription"
+							class="form-control" path="nodeDescription"></form:input>
 					</div>
 					<div class="form-group">
 						<label for="gatewayId">网关ID：</label>
@@ -68,7 +68,7 @@
 			<tbody>
 				<c:forEach items="${nodes}" var="node">
 					<tr>
-						<td>${node.nodeName}&nbsp;</td>
+						<td>${node.nodeDescription}&nbsp;</td>
 						<td>${node.gatewayId}&nbsp;</td>
 						<td>${node.lastHeartbeatSysUptime}&nbsp;</td>
 						<td>${node.lastHeartbeatWifidogUptime}&nbsp;</td>
@@ -77,9 +77,9 @@
 						<td>${node.lastHeartbeatIp}&nbsp;</td>
 						<td>${node.lastHeartbeatTimestamp}&nbsp;</td>
 						<td><a href="${ctx}/manage/ListForm?id=${node.id}"
-							id="editLink-${node.nodeName}">修改</a> <a
+							id="editLink-${node.nodeDescription}">修改</a> <a
 							href="${ctx}/manage/deleteNode?id=${node.id}"
-							id="editLink-${node.nodeName}"
+							id="editLink-${node.nodeDescription}"
 							onclick="return confirm('确定删除该路由器？')">删除</a></td>
 					</tr>
 				</c:forEach>

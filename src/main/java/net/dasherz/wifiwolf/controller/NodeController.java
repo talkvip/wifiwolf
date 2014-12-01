@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/manage")
@@ -61,9 +63,14 @@ public class NodeController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "/saveNode")
-	public void save() {
-
+	@RequestMapping(value = "/deleteNode", method = RequestMethod.GET)
+	public String delete(Node node, Model model,
+			RedirectAttributes redirectAttributes) {
+		if (node.getId() != null) {
+			nodeService.remove(node.getId());
+		}
+		addMessage(redirectAttributes, "删除路由器成功");
+		return "redirect:/manage/nodeList";
 	}
 
 }
