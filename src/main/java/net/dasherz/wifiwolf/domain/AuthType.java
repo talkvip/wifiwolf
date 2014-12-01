@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import net.dasherz.wifiwolf.common.persistence.IdLong;
@@ -19,14 +20,6 @@ import org.hibernate.annotations.NotFoundAction;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class AuthType extends IdLong {
-
-	public List<Node> getNodes() {
-		return nodes;
-	}
-
-	public void setNodes(List<Node> nodes) {
-		this.nodes = nodes;
-	}
 
 	/**
 	 * 
@@ -48,6 +41,9 @@ public class AuthType extends IdLong {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<Node> nodes;
+
+	@Transient
+	private String description;
 
 	public String getAuthType() {
 		return authType;
@@ -71,6 +67,22 @@ public class AuthType extends IdLong {
 
 	public void setTokens(List<Token> tokens) {
 		this.tokens = tokens;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Node> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(List<Node> nodes) {
+		this.nodes = nodes;
 	}
 
 }

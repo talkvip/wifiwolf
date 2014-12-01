@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,6 +22,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+
+import com.google.common.collect.Lists;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -77,6 +80,11 @@ public class Node extends IdLong {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<AuthType> authTypes;
+
+	public Node() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public List<Token> getTokens() {
 		return tokens;
@@ -196,6 +204,25 @@ public class Node extends IdLong {
 
 	public void setAuthTypes(List<AuthType> authTypes) {
 		this.authTypes = authTypes;
+	}
+
+	@Transient
+	public List<String> getAuthTypeIdList() {
+		List<String> authTypeIdList = Lists.newArrayList();
+		for (AuthType authType : authTypes) {
+			authTypeIdList.add(authType.getId().toString());
+		}
+		return authTypeIdList;
+	}
+
+	@Transient
+	public void setAuthTypeIdList(List<String> ids) {
+		authTypes = Lists.newArrayList();
+		for (String id : ids) {
+			AuthType authType = new AuthType();
+			authType.setId(Long.parseLong(id));
+			authTypes.add(authType);
+		}
 	}
 
 }

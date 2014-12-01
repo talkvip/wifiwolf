@@ -76,7 +76,7 @@
 						<td>${node.lastHeartbeatSysLoad}&nbsp;</td>
 						<td>${node.lastHeartbeatIp}&nbsp;</td>
 						<td>${node.lastHeartbeatTimestamp}&nbsp;</td>
-						<td><a href="${ctx}/manage/ListForm?id=${node.id}"
+						<td><a href="${ctx}/manage/nodeForm?id=${node.id}"
 							id="editLink-${node.nodeDescription}">修改</a> <a
 							href="${ctx}/manage/deleteNode?id=${node.id}"
 							id="editLink-${node.nodeDescription}"
