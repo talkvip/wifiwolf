@@ -48,7 +48,7 @@
 				<div class="col-xs-6 col-sm-6">
 					<shiro:hasRole name="admin">
 						<form:input path="username" class="form-control"
-							htmlEscape="false" minlength="5" />
+							htmlEscape="false" />
 					</shiro:hasRole>
 					<shiro:lacksRole name="admin">
 						<form:input path="username" class="form-control"

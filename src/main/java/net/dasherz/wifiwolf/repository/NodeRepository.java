@@ -5,4 +5,5 @@ import net.dasherz.wifiwolf.domain.Node;
 
 public interface NodeRepository extends BaseRepository<Node, Long> {
 
+	public Node findByGatewayId(String gatewayId);
 }
