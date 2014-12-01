@@ -66,6 +66,8 @@ public class NodeController extends BaseController {
 	@RequestMapping(value = "/nodeForm", method = RequestMethod.GET)
 	public String form(Node node, Model model) {
 		model.addAttribute("allAuthTypes", authTypeService.findAll());
+		model.addAttribute("node", node);
+
 		return "/manage/nodeForm";
 	}
 
