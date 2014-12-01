@@ -117,7 +117,7 @@ CREATE TABLE `t_dict` (
   `status` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1008 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1012 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +126,7 @@ CREATE TABLE `t_dict` (
 
 LOCK TABLES `t_dict` WRITE;
 /*!40000 ALTER TABLE `t_dict` DISABLE KEYS */;
-INSERT INTO `t_dict` VALUES (1000,'gender','1','男',1,1,NULL),(1001,'gender','0','女',2,1,NULL),(1002,'user_type','1','管理员',2,1,NULL),(1003,'user_type','2','普通用户',1,1,NULL),(1004,'wifi_status','1','可接入互联网',1,1,NULL),(1005,'wifi_status','2','不可使用网络',2,1,NULL),(1006,'is_verified','1','已验证',1,1,NULL),(1007,'is_verified','2','未验证',2,1,NULL);
+INSERT INTO `t_dict` VALUES (1000,'gender','1','男',1,1,NULL),(1001,'gender','0','女',2,1,NULL),(1002,'user_type','1','管理员',2,1,NULL),(1003,'user_type','2','普通用户',1,1,NULL),(1004,'wifi_status','1','可接入互联网',1,1,NULL),(1005,'wifi_status','2','不可使用网络',2,1,NULL),(1006,'is_verified','1','已验证',1,1,NULL),(1007,'is_verified','2','未验证',2,1,NULL),(1008,'auth_type','USER_UNAUTHENTICATION','未验证注册用户登录',1,1,NULL),(1009,'auth_type','USER_AUTHENTIVATED','已验证注册用户登录',2,1,NULL),(1010,'auth_type','PHONEUSER_UNAUTHENTICATION','未验证手机用户登录',3,1,NULL),(1011,'auth_type','PHONEUSER_AUTHENTIVATED','未验证手机用户登录',4,1,NULL);
 /*!40000 ALTER TABLE `t_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,6 +207,7 @@ CREATE TABLE `t_node_auth_type` (
 
 LOCK TABLES `t_node_auth_type` WRITE;
 /*!40000 ALTER TABLE `t_node_auth_type` DISABLE KEYS */;
+INSERT INTO `t_node_auth_type` VALUES (1,1),(1,2),(1,3),(1,4);
 /*!40000 ALTER TABLE `t_node_auth_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-01 10:39:15
+-- Dump completed on 2014-12-01 16:16:04
