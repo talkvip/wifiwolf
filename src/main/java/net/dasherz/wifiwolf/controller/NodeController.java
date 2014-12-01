@@ -8,6 +8,7 @@ import net.dasherz.wifiwolf.service.AuthTypeService;
 import net.dasherz.wifiwolf.service.NodeService;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,8 +38,9 @@ public class NodeController extends BaseController {
 	}
 
 	@RequestMapping(value = "/nodeForm")
-	public void form() {
-
+	public String form(Node node, Model model) {
+		model.addAttribute("allAuthTypes", authTypeService.findAll());
+		return "/manage/nodeForm";
 	}
 
 	@RequestMapping(value = "/saveNode")
