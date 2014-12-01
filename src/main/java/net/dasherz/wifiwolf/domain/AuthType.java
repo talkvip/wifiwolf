@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
@@ -19,6 +20,14 @@ import org.hibernate.annotations.NotFoundAction;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class AuthType extends IdLong {
 
+	public List<Node> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(List<Node> nodes) {
+		this.nodes = nodes;
+	}
+
 	/**
 	 * 
 	 */
@@ -33,6 +42,12 @@ public class AuthType extends IdLong {
 	@OrderBy("id DESC")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private List<Token> tokens;
+
+	@ManyToMany(mappedBy = "authTypes", fetch = FetchType.LAZY)
+	@OrderBy("id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private List<Node> nodes;
 
 	public String getAuthType() {
 		return authType;

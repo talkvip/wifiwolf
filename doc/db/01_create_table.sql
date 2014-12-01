@@ -117,7 +117,7 @@ CREATE TABLE `t_dict` (
   `status` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1008 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,6 +185,29 @@ LOCK TABLES `t_node` WRITE;
 /*!40000 ALTER TABLE `t_node` DISABLE KEYS */;
 INSERT INTO `t_node` VALUES (1,'wifiwolf','asus',1,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `t_node` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_node_auth_type`
+--
+
+DROP TABLE IF EXISTS `t_node_auth_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_node_auth_type` (
+  `node_id` bigint(20) NOT NULL,
+  `auth_type_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`node_id`,`auth_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_node_auth_type`
+--
+
+LOCK TABLES `t_node_auth_type` WRITE;
+/*!40000 ALTER TABLE `t_node_auth_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_node_auth_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -317,4 +340,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-26 15:11:34
+-- Dump completed on 2014-12-01 10:39:15

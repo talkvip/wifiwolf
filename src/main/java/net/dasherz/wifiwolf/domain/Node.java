@@ -7,8 +7,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -67,6 +70,13 @@ public class Node extends IdLong {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<Token> tokens;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "t_node_auth_type", joinColumns = { @JoinColumn(name = "node_id") }, inverseJoinColumns = { @JoinColumn(name = "auth_type_id") })
+	@OrderBy("id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private List<AuthType> authTypes;
 
 	public List<Token> getTokens() {
 		return tokens;
@@ -162,6 +172,30 @@ public class Node extends IdLong {
 
 	public void setLastHeartbeatTimestamp(Date lastHeartbeatTimestamp) {
 		this.lastHeartbeatTimestamp = lastHeartbeatTimestamp;
+	}
+
+	public Float getLastHeartbeatSysLoad() {
+		return lastHeartbeatSysLoad;
+	}
+
+	public void setLastHeartbeatSysLoad(Float lastHeartbeatSysLoad) {
+		this.lastHeartbeatSysLoad = lastHeartbeatSysLoad;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<AuthType> getAuthTypes() {
+		return authTypes;
+	}
+
+	public void setAuthTypes(List<AuthType> authTypes) {
+		this.authTypes = authTypes;
 	}
 
 }
