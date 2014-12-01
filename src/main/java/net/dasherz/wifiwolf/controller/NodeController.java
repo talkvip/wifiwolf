@@ -8,8 +8,10 @@ import net.dasherz.wifiwolf.common.util.PageInfo;
 import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.service.AuthTypeService;
 import net.dasherz.wifiwolf.service.NodeService;
+import net.dasherz.wifiwolf.service.UserService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,9 @@ public class NodeController extends BaseController {
 
 	@Inject
 	private AuthTypeService authTypeService;
+
+	@Inject
+	private UserService userService;
 
 	@ModelAttribute
 	public Node get(@RequestParam(required = false) Long id) {
@@ -58,7 +63,7 @@ public class NodeController extends BaseController {
 		return "/manage/nodeList";
 	}
 
-	@RequestMapping(value = "/nodeForm")
+	@RequestMapping(value = "/nodeForm", method = RequestMethod.GET)
 	public String form(Node node, Model model) {
 		model.addAttribute("allAuthTypes", authTypeService.findAll());
 		return "/manage/nodeForm";
@@ -72,6 +77,25 @@ public class NodeController extends BaseController {
 		}
 		addMessage(redirectAttributes, "删除路由器成功");
 		return "redirect:/manage/nodeList";
+	}
+
+	@RequestMapping(value = "/nodeSave", method = RequestMethod.POST)
+	public String save(Model model, Node node) {
+		if (node.getOwner() == null) {
+			node.setOwner(userService.findUserByUsername(SecurityUtils
+					.getSubject().getPrincipal().toString()));
+		}
+		if (!beanValidator(model, node)) {
+			return form(node, model);
+		}
+		if (node.getId() == null
+				&& nodeService.findByGatewayId(node.getGatewayId()) != null) {
+			addMessage(model, "数据验证失败,网关ID已存在！");
+			return form(node, model);
+		}
+		nodeService.save(node);
+		return "redirect:/manage/nodeList";
+
 	}
 
 }
