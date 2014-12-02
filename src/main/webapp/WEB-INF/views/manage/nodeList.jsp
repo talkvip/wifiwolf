@@ -56,10 +56,10 @@
 				<tr>
 					<th>路由器名</th>
 					<th>网关ID</th>
-					<th>认证类型</th>
-					<th>系统使用时间</th>
-					<th>wifidog 使用时间</th>
-					<th>系统使用内存</th>
+					<th>系统运行时间</th>
+					<th>wifidog运行时间</th>
+					<th>系统空闲内存</th>
+					<th>系统负载</th>
 					<th>上一次心跳IP</th>
 					<th>上一次心跳时间</th>
 					<th>操作</th>
