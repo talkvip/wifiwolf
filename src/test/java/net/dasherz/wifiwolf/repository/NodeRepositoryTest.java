@@ -21,9 +21,6 @@ public class NodeRepositoryTest extends BaseRepositoryTest {
 	@Inject
 	private UserRepository userRepository;
 
-	@Inject
-	private AuthTypeRepository authTypeRepository;
-
 	Node node;
 
 	@Before
@@ -35,13 +32,9 @@ public class NodeRepositoryTest extends BaseRepositoryTest {
 		List<PortalPage> portalPages = new ArrayList<PortalPage>();
 		authPages.add(authPage);
 		portalPages.add(portalPage);
-		authPage.setNode(node);
-		portalPage.setNode(node);
 		node.setGatewayId("gw");
 		node.setNodeDescription("asus");
 		node.setOwner(userRepository.findOne(1L));
-		node.setAuthPages(authPages);
-		node.setPortalPages(portalPages);
 		nodeRepository.save(node);
 	}
 

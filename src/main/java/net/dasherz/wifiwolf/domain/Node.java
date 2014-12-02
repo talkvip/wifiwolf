@@ -3,7 +3,6 @@ package net.dasherz.wifiwolf.domain;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -52,16 +51,6 @@ public class Node extends IdLong {
 	@NotNull
 	private User user;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "node_id")
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	private List<AuthPage> authPages;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "node_id")
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	private List<PortalPage> portalPages;
-
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id")
 	@NotFound(action = NotFoundAction.IGNORE)
@@ -74,22 +63,6 @@ public class Node extends IdLong {
 
 	public void setTokens(List<Token> tokens) {
 		this.tokens = tokens;
-	}
-
-	public List<PortalPage> getPortalPages() {
-		return portalPages;
-	}
-
-	public void setPortalPages(List<PortalPage> portalPages) {
-		this.portalPages = portalPages;
-	}
-
-	public List<AuthPage> getAuthPages() {
-		return authPages;
-	}
-
-	public void setAuthPages(List<AuthPage> authPages) {
-		this.authPages = authPages;
 	}
 
 	public String getGatewayId() {

@@ -26,12 +26,6 @@
 	<cache name="net.dasherz.wifiwolf.domain.Node"
 		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
 		maxEntriesLocalDisk="100000" />
-	<cache name="net.dasherz.wifiwolf.domain.Node.authPages"
-		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
-		maxEntriesLocalDisk="100000" />
-	<cache name="net.dasherz.wifiwolf.domain.Node.portalPages"
-		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
-		maxEntriesLocalDisk="100000" />
 	<cache name="net.dasherz.wifiwolf.domain.Node.tokens"
 		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
 		maxEntriesLocalDisk="100000" />

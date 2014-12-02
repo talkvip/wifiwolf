@@ -15,15 +15,12 @@ public class PortalPageRepositoryTest extends BaseRepositoryTest {
 
 	@Inject
 	private PortalPageRepository PortalPageRepository;
-	@Inject
-	private NodeRepository nodeRepository;
 
 	PortalPage portalPage;
 
 	@Before
 	public void init() {
 		portalPage = new PortalPage();
-		portalPage.setNode(nodeRepository.findOne(1L));
 		portalPage.setUseOriginUrl(1);
 		PortalPageRepository.save(portalPage);
 	}

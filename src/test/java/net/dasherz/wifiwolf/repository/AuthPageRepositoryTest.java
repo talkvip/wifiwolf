@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import javax.inject.Inject;
 
 import net.dasherz.wifiwolf.domain.AuthPage;
-import net.dasherz.wifiwolf.domain.Node;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +21,6 @@ public class AuthPageRepositoryTest extends BaseRepositoryTest {
 		authPage = new AuthPage();
 		authPage.setCustomizeCss("css");
 		authPage.setCustomizeHtml("html");
-		authPage.setNode(new Node());
 		authPage.setTemplatePage("template");
 	}
 
