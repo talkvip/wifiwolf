@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.util.PageInfo;
 import net.dasherz.wifiwolf.domain.Node;
-import net.dasherz.wifiwolf.service.AuthTypeService;
 import net.dasherz.wifiwolf.service.NodeService;
 import net.dasherz.wifiwolf.service.UserService;
 
@@ -27,9 +26,6 @@ public class NodeController extends BaseController {
 
 	@Inject
 	private NodeService nodeService;
-
-	@Inject
-	private AuthTypeService authTypeService;
 
 	@Inject
 	private UserService userService;
@@ -65,7 +61,6 @@ public class NodeController extends BaseController {
 
 	@RequestMapping(value = "/nodeForm", method = RequestMethod.GET)
 	public String form(Node node, Model model) {
-		model.addAttribute("allAuthTypes", authTypeService.findAll());
 		model.addAttribute("node", node);
 
 		return "/manage/nodeForm";

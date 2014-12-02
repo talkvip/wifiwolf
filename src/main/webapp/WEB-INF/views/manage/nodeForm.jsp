@@ -60,15 +60,7 @@
 
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-xs-2 col-sm-2 control-label" for="authTypes">认证类型:</label>
-				<div class="col-xs-6 col-sm-6">
-
-					<form:checkboxes path="authTypeIdList" items="${allAuthTypes}" element="div"
- 					itemLabel="description" itemValue="id" htmlEscape="false"  /> 
-
-				</div>
-			</div>
+			
 
 			<div class="form-group">
 				<div class="col-xs-offset-2 col-sm-offset-2 col-xs-6 col-sm-6">
