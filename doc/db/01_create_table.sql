@@ -188,30 +188,6 @@ INSERT INTO `t_node` VALUES (1,'wifiwolf','asus',1,NULL,NULL,NULL,NULL,NULL,NULL
 UNLOCK TABLES;
 
 --
--- Table structure for table `t_node_auth_type`
---
-
-DROP TABLE IF EXISTS `t_node_auth_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `t_node_auth_type` (
-  `node_id` bigint(20) NOT NULL,
-  `auth_type_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`node_id`,`auth_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_node_auth_type`
---
-
-LOCK TABLES `t_node_auth_type` WRITE;
-/*!40000 ALTER TABLE `t_node_auth_type` DISABLE KEYS */;
-INSERT INTO `t_node_auth_type` VALUES (1,1),(1,2),(1,3),(1,4);
-/*!40000 ALTER TABLE `t_node_auth_type` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `t_phone_user`
 --
 
@@ -341,4 +317,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-01 17:18:58
+-- Dump completed on 2014-12-02 12:13:30

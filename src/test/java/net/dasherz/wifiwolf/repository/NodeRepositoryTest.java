@@ -75,10 +75,4 @@ public class NodeRepositoryTest extends BaseRepositoryTest {
 		nodeRepository.delete(node);
 		assertEquals(1, nodeRepository.count());
 	}
-
-	@Test
-	public void setAuthType() {
-		node.setAuthTypes(authTypeRepository.findAll());
-		nodeRepository.save(node);
-	}
 }

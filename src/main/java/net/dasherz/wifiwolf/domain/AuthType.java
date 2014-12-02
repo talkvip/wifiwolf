@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Transient;
@@ -35,12 +34,6 @@ public class AuthType extends IdLong {
 	@OrderBy("id DESC")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private List<Token> tokens;
-
-	@ManyToMany(mappedBy = "authTypes", fetch = FetchType.LAZY)
-	@OrderBy("id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	private List<Node> nodes;
 
 	@Transient
 	private String description;
@@ -75,14 +68,6 @@ public class AuthType extends IdLong {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<Node> getNodes() {
-		return nodes;
-	}
-
-	public void setNodes(List<Node> nodes) {
-		this.nodes = nodes;
 	}
 
 }

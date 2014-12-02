@@ -7,12 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,8 +18,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-
-import com.google.common.collect.Lists;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -73,13 +67,6 @@ public class Node extends IdLong {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<Token> tokens;
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "t_node_auth_type", joinColumns = { @JoinColumn(name = "node_id") }, inverseJoinColumns = { @JoinColumn(name = "auth_type_id") })
-	@OrderBy("id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	private List<AuthType> authTypes;
 
 	public List<Token> getTokens() {
 		return tokens;
@@ -191,36 +178,6 @@ public class Node extends IdLong {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<AuthType> getAuthTypes() {
-		return authTypes;
-	}
-
-	public void setAuthTypes(List<AuthType> authTypes) {
-		this.authTypes = authTypes;
-	}
-
-	@Transient
-	public List<String> getAuthTypeIdList() {
-		List<String> authTypeIdList = Lists.newArrayList();
-		if (authTypes == null) {
-			return authTypeIdList;
-		}
-		for (AuthType authType : authTypes) {
-			authTypeIdList.add(authType.getId().toString());
-		}
-		return authTypeIdList;
-	}
-
-	@Transient
-	public void setAuthTypeIdList(List<String> ids) {
-		authTypes = Lists.newArrayList();
-		for (String id : ids) {
-			AuthType authType = new AuthType();
-			authType.setId(Long.parseLong(id));
-			authTypes.add(authType);
-		}
 	}
 
 }
