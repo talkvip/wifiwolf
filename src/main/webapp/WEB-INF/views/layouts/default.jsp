@@ -24,7 +24,6 @@
 <script src="${ctx}/resources/js/additional-methods.min.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/localization/messages_zh.min.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/jBox.min.js" type="text/javascript"></script>
-<script src="${ctx}/resources/js/jquery.confirm.min.js" type="text/javascript"></script>
 <link href="${ctx}/resources/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/resources/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/resources/css/custom.css" type="text/css" rel="stylesheet" />
