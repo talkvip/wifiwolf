@@ -82,9 +82,9 @@
 									role="tabpanel" aria-labelledby="heading2">
 									<div class="panel-body">
 										<ul class="nav nav-list">
+											<li><a href="${ctx}/manage/authTypeList" target="mainFrame">&nbsp;认证方式设置</a></li>
 											<li><a href="" target="mainFrame">&nbsp;认证页面设置</a></li>
-											<li><a href="" target="mainFrame">&nbsp;认证后页面设置</a></li>
-											<li><a href="" target="mainFrame">&nbsp;认证类型浏览</a></li>
+											<li><a href="" target="mainFrame">&nbsp;认证后页面设置</a></li>							
 										</ul>
 									</div>
 								</div>

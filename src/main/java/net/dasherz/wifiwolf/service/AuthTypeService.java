@@ -9,6 +9,8 @@ import net.dasherz.wifiwolf.common.util.DictUtils;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.repository.AuthTypeRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,5 +28,19 @@ public class AuthTypeService {
 					authType.getAuthType(), ""));
 		}
 		return authTypes;
+	}
+
+	// 通过页码查找用户
+	public Page<AuthType> getPageAuthTypes(int pageNum, int pageSize) {
+		return authTypeRepository
+				.findAll(new PageRequest(pageNum - 1, pageSize));
+	}
+
+	public AuthType getAuthType(Long id) {
+		return authTypeRepository.findOne(id);
+	}
+
+	public void save(AuthType authType) {
+		authTypeRepository.save(authType);
 	}
 }

@@ -28,6 +28,9 @@ public class AuthType extends IdLong {
 	@Size(max = 45)
 	private String authType;
 
+	@Size(max = 45)
+	private String registerType;
+
 	private Integer status;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authType")
@@ -44,6 +47,14 @@ public class AuthType extends IdLong {
 
 	public void setAuthType(String authType) {
 		this.authType = authType;
+	}
+
+	public String getRegisterType() {
+		return registerType;
+	}
+
+	public void setRegisterType(String registerType) {
+		this.registerType = registerType;
 	}
 
 	public Integer getStatus() {
