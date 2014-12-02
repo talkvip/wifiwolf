@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
-<c:set var="pagePath" value="${ctx}/manage/authTypeList"/>
 <html>
 <head>
 <title>认证方式设置</title>
@@ -42,6 +41,5 @@
 			</tbody>
 		</table>
 	</div>
-	<%@ include file="/WEB-INF/views/layouts/page.jsp"%>
 </body>
 </html>

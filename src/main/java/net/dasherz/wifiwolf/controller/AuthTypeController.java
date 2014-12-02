@@ -1,15 +1,11 @@
 package net.dasherz.wifiwolf.controller;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import net.dasherz.wifiwolf.common.controller.BaseController;
-import net.dasherz.wifiwolf.common.util.PageInfo;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.service.AuthTypeService;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,22 +31,8 @@ public class AuthTypeController extends BaseController {
 	}
 
 	@RequestMapping(value = "/authTypeList")
-	public String list(HttpServletRequest request, Model model) {
-		String currentPage = request.getParameter("page");
-		int pageNum = 1;
-		if (StringUtils.isNumeric(currentPage)) {
-			pageNum = Integer.parseInt(currentPage);
-		}
-
-		Page<AuthType> authTypes = authTypeService.getPageAuthTypes(pageNum,
-				PageInfo.PAGE_SIZE);
-
-		PageInfo pageInfo = new PageInfo(authTypes.getTotalPages(), pageNum);
-
-		model.addAttribute("authTypes", authTypes.getContent());
-		model.addAttribute("totalPages", pageInfo.getTotalPage());
-		model.addAttribute("page", pageNum);
-		model.addAttribute("pageList", pageInfo.getPageList());
+	public String list(Model model) {
+		model.addAttribute("authTypes", authTypeService.getAllAuthTypes());
 		return "/manage/authTypeList";
 	}
 

@@ -36,6 +36,11 @@ public class AuthTypeService {
 				.findAll(new PageRequest(pageNum - 1, pageSize));
 	}
 
+	// 通过页码查找用户
+	public List<AuthType> getAllAuthTypes() {
+		return authTypeRepository.findAll();
+	}
+
 	public AuthType getAuthType(Long id) {
 		return authTypeRepository.findOne(id);
 	}
