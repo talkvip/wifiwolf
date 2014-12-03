@@ -52,4 +52,21 @@ public class AuthTypeService {
 	public void saveAll(List<AuthType> authTypes) {
 		authTypeRepository.save(authTypes);
 	}
+
+	public void enableAuthType(Long id) {
+		List<AuthType> authtypes = getAllAuthTypes();
+		for (AuthType type : authtypes) {
+			if (type.getId() == id) {
+				type.setStatus(1);
+			} else {
+				type.setStatus(2);
+			}
+		}
+		saveAll(authtypes);
+	}
+
+	public void disableAuthType(AuthType authType) {
+		authType.setStatus(2);
+		save(authType);
+	}
 }
