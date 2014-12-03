@@ -26,10 +26,9 @@ DROP TABLE IF EXISTS `t_auth_page`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_auth_page` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `node_id` bigint(20) DEFAULT NULL,
-  `customize_css` text,
   `customize_html` text,
-  `template_page` varchar(45) DEFAULT NULL,
+  `template_id` bigint(20) DEFAULT NULL,
+  `customize_url` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,7 +39,7 @@ CREATE TABLE `t_auth_page` (
 
 LOCK TABLES `t_auth_page` WRITE;
 /*!40000 ALTER TABLE `t_auth_page` DISABLE KEYS */;
-INSERT INTO `t_auth_page` VALUES (1,1,'css','html','template');
+INSERT INTO `t_auth_page` VALUES (1,'html',1,'http://test.com/');
 /*!40000 ALTER TABLE `t_auth_page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,6 +188,33 @@ INSERT INTO `t_node` VALUES (1,'wifiwolf','asus',1,NULL,NULL,NULL,NULL,NULL,NULL
 UNLOCK TABLES;
 
 --
+-- Table structure for table `t_page_template`
+--
+
+DROP TABLE IF EXISTS `t_page_template`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_page_template` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `template_path` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `template_type` int(11) DEFAULT NULL,
+  `template_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_page_template`
+--
+
+LOCK TABLES `t_page_template` WRITE;
+/*!40000 ALTER TABLE `t_page_template` DISABLE KEYS */;
+INSERT INTO `t_page_template` VALUES (1,'template/template1.jsp',1,1,'Template1'),(2,'template/template2.jsp',1,1,'Template2'),(3,'template/template3.jsp',1,2,'Template3');
+/*!40000 ALTER TABLE `t_page_template` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `t_phone_user`
 --
 
@@ -224,9 +250,7 @@ DROP TABLE IF EXISTS `t_portal_page`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `t_portal_page` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `node_id` bigint(20) DEFAULT NULL,
-  `template_page` varchar(45) DEFAULT NULL,
-  `customize_css` text,
+  `template_id` bigint(20) DEFAULT NULL,
   `customize_html` text,
   `use_origin_url` int(11) DEFAULT '0' COMMENT '''0'' stands for not using origin URL\n''1'' stands for using origin URL',
   `customize_url` text,
@@ -240,7 +264,7 @@ CREATE TABLE `t_portal_page` (
 
 LOCK TABLES `t_portal_page` WRITE;
 /*!40000 ALTER TABLE `t_portal_page` DISABLE KEYS */;
-INSERT INTO `t_portal_page` VALUES (1,1,NULL,NULL,NULL,1,NULL);
+INSERT INTO `t_portal_page` VALUES (1,1,'html',1,'http://url.com/');
 /*!40000 ALTER TABLE `t_portal_page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,4 +342,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-03 16:50:13
+-- Dump completed on 2014-12-03 18:59:08

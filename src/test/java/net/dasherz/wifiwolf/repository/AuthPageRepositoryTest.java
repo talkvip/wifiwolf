@@ -19,15 +19,18 @@ public class AuthPageRepositoryTest extends BaseRepositoryTest {
 	@Before
 	public void init() {
 		authPage = new AuthPage();
-		authPage.setCustomizeCss("css");
 		authPage.setCustomizeHtml("html");
-		authPage.setTemplatePage("template");
 	}
 
 	@Test
 	public void findOne() {
 		AuthPage page = authPageRepository.findOne(Long.valueOf(1));
-		assertEquals("css", page.getCustomizeCss());
+		assertEquals("html", page.getCustomizeHtml());
 		// assertEquals("wifiwolf", page.getNode().getGatewayId());
+	}
+
+	@Test
+	public void save() {
+		authPageRepository.save(authPage);
 	}
 }

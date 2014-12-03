@@ -57,14 +57,14 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 	@Test
 	public void findAll() {
 		List<AuthType> authTypes = authTypeRepository.findAll();
-		assertEquals(4, authTypes.size());
+		assertEquals(7, authTypes.size());
 	}
 
 	@Test
 	public void findOne() {
 		AuthType authType = authTypeRepository.findOne(Long.valueOf(1));
-		assertEquals(Integer.valueOf(1), authType.getStatus());
-		assertEquals("USER_UNAUTHENTICATION", authType.getAuthType());
+		assertEquals(Integer.valueOf(2), authType.getStatus());
+		assertEquals("NONE", authType.getAuthType());
 	}
 
 	@Test
@@ -85,7 +85,7 @@ public class AuthTypeRepositoryTest extends BaseRepositoryTest {
 	@Test
 	public void delete() {
 		authTypeRepository.delete(Long.valueOf(1));
-		assertEquals(3, authTypeRepository.count());
+		assertEquals(6, authTypeRepository.count());
 	}
 
 	@Test
