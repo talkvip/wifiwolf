@@ -1,5 +1,7 @@
 package net.dasherz.wifiwolf.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import net.dasherz.wifiwolf.common.controller.BaseController;
@@ -40,17 +42,25 @@ public class AuthTypeController extends BaseController {
 	public String changeAuthTypeStatus(AuthType authType, Model model,
 			RedirectAttributes redirectAttributes) {
 		if (authType.getId() != null) {
+
 			if (authType.getStatus() == 1) {
 				authType.setStatus(2);
 				authTypeService.save(authType);
 				addMessage(redirectAttributes, "禁用该认证方式成功。");
 			} else {
-				authType.setStatus(1);
-				authTypeService.save(authType);
+				List<AuthType> authtypes = authTypeService.getAllAuthTypes();
+				for (AuthType type : authtypes) {
+					if (authType.getId() == type.getId()) {
+						type.setStatus(1);
+					} else {
+						type.setStatus(2);
+					}
+				}
+				authTypeService.saveAll(authtypes);
 				addMessage(redirectAttributes, "启用该认证方式成功。");
 			}
 		} else {
-			addMessage(redirectAttributes, "请先选择一种认证方式");
+			addMessage(redirectAttributes, "请选择一种认证方式");
 		}
 		return "redirect:/manage/authTypeList";
 	}

@@ -48,4 +48,8 @@ public class AuthTypeService {
 	public void save(AuthType authType) {
 		authTypeRepository.save(authType);
 	}
+
+	public void saveAll(List<AuthType> authTypes) {
+		authTypeRepository.save(authTypes);
+	}
 }
