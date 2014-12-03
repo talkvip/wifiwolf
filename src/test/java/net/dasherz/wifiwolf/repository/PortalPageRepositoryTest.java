@@ -14,7 +14,7 @@ import org.junit.Test;
 public class PortalPageRepositoryTest extends BaseRepositoryTest {
 
 	@Inject
-	private PortalPageRepository PortalPageRepository;
+	private PortalPageRepository portalPageRepository;
 
 	PortalPage portalPage;
 
@@ -22,18 +22,20 @@ public class PortalPageRepositoryTest extends BaseRepositoryTest {
 	public void init() {
 		portalPage = new PortalPage();
 		portalPage.setUseOriginUrl(1);
-		PortalPageRepository.save(portalPage);
+		portalPage.setCustomizeHtml("html");
+		portalPage.setCustomizeUrl("url");
+		portalPageRepository.save(portalPage);
 	}
 
 	@Test
 	public void find() {
-		PortalPage page = PortalPageRepository.findOne(portalPage.getId());
+		PortalPage page = portalPageRepository.findOne(portalPage.getId());
 		assertEquals(1, page.getUseOriginUrl().intValue());
 	}
 
 	@Test
 	public void findAll() {
-		List<PortalPage> result = PortalPageRepository.findAll();
+		List<PortalPage> result = portalPageRepository.findAll();
 		assertEquals(2, result.size());
 	}
 
@@ -43,7 +45,7 @@ public class PortalPageRepositoryTest extends BaseRepositoryTest {
 		portalPage.setUseOriginUrl(0);
 
 		// When
-		PortalPage result = PortalPageRepository.save(portalPage);
+		PortalPage result = portalPageRepository.save(portalPage);
 
 		// Then
 		assertEquals(0, result.getUseOriginUrl().intValue());
@@ -52,7 +54,7 @@ public class PortalPageRepositoryTest extends BaseRepositoryTest {
 
 	@Test
 	public void delete() {
-		PortalPageRepository.delete(portalPage);
-		assertEquals(1, PortalPageRepository.count());
+		portalPageRepository.delete(portalPage);
+		assertEquals(1, portalPageRepository.count());
 	}
 }

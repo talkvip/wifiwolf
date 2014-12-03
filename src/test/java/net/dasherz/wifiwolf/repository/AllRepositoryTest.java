@@ -9,7 +9,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		DictRepositoryTest.class, UserRepositoryTest.class,
 		LogRepositoryTest.class, NodeRepositoryTest.class,
 		PhoneUserRepositoryTest.class, PortalPageRepositoryTest.class,
-		TokenRepositoryTest.class, ConnectionRepositoryTest.class })
-public class RepositoryTest {
+		TokenRepositoryTest.class, ConnectionRepositoryTest.class,
+		PageTemplateRepositoryTest.class })
+public class AllRepositoryTest {
 
 }

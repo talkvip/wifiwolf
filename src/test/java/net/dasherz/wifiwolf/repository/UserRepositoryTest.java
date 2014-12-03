@@ -67,7 +67,7 @@ public class UserRepositoryTest extends BaseRepositoryTest {
 	public void delete() {
 		User user = userRepository.findOne(Long.valueOf(1));
 		userRepository.delete(user);
-		assertEquals(0, userRepository.count());
+		assertEquals(1, userRepository.count());
 	}
 
 	@Test

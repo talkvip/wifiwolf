@@ -31,7 +31,7 @@ public class DictRepositoryTest extends BaseRepositoryTest {
 	@Test
 	public void findAll() {
 		List<Dict> dicts = dictRepository.findAll();
-		assertEquals(0, dicts.size());
+		assertEquals(20, dicts.size());
 	}
 
 	@Test

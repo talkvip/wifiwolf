@@ -11,6 +11,9 @@
 	<cache name="net.dasherz.wifiwolf.domain.AuthPage"
 		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
 		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.PageTemplate"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
 	<cache name="net.dasherz.wifiwolf.domain.AuthType"
 		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
 		maxEntriesLocalDisk="100000" />
