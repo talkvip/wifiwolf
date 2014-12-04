@@ -4,7 +4,9 @@ import javax.inject.Inject;
 
 import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.domain.AuthType;
+import net.dasherz.wifiwolf.service.AuthPageService;
 import net.dasherz.wifiwolf.service.AuthTypeService;
+import net.dasherz.wifiwolf.service.PortalPageService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,12 @@ public class AuthTypeController extends BaseController {
 
 	@Inject
 	private AuthTypeService authTypeService;
+
+	@Inject
+	private AuthPageService authPageService;
+
+	@Inject
+	private PortalPageService portalPageService;
 
 	@ModelAttribute
 	public AuthType get(@RequestParam(required = false) Long id) {
