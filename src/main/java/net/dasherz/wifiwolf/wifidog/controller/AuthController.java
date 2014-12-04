@@ -2,10 +2,11 @@ package net.dasherz.wifiwolf.wifidog.controller;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import net.dasherz.wifiwolf.wifidog.constant.UserList;
+import net.dasherz.wifiwolf.service.ConnectionService;
+import net.dasherz.wifiwolf.service.TokenService;
 import net.dasherz.wifiwolf.wifidog.constant.WifidogConstants;
 
 import org.slf4j.Logger;
@@ -20,6 +21,12 @@ public class AuthController {
 	private static final String AUTH_RESPONSE_PREFIX = "Auth: ";
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthController.class);
+
+	@Inject
+	TokenService tokenService;
+
+	@Inject
+	ConnectionService connectionService;
 
 	@RequestMapping(value = "/auth", method = RequestMethod.GET)
 	public void doAuth(@RequestParam String stage, @RequestParam String ip,
@@ -36,7 +43,8 @@ public class AuthController {
 		if (isLogin(stage)) {
 			boolean isValid = validateToken(token);
 			if (isValid) {
-				UserList.addUser(UserList.getTokens().get(token));
+				connectionService.createConnection(ip, mac,
+						tokenService.findByToken(token), incoming, outgoing);
 				response.getWriter().write(
 						AUTH_RESPONSE_PREFIX + WifidogConstants.AUTH_ALLOWED);
 			} else {
@@ -55,14 +63,11 @@ public class AuthController {
 	}
 
 	private boolean isUserOnline(String token) {
-		// TODO Auto-generated method stub
-
-		return UserList.getUsers().contains(UserList.getTokens().get(token));
+		return tokenService.isUserOnline(token);
 	}
 
 	private boolean validateToken(String token) {
-		// TODO Auto-generated method stub
-		return true;
+		return tokenService.validateToken(token);
 	}
 
 	private boolean isLogin(String stage) {

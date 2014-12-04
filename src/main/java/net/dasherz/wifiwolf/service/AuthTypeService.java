@@ -69,4 +69,8 @@ public class AuthTypeService {
 		authType.setStatus(2);
 		save(authType);
 	}
+
+	public AuthType getEnabledAuthType() {
+		return authTypeRepository.findByStatus(1);
+	}
 }

@@ -3,6 +3,7 @@ package net.dasherz.wifiwolf.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,6 +16,8 @@ import javax.transaction.Transactional;
 import net.dasherz.wifiwolf.common.shiro.Digests;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
 import net.dasherz.wifiwolf.common.shiro.ShiroDbRealm.ShiroUser;
+import net.dasherz.wifiwolf.domain.AuthType;
+import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.UserRepository;
 
@@ -34,6 +37,9 @@ public class UserService {
 
 	@Inject
 	private UserRepository userDao;
+
+	@Inject
+	private PhoneUserService phoneUserService;
 
 	// 增加用户
 	public void createUser(User user) {
@@ -76,6 +82,11 @@ public class UserService {
 	// 通过用户名查找用户
 	public User findUserByUsername(String username) {
 		return userDao.findByUsername(username);
+	}
+
+	// 通过手机号查找用户
+	public User findUserByPhone(String phoneNum) {
+		return userDao.findByPhone(phoneNum);
 	}
 
 	public boolean isExist(String username) {
@@ -126,6 +137,80 @@ public class UserService {
 		userDao.saveAndFlush(user);
 	}
 
+	public boolean validateUser(String userName, String userPassword,
+			String phoneNum, String phoneCode, AuthType authType) {
+		if (authType == null) {
+			return false;
+		}
+
+		if (authType.getAuthType() == "PHNOE") {
+			return validateByPhoneNum(phoneNum);
+		} else if (authType.getAuthType() == "PHONE_SMS") {
+			return validateByPhoneNumAndSMS(phoneNum, phoneCode);
+		} else if (authType.getAuthType() == "PHONE_PASSWORD") {
+			return validateByUserPassword(userName, phoneNum, userPassword);
+		} else if (authType.getAuthType() == "PHONE_PASSWORD_SMS") {
+			return validateByPhoneNum_Password_SMS(phoneNum, phoneCode,
+					userPassword);
+		} else {
+			return true;
+		}
+	}
+
+	public boolean validateByPhoneNum(String phoneNum) {
+		if (phoneNum.length() != 11) {
+			return false;
+		}
+		if (isNumeric(phoneNum)) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean validateByPhoneNumAndSMS(String phoneNum, String phoneCode) {
+		PhoneUser userInDb = phoneUserService.findByPhoneNum(phoneNum);
+		if (userInDb == null) {
+			return false;
+		}
+		if (!phoneCode.equalsIgnoreCase(userInDb.getVerifyCode())) {
+			return false;
+		}
+		return false;
+	}
+
+	public boolean validateByUserPassword(String userName, String phoneNum,
+			String userPassword) {
+		User userInDb = findUserByUsername(userName);
+		if (userInDb == null) {
+			userInDb = findUserByPhone(phoneNum);
+			if (userInDb == null || userInDb.getWifiStatus() != 1)
+				return false;
+		}
+
+		if (!validatePassword(userPassword, userInDb.getPassword())) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean validateByPhoneNum_Password_SMS(String phoneNum,
+			String phoneCode, String userPassword) {
+		PhoneUser phoneUserInDb = phoneUserService.findByPhoneNum(phoneNum);
+		User userInDb = this.findUserByPhone(phoneNum);
+		if (phoneUserInDb == null || userInDb.getWifiStatus() != 1) {
+			return false;
+		}
+
+		if (!validatePassword(userPassword, userInDb.getPassword())) {
+			return false;
+		}
+
+		if (!phoneCode.equalsIgnoreCase(phoneUserInDb.getVerifyCode())) {
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * 生成安全的密码，生成随机的16位salt并经过1024次 sha-1 hash
 	 */
@@ -151,6 +236,11 @@ public class UserService {
 				HASH_INTERATIONS);
 		return password.equals(Encodes.encodeHex(salt)
 				+ Encodes.encodeHex(hashPassword));
+	}
+
+	public static boolean isNumeric(String str) {
+		Pattern pattern = Pattern.compile("[0-9]*");
+		return pattern.matcher(str).matches();
 	}
 
 	private Specification<User> buildSpecification(final User user) {
