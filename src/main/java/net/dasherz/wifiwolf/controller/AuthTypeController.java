@@ -30,10 +30,10 @@ public class AuthTypeController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/authTypeList")
+	@RequestMapping(value = "/authType")
 	public String list(Model model) {
 		model.addAttribute("authTypes", authTypeService.getAllAuthTypes());
-		return "/manage/authTypeList";
+		return "/manage/authType";
 	}
 
 	@RequestMapping(value = "/authTypeStatus", method = RequestMethod.GET)
@@ -50,6 +50,6 @@ public class AuthTypeController extends BaseController {
 		} else {
 			addMessage(redirectAttributes, "请选择一种认证方式");
 		}
-		return "redirect:/manage/authTypeList";
+		return "redirect:/manage/authType";
 	}
 }
