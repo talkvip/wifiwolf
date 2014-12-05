@@ -174,7 +174,7 @@ public class UserService {
 		if (!phoneCode.equalsIgnoreCase(userInDb.getVerifyCode())) {
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public boolean validateByUserPassword(String userName, String phoneNum,
