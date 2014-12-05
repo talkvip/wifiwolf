@@ -13,11 +13,23 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 public class PageTemplateService {
+	public static final Integer TEMPLATE_TYPE_AUTH_PAGE = 1;
+	public static final Integer TEMPLATE_TYPE_PORTAL_PAGE = 2;
 
 	@Inject
 	private PageTemplateRepository pageTemplateRepository;
 
-	public List<PageTemplate> findAll() {
-		return pageTemplateRepository.findAll();
+	public PageTemplate getPageTemplate(Long id) {
+		return pageTemplateRepository.findOne(id);
+	}
+
+	public List<PageTemplate> findAuthPageTemplate() {
+		return pageTemplateRepository
+				.findByTemplateType(TEMPLATE_TYPE_AUTH_PAGE);
+	}
+
+	public List<PageTemplate> findPortalPageTemplate() {
+		return pageTemplateRepository
+				.findByTemplateType(TEMPLATE_TYPE_PORTAL_PAGE);
 	}
 }

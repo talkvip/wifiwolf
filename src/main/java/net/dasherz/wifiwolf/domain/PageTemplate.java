@@ -17,6 +17,9 @@ public class PageTemplate extends IdLong {
 	@Size(max = 255)
 	private String templatePath;
 
+	@Size(max = 255)
+	private String templateThumbnail;
+
 	@Size(max = 45)
 	private String templateName;
 
@@ -54,6 +57,14 @@ public class PageTemplate extends IdLong {
 
 	public void setTemplateName(String templateName) {
 		this.templateName = templateName;
+	}
+
+	public String getTemplateThumbnail() {
+		return templateThumbnail;
+	}
+
+	public void setTemplateThumbnail(String templateThumbnail) {
+		this.templateThumbnail = templateThumbnail;
 	}
 
 }

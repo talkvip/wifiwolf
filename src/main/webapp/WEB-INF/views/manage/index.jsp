@@ -111,7 +111,7 @@ body { padding-top: 70px;padding-bottom: 50px; }
 								<div class="panel-heading" role="tab" id="heading2">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#menu" href="#collapsemenu2" aria-expanded="false"
-											aria-controls="collapsemenu2" title="认证设置"> &nbsp;认证设管理</a>
+											aria-controls="collapsemenu2" title="认证设置"> &nbsp;认证设置管理</a>
 									</h4>
 								</div>
 								<div id="collapsemenu2" class="panel-collapse collapse" role="tabpanel"

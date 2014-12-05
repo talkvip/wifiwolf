@@ -22,7 +22,7 @@ public class PortalPage extends IdLong {
 
 	private String customizeUrl;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "template_id")
 	private PageTemplate pageTemplate;
 
