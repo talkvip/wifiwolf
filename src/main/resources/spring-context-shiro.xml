@@ -35,8 +35,9 @@
 				/ping = anon
 				/gw_message.php = anon
 				/portal = anon
+				/login/ = anon
 				/wifi/login = anon
-				/login = anon
+				/showMessage = anon
 				/manage/** = roles[admin]
 				/** = user
 			</value>

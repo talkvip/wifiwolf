@@ -11,7 +11,6 @@ import net.dasherz.wifiwolf.service.PhoneUserService;
 import net.dasherz.wifiwolf.service.TokenService;
 import net.dasherz.wifiwolf.service.UserService;
 
-import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +31,9 @@ public class WIFIUserController {
 	@RequestMapping(value = "/login")
 	public String login(String userName, String userPassword, String phoneNum,
 			String phoneCode, String wifidogHost, String wifidogPort,
-			AuthType authType, Node node, Session session, Model model)
-			throws IOException {
+			AuthType authType, Node node, Model model) throws IOException {
 		if (userService.validateUser(userName, userPassword, phoneNum,
 				phoneCode, authType)) {
-			session.setAttribute("userId", userName);
 			Token token = tokenService.createToken(authType,
 					userService.findUserByUsername(userName),
 					phoneUserService.findByPhoneNum(phoneNum), node);
