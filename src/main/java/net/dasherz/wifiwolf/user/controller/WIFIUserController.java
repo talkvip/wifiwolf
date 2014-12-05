@@ -36,14 +36,14 @@ public class WIFIUserController {
 	private AuthTypeService authTypeService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(String userName, String userPassword, String phoneNum,
+	public String login(String username, String userPassword, String phoneNum,
 			String phoneCode, String wifidogHost, String wifidogPort,
 			String authType, String gw_id, Model model) throws IOException {
-		if (userService.validateUser(userName, userPassword, phoneNum,
+		if (userService.validateUser(username, userPassword, phoneNum,
 				phoneCode, authType)) {
 			Token token = tokenService.createToken(
 					authTypeService.getEnabledAuthType(),
-					userService.findUserByUsername(userName),
+					userService.findUserByUsername(username),
 					phoneUserService.findByPhoneNum(phoneNum),
 					nodeService.findByGatewayId(gw_id));
 			return "redirect:http://" + wifidogHost + ":" + wifidogPort
