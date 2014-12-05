@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
 import net.dasherz.wifiwolf.common.shiro.Digests;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
 import net.dasherz.wifiwolf.common.shiro.ShiroDbRealm.ShiroUser;
-import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.UserRepository;
@@ -138,18 +137,18 @@ public class UserService {
 	}
 
 	public boolean validateUser(String userName, String userPassword,
-			String phoneNum, String phoneCode, AuthType authType) {
-		if (authType == null) {
+			String phoneNum, String phoneCode, String authType) {
+		if (authType == null || authType.isEmpty()) {
 			return false;
 		}
 
-		if (authType.getAuthType() == "PHNOE") {
+		if (authType.equalsIgnoreCase("PHNOE")) {
 			return validateByPhoneNum(phoneNum);
-		} else if (authType.getAuthType() == "PHONE_SMS") {
+		} else if (authType.equalsIgnoreCase("PHONE_SMS")) {
 			return validateByPhoneNumAndSMS(phoneNum, phoneCode);
-		} else if (authType.getAuthType() == "PHONE_PASSWORD") {
+		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD")) {
 			return validateByUserPassword(userName, phoneNum, userPassword);
-		} else if (authType.getAuthType() == "PHONE_PASSWORD_SMS") {
+		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD_SMS")) {
 			return validateByPhoneNum_Password_SMS(phoneNum, phoneCode,
 					userPassword);
 		} else {

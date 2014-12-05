@@ -36,7 +36,7 @@
 				/gw_message.php = anon
 				/portal = anon
 				/login/ = anon
-				/wifi/login = anon
+				/wifi/login/ = anon
 				/showMessage = anon
 				/manage/** = roles[admin]
 				/** = user

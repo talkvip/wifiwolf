@@ -15,45 +15,49 @@
 
 <body>
 	<div class="container">
-		<form class="form-signin" id="loginForm" action="${ctx}/wifi/login"
+		<form class="form-signin" id="loginForm"
+			action="${ctx}/wifi/login/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&authType=${authType}&gw_id=${gw_id}"
 			method="post">
 			<h2 class="form-signin-heading">Wifi Wolf 网络登录</h2>
-			
-			<!--c:if test="${authType.getAuthType() == PHONE_PASSWORD}">  -->
-			<div class="control-group" id="userName">
-				<label for="username" class="control-label">用户名:</label>
-				<div class="controls">
-					<input type="text" name="userName" placeholder="用户名/手机号登录"
-						value="${username}" class="input-medium required" />
+
+			<c:if test="${authType eq 'PHONE_PASSWORD'}">
+				<div class="control-group">
+					<label for="username" class="control-label">用户名:</label> <input
+						class="form-control" type="text" id="username" name="username"
+						placeholder="用户名/手机号登录" value="${username}" required autofocus />
+					<br>
 				</div>
-			</div>
-			<!--  /c:if>-->
-			<div class="control-group" id="phoneNum">
-				<label for="password" class="control-label">手机号:</label>
-				<div class="controls">
-					<input type="text" name="phoneNum" class="input-medium required" />
+			</c:if>
+			<c:if
+				test="${authType eq 'PHONE_SMS' || authType eq 'PHONE_PASSWORD_SMS' || authType eq 'PHONE'}">
+				<div class="control-group">
+					<label for="password" class="control-label">手机号:</label> <input
+						class="form-control" type="text" id="phoneNum" name="phoneNum"
+						required autofocus /> <br>
 				</div>
-			</div>
-			<div class="control-group" id="phoneCode">
-				<label for="password" class="control-label">手机验证码:</label>
-				<div class="controls">
-					<input type="text" name="phoneCode" class="input-medium required" />
+			</c:if>
+			<c:if
+				test="${authType eq 'PHONE_SMS' || authType eq 'PHONE_PASSWORD_SMS'}">
+				<div class="control-group">
+					<label for="password" class="control-label">手机验证码:</label> <input
+						class="form-control" type="text" name="phoneCode" id="phoneCode"
+						required autofocus /> <br>
 				</div>
-			</div>
-			<div class="control-group" id="userPassword">
-				<label for="password" class="control-label">密码:</label>
-				<div class="controls">
-					<input type="password" name="userPassword"
-						class="input-medium required" />
+			</c:if>
+			<c:if
+				test="${authType eq 'PHONE_PASSWORD' || authType eq 'PHONE_PASSWORD_SMS'}">
+				<div class="control-group">
+					<label for="password" class="control-label">密码:</label> <input
+						class="form-control" type="password" name="userPassword"
+						id="userPassword" required autofocus /> <br>
 				</div>
+			</c:if>
+			<div class="checkbox">
+				<label for="rememberMe"> <input type="checkbox"
+					id="rememberMe" name="rememberMe"> 记住我
+				</label>
 			</div>
-			<div class="control-group">
-				<div class="controls">
-					<label class="checkbox inline" for="rememberMe"> <input
-						type="checkbox" name="rememberMe" /> 记住我
-					</label> <input id="submit_btn" class="btn" type="submit" value="登录" />
-				</div>
-			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
 		</form>
 	</div>
 	<script>

@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import net.dasherz.wifiwolf.domain.AuthType;
-import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.domain.Token;
+import net.dasherz.wifiwolf.service.AuthTypeService;
+import net.dasherz.wifiwolf.service.NodeService;
 import net.dasherz.wifiwolf.service.PhoneUserService;
 import net.dasherz.wifiwolf.service.TokenService;
 import net.dasherz.wifiwolf.service.UserService;
@@ -28,27 +28,35 @@ public class WIFIUserController {
 	@Inject
 	private TokenService tokenService;
 
-	@RequestMapping(value = "/login")
+	@Inject
+	private NodeService nodeService;
+
+	@Inject
+	private AuthTypeService authTypeService;
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String userName, String userPassword, String phoneNum,
 			String phoneCode, String wifidogHost, String wifidogPort,
-			AuthType authType, Node node, Model model) throws IOException {
+			String authType, String gw_id, Model model) throws IOException {
 		if (userService.validateUser(userName, userPassword, phoneNum,
 				phoneCode, authType)) {
-			Token token = tokenService.createToken(authType,
+			Token token = tokenService.createToken(
+					authTypeService.getEnabledAuthType(),
 					userService.findUserByUsername(userName),
-					phoneUserService.findByPhoneNum(phoneNum), node);
+					phoneUserService.findByPhoneNum(phoneNum),
+					nodeService.findByGatewayId(gw_id));
 			return "redirect:http://" + wifidogHost + ":" + wifidogPort
 					+ "/wifidog/auth?token=" + token.getToken();
 		}
 		model.addAttribute("wifidogHost", wifidogHost);
 		model.addAttribute("wifidogPort", wifidogPort);
-		model.addAttribute("node", node);
+		model.addAttribute("gw_id", gw_id);
+		model.addAttribute("authType", authType);
 		return "/wifi/login";
 	}
 
 	@RequestMapping(value = "/phoneVerify", method = RequestMethod.POST)
-	public String phoneVerify(String phoneNum) {
+	public void phoneVerify(String phoneNum) {
 		phoneUserService.sendPhoneMessage(phoneNum);
-		return "/wifi/login";
 	}
 }
