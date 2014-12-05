@@ -29,8 +29,6 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/resources/**=anon
-				/user/login = authc
-				/logout = logout
 				/auth = anon
 				/ping = anon
 				/gw_message.php = anon
@@ -38,6 +36,8 @@
 				/login/ = anon
 				/wifi/** = anon
 				/showMessage = anon
+				/user/login = authc
+				/logout = logout
 				/manage/** = roles[admin]
 				/** = user
 			</value>
