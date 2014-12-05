@@ -50,7 +50,7 @@ public class LoginController {
 			return "showMessage";
 		}
 
-		if (authType.getAuthType() == "NONE") {
+		if (authType.getAuthType().equalsIgnoreCase("NONE")) {
 			Token token = tokenService.createToken(authType, null, null, node);
 			return "redirect:http://" + gw_address + ":" + gw_port
 					+ "/wifidog/auth?token=" + token.getToken();
