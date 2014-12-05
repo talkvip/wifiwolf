@@ -6,6 +6,7 @@ import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.service.AuthPageService;
 import net.dasherz.wifiwolf.service.AuthTypeService;
+import net.dasherz.wifiwolf.service.PageTemplateService;
 import net.dasherz.wifiwolf.service.PortalPageService;
 
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ public class AuthTypeController extends BaseController {
 	@Inject
 	private PortalPageService portalPageService;
 
+	@Inject
+	private PageTemplateService pageTemplateService;
+
 	@ModelAttribute
 	public AuthType get(@RequestParam(required = false) Long id) {
 		if (id != null) {
@@ -41,6 +45,9 @@ public class AuthTypeController extends BaseController {
 	@RequestMapping(value = "/authType")
 	public String list(Model model) {
 		model.addAttribute("authTypes", authTypeService.getAllAuthTypes());
+		model.addAttribute("authPage", authPageService.getAuthPage());
+		model.addAttribute("portalPage", portalPageService.getPortalPage());
+		model.addAttribute("pageTemplates", pageTemplateService.findAll());
 		return "/manage/authType";
 	}
 
