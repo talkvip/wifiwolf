@@ -46,12 +46,12 @@ public class PhoneUserService {
 		PhoneUser phoneUser = new PhoneUser();
 		phoneUser.setPhoneNum(phoneNum);
 		phoneUser.setCreateTime(new Date());
-		phoneUser.setVerifyCode(sendPhoneCode());
+		phoneUser.setVerifyCode(sendPhoneCode(phoneNum));
 		phoneUser.setStatus(1);
 		save(phoneUser);
 	}
 
-	private String sendPhoneCode() {
+	private String sendPhoneCode(String phoneNum) {
 		String code = createRandom(true, 4);
 		// TODO: use 3rd-party method to send
 		return code;

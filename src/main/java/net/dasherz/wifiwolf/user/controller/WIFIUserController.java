@@ -3,6 +3,7 @@ package net.dasherz.wifiwolf.user.controller;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.service.AuthTypeService;
@@ -55,8 +56,9 @@ public class WIFIUserController {
 		return "/wifi/login";
 	}
 
-	@RequestMapping(value = "/phoneVerify", method = RequestMethod.POST)
-	public void phoneVerify(String phoneNum) {
+	@RequestMapping(value = "/phoneVerify")
+	public void phoneVerify(HttpServletRequest request) {
+		String phoneNum = request.getParameter("phoneNum");
 		phoneUserService.sendPhoneMessage(phoneNum);
 	}
 }

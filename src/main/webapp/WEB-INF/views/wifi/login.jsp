@@ -11,6 +11,12 @@
       <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script>
+	function sentSMS() {
+		var phoneNum = $("#phoneNum").val();
+		$('body').load('${ctx}/wifi/phoneVerify/?phoneNum=' + phoneNum);
+	}
+</script>
 </head>
 
 <body>
@@ -28,8 +34,7 @@
 					<br>
 				</div>
 			</c:if>
-			<c:if
-				test="${authType eq 'PHONE_SMS' || authType eq 'PHONE_PASSWORD_SMS' || authType eq 'PHONE'}">
+			<c:if test="${authType eq 'PHONE'}">
 				<div class="control-group">
 					<label for="password" class="control-label">手机号:</label> <input
 						class="form-control" type="text" id="phoneNum" name="phoneNum"
@@ -38,6 +43,17 @@
 			</c:if>
 			<c:if
 				test="${authType eq 'PHONE_SMS' || authType eq 'PHONE_PASSWORD_SMS'}">
+				<div class="control-group">
+					<label for="password" class="control-label">手机号:</label>
+					<div class="input-group">
+						<input class="form-control" type="text" id="phoneNum"
+							name="phoneNum" required autofocus /> <span
+							class="input-group-btn">
+							<button class="btn btn-default" type="button" onclick="sentSMS()">点此获取手机验证码</button>
+						</span>
+					</div>
+					<br>
+				</div>
 				<div class="control-group">
 					<label for="password" class="control-label">手机验证码:</label> <input
 						class="form-control" type="text" name="phoneCode" id="phoneCode"
