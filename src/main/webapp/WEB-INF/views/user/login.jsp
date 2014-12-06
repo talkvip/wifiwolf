@@ -8,11 +8,7 @@
   <head>
     <title>WifiWolf登录页面</title>
 	<link href="${ctx}/resources/css/signin.css" type="text/css" rel="stylesheet" />
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
   </head>
 
   <body>
@@ -31,9 +27,9 @@
 		<%
 		}
 		%>
-        <input class="form-control" type="text" id="username" name="username" placeholder="User ID" value="${username}" required autofocus/>
+        <input class="form-control" type="text" id="username" name="username" placeholder="用户名" value="${username}" required autofocus/>
         <br>
-        <input class="form-control" type="password" id="password" name="password" required/>
+        <input class="form-control" type="password" id="password" name="password" placeholder="密码" required/>
         <div class="checkbox">
           <label for="rememberMe">
             <input type="checkbox" id="rememberMe" name="rememberMe"> 记住我

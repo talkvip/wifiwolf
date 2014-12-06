@@ -9,6 +9,6 @@
 <body>
 	<h1>Welcome!</h1>
 	<p>Please keep this page open.</p>
-	<a href="./logout?userId=${userId}">Logout</a>
+	<a href="./logout?token=${token}&wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}">Logout</a>
 </body>
 </html>

@@ -32,7 +32,7 @@
 				/auth/ = anon
 				/ping/ = anon
 				/gw_message.php = anon
-				/portal/ = anon
+				/portal/** = anon
 				/login/ = anon
 				/wifi/** = anon
 				/showMessage = anon

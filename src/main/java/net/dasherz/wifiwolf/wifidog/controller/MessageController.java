@@ -15,6 +15,7 @@ public class MessageController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String handleMessage(String message, Model model) {
+		// TODO add proper message for all codes
 		model.addAttribute("message", message);
 		logger.debug("message: " + message);
 		return "showMessage";

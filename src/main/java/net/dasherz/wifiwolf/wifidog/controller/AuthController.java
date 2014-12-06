@@ -43,6 +43,7 @@ public class AuthController {
 		if (isLogin(stage)) {
 			boolean isValid = validateToken(token);
 			if (isValid) {
+				// TODO store origin url
 				connectionService.createConnection(ip, mac,
 						tokenService.findByToken(token), incoming, outgoing);
 				response.getWriter().write(

@@ -3,6 +3,8 @@ package net.dasherz.wifiwolf.user.controller;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.Token;
@@ -39,12 +41,13 @@ public class WIFIUserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String username, String userPassword, String phoneNum,
 			String phoneCode, String wifidogHost, String wifidogPort,
-			String gw_id, Model model) throws IOException {
+			String gw_id, Model model, HttpSession session) throws IOException {
 		// TODO: validateUser() method should return a code to identify the
 		// errors.
 		AuthType authType = authTypeService.getEnabledAuthType();
 		if (userService.validateUser(username, userPassword, phoneNum,
 				phoneCode, authType.getAuthType())) {
+			// TODO for PHONE type, store phone number
 			Token token = tokenService.createToken(
 					authType,
 					userService.findUserByUsername(username),
@@ -52,6 +55,9 @@ public class WIFIUserController {
 					// user behaver
 					phoneUserService.findByPhoneNum(phoneNum),
 					nodeService.findByGatewayId(gw_id));
+			session.setAttribute("tokenId", token.getId());
+			session.setAttribute("wifidogHost", wifidogHost);
+			session.setAttribute("wifidogPort", wifidogPort);
 			return "redirect:http://" + wifidogHost + ":" + wifidogPort
 					+ "/wifidog/auth?token=" + token.getToken();
 		}
@@ -64,7 +70,9 @@ public class WIFIUserController {
 
 	@RequestMapping(value = "/phoneVerify")
 	public void phoneVerify(
-			@RequestParam(value = "phoneNum", required = true) String phoneNum) {
+			@RequestParam(value = "phoneNum", required = true) String phoneNum,
+			HttpServletResponse response) throws IOException {
 		phoneUserService.sendPhoneMessage(phoneNum);
+		response.getWriter().write("code sent");
 	}
 }
