@@ -3,8 +3,6 @@ package net.dasherz.wifiwolf.wifidog.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import net.dasherz.wifiwolf.wifidog.constant.UserList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -30,7 +28,7 @@ public class PortalController {
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, String userId) {
-		UserList.removeUser(userId);
+		// set token and connection status to invalid.
 		logger.debug("User is logging out: " + userId);
 		return "login";
 	}

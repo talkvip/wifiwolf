@@ -22,7 +22,7 @@
 <body>
 	<div class="container">
 		<form class="form-signin" id="loginForm"
-			action="${ctx}/wifi/login/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&authType=${authType}&gw_id=${gw_id}"
+			action="${ctx}/wifi/login/"
 			method="post">
 			<h2 class="form-signin-heading">Wifi Wolf 网络登录</h2>
 
@@ -73,6 +73,9 @@
 					id="rememberMe" name="rememberMe"> 记住我
 				</label>
 			</div>
+			<input type="hidden" name="wifidogHost" value="${wifidogHost}" />
+			<input type="hidden" name="wifidogPort" value="${wifidogPort}" />
+			<input type="hidden" name="gw_id" value="${gw_id}" />
 			<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
 		</form>
 	</div>

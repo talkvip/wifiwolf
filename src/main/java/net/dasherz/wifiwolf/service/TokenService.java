@@ -45,12 +45,14 @@ public class TokenService {
 	public Token createToken(AuthType authType, User registeredUser,
 			PhoneUser phoneUser, Node node) {
 		Token token = new Token();
+		// TODO generate unique token
 		token.setToken(String.valueOf(System.currentTimeMillis()));
 		token.setAuthType(authType);
 		token.setRegisteredUser(registeredUser);
 		token.setPhoneUser(phoneUser);
 		token.setNode(node);
 		token.setCreateTime(new Date());
+		// TODO extract constant
 		token.setStatus(1);
 		return save(token);
 	}

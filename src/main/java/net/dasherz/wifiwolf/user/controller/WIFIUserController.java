@@ -3,8 +3,8 @@ package net.dasherz.wifiwolf.user.controller;
 import java.io.IOException;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
+import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.service.AuthTypeService;
 import net.dasherz.wifiwolf.service.NodeService;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/wifi")
@@ -38,12 +39,17 @@ public class WIFIUserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String username, String userPassword, String phoneNum,
 			String phoneCode, String wifidogHost, String wifidogPort,
-			String authType, String gw_id, Model model) throws IOException {
+			String gw_id, Model model) throws IOException {
+		// TODO: validateUser() method should return a code to identify the
+		// errors.
+		AuthType authType = authTypeService.getEnabledAuthType();
 		if (userService.validateUser(username, userPassword, phoneNum,
-				phoneCode, authType)) {
+				phoneCode, authType.getAuthType())) {
 			Token token = tokenService.createToken(
-					authTypeService.getEnabledAuthType(),
+					authType,
 					userService.findUserByUsername(username),
+					// TODO phone number should not be unique, for recording
+					// user behaver
 					phoneUserService.findByPhoneNum(phoneNum),
 					nodeService.findByGatewayId(gw_id));
 			return "redirect:http://" + wifidogHost + ":" + wifidogPort
@@ -57,8 +63,8 @@ public class WIFIUserController {
 	}
 
 	@RequestMapping(value = "/phoneVerify")
-	public void phoneVerify(HttpServletRequest request) {
-		String phoneNum = request.getParameter("phoneNum");
+	public void phoneVerify(
+			@RequestParam(value = "phoneNum", required = true) String phoneNum) {
 		phoneUserService.sendPhoneMessage(phoneNum);
 	}
 }

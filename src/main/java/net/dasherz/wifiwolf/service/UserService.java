@@ -139,6 +139,7 @@ public class UserService {
 	public boolean validateUser(String userName, String userPassword,
 			String phoneNum, String phoneCode, String authType) {
 		if (authType == null || authType.isEmpty()) {
+			// TODO: return a code to inform the user select an authType.
 			return false;
 		}
 
@@ -152,21 +153,25 @@ public class UserService {
 			return validateByPhoneNum_Password_SMS(phoneNum, phoneCode,
 					userPassword);
 		} else {
+			// TODO: return a code to indicate successful.
 			return true;
 		}
 	}
 
-	public boolean validateByPhoneNum(String phoneNum) {
+	private boolean validateByPhoneNum(String phoneNum) {
 		if (phoneNum.length() != 11) {
+			// TODO: return a code(Please input a correct phone number.).
 			return false;
 		}
 		if (isNumeric(phoneNum)) {
+			// TODO: return a code(Please input a correct phone number.).
 			return false;
 		}
+		// TODO: return a code to indicate successful.
 		return true;
 	}
 
-	public boolean validateByPhoneNumAndSMS(String phoneNum, String phoneCode) {
+	private boolean validateByPhoneNumAndSMS(String phoneNum, String phoneCode) {
 		PhoneUser userInDb = phoneUserService.findByPhoneNum(phoneNum);
 		if (userInDb == null) {
 			return false;
@@ -177,7 +182,7 @@ public class UserService {
 		return true;
 	}
 
-	public boolean validateByUserPassword(String userName, String phoneNum,
+	private boolean validateByUserPassword(String userName, String phoneNum,
 			String userPassword) {
 		User userInDb = findUserByUsername(userName);
 		if (userInDb == null) {
@@ -192,7 +197,7 @@ public class UserService {
 		return true;
 	}
 
-	public boolean validateByPhoneNum_Password_SMS(String phoneNum,
+	private boolean validateByPhoneNum_Password_SMS(String phoneNum,
 			String phoneCode, String userPassword) {
 		PhoneUser phoneUserInDb = phoneUserService.findByPhoneNum(phoneNum);
 		User userInDb = this.findUserByPhone(phoneNum);

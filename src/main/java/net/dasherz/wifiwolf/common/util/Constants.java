@@ -1,4 +1,4 @@
-package net.dasherz.wifiwolf.controller;
+package net.dasherz.wifiwolf.common.util;
 
 public class Constants {
 	public static final String PAGE_TYPE_USE_ORIGINAL_URL = "useOriginUrl";

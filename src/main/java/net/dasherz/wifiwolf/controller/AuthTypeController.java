@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
+import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.domain.AuthPage;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.PortalPage;

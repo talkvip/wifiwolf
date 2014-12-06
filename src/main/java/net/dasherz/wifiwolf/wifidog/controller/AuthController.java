@@ -53,6 +53,8 @@ public class AuthController {
 			}
 		} else {
 			if (isUserOnline(token)) {
+				// TODO: update the current connection.
+				// TODO: for further, we can add wifi restrictions here.
 				response.getWriter().write(
 						AUTH_RESPONSE_PREFIX + WifidogConstants.AUTH_ALLOWED);
 			} else {
