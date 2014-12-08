@@ -116,7 +116,7 @@ CREATE TABLE `t_dict` (
   `status` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1029 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1030 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +125,7 @@ CREATE TABLE `t_dict` (
 
 LOCK TABLES `t_dict` WRITE;
 /*!40000 ALTER TABLE `t_dict` DISABLE KEYS */;
-INSERT INTO `t_dict` VALUES (1000,'gender','1','男',1,1,NULL),(1001,'gender','0','女',2,1,NULL),(1002,'user_type','1','管理员',2,1,NULL),(1003,'user_type','2','普通用户',1,1,NULL),(1004,'wifi_status','1','可接入互联网',1,1,NULL),(1005,'wifi_status','2','不可使用网络',2,1,NULL),(1006,'is_verified','1','已验证',1,1,NULL),(1007,'is_verified','2','未验证',2,1,NULL),(1008,'auth_type','NONE','无',1,1,NULL),(1009,'auth_type','PHONE','手机号',2,1,NULL),(1010,'auth_type','PHONE_SMS','手机号 + 短信验证',3,1,NULL),(1011,'auth_type','PHONE_PASSWORD','手机号 + 密码',4,1,NULL),(1012,'auth_type','PHONE_PASSWORD_SMS','手机号 + 短信验证 + 密码',5,1,NULL),(1013,'register_type','NONE','无',1,1,NULL),(1014,'register_type','PHONE','手机号',2,1,NULL),(1015,'register_type','PHONE_SMS','手机号 + 短信验证',3,1,NULL),(1016,'register_type','PHONE_PASSWORD','手机号 + 设置密码',4,1,NULL),(1017,'register_type','PHONE_PASSWORD_SMS','手机号 + 短信验证 + 设置密码',5,1,NULL),(1018,'auth_type_status','1','禁用',NULL,NULL,NULL),(1019,'auth_type_status','2','启用',NULL,NULL,NULL),(1020,'gw_message','logged-out','您已成功登出。',1,1,NULL),(1021,'validation_code','VALID','验证成功',1,1,NULL),(1022,'validation_code','ERROR_ID_PASSWORD','用户名或密码错误',1,1,NULL),(1023,'validation_code','ERROR_VERIFY_CODE_EXPIRED','验证码已过期',1,1,NULL),(1024,'validation_code','ERROR_VERIFY_CODE_NOT_EXIST','验证码不存在',1,1,NULL),(1025,'validation_code','ERROR_VERIFY_CODE_WRONG','验证码错误',1,1,NULL),(1026,'validation_code','ERROR_SYSTEM_AUTH_TYPE','系统错误，没有设置认证方式',1,1,NULL),(1027,'validation_code','ERROR_PHONE_NUMBER_FORMAT','手机号码格式错误',1,1,NULL),(1028,'validation_code','ERROR_WIFI_DISABLED','用户不允许使用网络',1,1,NULL);
+INSERT INTO `t_dict` VALUES (1000,'gender','1','男',1,1,NULL),(1001,'gender','0','女',2,1,NULL),(1002,'user_type','1','管理员',2,1,NULL),(1003,'user_type','2','普通用户',1,1,NULL),(1004,'wifi_status','1','可接入互联网',1,1,NULL),(1005,'wifi_status','2','不可使用网络',2,1,NULL),(1006,'is_verified','1','已验证',1,1,NULL),(1007,'is_verified','2','未验证',2,1,NULL),(1008,'auth_type','NONE','无',1,1,NULL),(1009,'auth_type','PHONE','手机号',2,1,NULL),(1010,'auth_type','PHONE_SMS','手机号 + 短信验证',3,1,NULL),(1011,'auth_type','PHONE_PASSWORD','手机号 + 密码',4,1,NULL),(1012,'auth_type','PHONE_PASSWORD_SMS','手机号 + 短信验证 + 密码',5,1,NULL),(1013,'register_type','NONE','无',1,1,NULL),(1014,'register_type','PHONE','手机号',2,1,NULL),(1015,'register_type','PHONE_SMS','手机号 + 短信验证',3,1,NULL),(1016,'register_type','PHONE_PASSWORD','手机号 + 设置密码',4,1,NULL),(1017,'register_type','PHONE_PASSWORD_SMS','手机号 + 短信验证 + 设置密码',5,1,NULL),(1018,'auth_type_status','1','禁用',NULL,NULL,NULL),(1019,'auth_type_status','2','启用',NULL,NULL,NULL),(1020,'gw_message','logged-out','您已成功登出。',1,1,NULL),(1021,'validation_code','VALID','验证成功',1,1,NULL),(1022,'validation_code','ERROR_ID_PASSWORD','用户名或密码错误',1,1,NULL),(1023,'validation_code','ERROR_VERIFY_CODE_EXPIRED','验证码已过期',1,1,NULL),(1024,'validation_code','ERROR_VERIFY_CODE_NOT_EXIST','验证码不存在',1,1,NULL),(1025,'validation_code','ERROR_VERIFY_CODE_WRONG','验证码错误',1,1,NULL),(1026,'validation_code','ERROR_SYSTEM_AUTH_TYPE','系统错误，没有设置认证方式',1,1,NULL),(1027,'validation_code','ERROR_PHONE_NUMBER_FORMAT','手机号码格式错误',1,1,NULL),(1028,'validation_code','ERROR_WIFI_DISABLED','用户不允许使用网络',1,1,NULL),(1029,'validation_code','ERROR_USER_EXIST','用户名或手机号已被注册，请使用其他用户名或手机号。',1,1,NULL);
 /*!40000 ALTER TABLE `t_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-08 17:35:26
+-- Dump completed on 2014-12-08 21:11:52
