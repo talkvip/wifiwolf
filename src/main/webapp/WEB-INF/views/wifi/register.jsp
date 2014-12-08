@@ -54,22 +54,10 @@
 
 <body>
 	<div class="container">
+		<tags:message content="${message}" />
 		<form class="form-signin" id="registerForm"
 			action="${ctx}/wifi/register" method="post">
 			<h2 class="form-signin-heading">Wifi Wolf 用户注册</h2>
-			<c:if test="${result eq 'true'}">
-				<div class="alert alert-success input-medium controls">
-					<button class="close" data-dismiss="alert">×</button>
-					恭喜您已经完成了wifiwolf用户注册，赶紧登录使用吧！
-				</div>
-			</c:if>
-			<c:if test="${result eq 'false'}">
-				<div class="alert alert-error input-medium controls">
-					<button class="close" data-dismiss="alert">×</button>
-					发生了错误请重试!
-				</div>
-			</c:if>
-
 			<c:if test="${registerType eq 'PHONE' || registerType eq 'PHONE_PASSWORD'}">
 				<div class="control-group">
 					<input class="form-control" type="text" id="phoneNum"

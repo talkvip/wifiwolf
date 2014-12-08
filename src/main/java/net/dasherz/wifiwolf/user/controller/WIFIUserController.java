@@ -91,9 +91,7 @@ public class WIFIUserController {
 		model.addAttribute("wifidogPort", wifidogPort);
 		model.addAttribute("gw_id", gw_id);
 		model.addAttribute("authType", authType.getAuthType());
-
 		model.addAttribute("registerType", authType.getRegisterType());
-
 		model.addAttribute("originUrl", originUrl);
 		model.addAttribute("phoneNum", phoneNum);
 		model.addAttribute("username", username);
@@ -152,14 +150,19 @@ public class WIFIUserController {
 			String phoneCode, String wifidogHost, String wifidogPort,
 			String gw_id, Model model) {
 		AuthType authType = authTypeService.getEnabledAuthType();
-		boolean result = userService.registerUser(userPassword, phoneNum,
+		ValidationCode code = userService.registerUser(userPassword, phoneNum,
 				phoneCode, authType.getRegisterType());
 		model.addAttribute("wifidogHost", wifidogHost);
 		model.addAttribute("wifidogPort", wifidogPort);
 		model.addAttribute("gw_id", gw_id);
 		model.addAttribute("authType", authType.getAuthType());
 		model.addAttribute("registerType", authType.getRegisterType());
-		model.addAttribute("result", result);
+		if (code == ValidationCode.VALID) {
+			model.addAttribute("message", "恭喜您已经完成注册，请登陆系统使用吧！");
+		} else {
+			model.addAttribute("message",
+					DictUtils.getName("validation_code", code.name(), "系统错误。"));
+		}
 		return "/wifi/register";
 	}
 }
