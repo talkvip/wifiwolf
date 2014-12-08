@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-<title>Wifi Wolf 网络登录</title>
+<title>Wifi Wolf 用户注册</title>
 <link href="${ctx}/resources/css/signin.css" type="text/css"
 	rel="stylesheet" />
 
@@ -45,34 +45,39 @@
 				});
 
 				$("#submitForm").click(function() {
-					$("#loginForm").submit();
+					$("#registerForm").submit();
 				});
-				$("#loginForm").validate();
+				$("#registerForm").validate();
 			});
 </script>
 </head>
 
 <body>
 	<div class="container">
-		<form class="form-signin" id="loginForm" action="${ctx}/wifi/login/"
-			method="post">
-			<h2 class="form-signin-heading">Wifi Wolf 网络登录</h2>
-
-			<c:if test="${authType eq 'PHONE_PASSWORD'}">
-				<div class="control-group">
-					<input class="form-control" type="text" id="username"
-						name="username" value="${username}" placeHolder="用户名/手机号" required
-						autofocus /> <br>
+		<form class="form-signin" id="registerForm"
+			action="${ctx}/wifi/register" method="post">
+			<h2 class="form-signin-heading">Wifi Wolf 用户注册</h2>
+			<c:if test="${result eq 'true'}">
+				<div class="alert alert-success input-medium controls">
+					<button class="close" data-dismiss="alert">×</button>
+					恭喜您已经完成了wifiwolf用户注册，赶紧登录使用吧！
 				</div>
 			</c:if>
-			<c:if test="${authType eq 'PHONE'}">
+			<c:if test="${result eq 'false'}">
+				<div class="alert alert-error input-medium controls">
+					<button class="close" data-dismiss="alert">×</button>
+					发生了错误请重试!
+				</div>
+			</c:if>
+
+			<c:if test="${registerType eq 'PHONE' || registerType eq 'PHONE_PASSWORD'}">
 				<div class="control-group">
 					<input class="form-control" type="text" id="phoneNum"
-						name="phoneNum" placeHolder="手机号" required autofocus /> <br>
+						placeHolder="手机号" name="phoneNum" required autofocus /> <br>
 				</div>
 			</c:if>
 			<c:if
-				test="${authType eq 'PHONE_SMS' || authType eq 'PHONE_PASSWORD_SMS'}">
+				test="${registerType eq 'PHONE_SMS' || registerType eq 'PHONE_PASSWORD_SMS'}">
 				<div class="control-group">
 					<input class="form-control" type="text" id="phoneNum"
 						name="phoneNum" placeHolder="手机号" required autofocus /> <br>
@@ -88,7 +93,7 @@
 			</c:if>
 
 			<c:if
-				test="${authType eq 'PHONE_PASSWORD' || authType eq 'PHONE_PASSWORD_SMS'}">
+				test="${registerType eq 'PHONE_PASSWORD' || registerType eq 'PHONE_PASSWORD_SMS'}">
 				<div class="control-group">
 					<input class="form-control" type="password" name="userPassword"
 						id="userPassword" placeHolder="密码" required autofocus />
@@ -101,17 +106,16 @@
 					href="#" data-toggle="modal" data-target="#myModal">用户协议</a>
 				</label>
 			</div>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+				href="${ctx}/wifi/login/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">返回登录</a>
 			<input type="hidden" name="wifidogHost" value="${wifidogHost}" /> <input
 				type="hidden" name="wifidogPort" value="${wifidogPort}" /> <input
-				type="hidden" name="gw_id" value="${gw_id}" />
+				type="hidden" name="gw_id" value="${gw_id}" /><input type="hidden"
+				name="authType" value="${authType}" />
 			<button class="btn btn-lg btn-primary btn-block" id="submitForm"
-				type="button">登录</button>
-			<br>
-			<a
-				href="${ctx}/wifi/register/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">快速注册</a>&nbsp;&nbsp;&nbsp;<a
-				href="${ctx}/wifi/resetPassword/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">忘记密码</a>
-		</form>
+				type="button">注册</button>
 
+		</form>
 	</div>
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -132,6 +136,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

@@ -38,6 +38,18 @@ public class WIFIUserController {
 	@Inject
 	private AuthTypeService authTypeService;
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(String wifidogHost, String wifidogPort, String gw_id,
+			String authType, String registerType, Model model)
+			throws IOException {
+		model.addAttribute("wifidogHost", wifidogHost);
+		model.addAttribute("wifidogPort", wifidogPort);
+		model.addAttribute("gw_id", gw_id);
+		model.addAttribute("authType", authType);
+		model.addAttribute("registerType", registerType);
+		return "/wifi/login";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String username, String userPassword, String phoneNum,
 			String phoneCode, String wifidogHost, String wifidogPort,
@@ -64,7 +76,8 @@ public class WIFIUserController {
 		model.addAttribute("wifidogHost", wifidogHost);
 		model.addAttribute("wifidogPort", wifidogPort);
 		model.addAttribute("gw_id", gw_id);
-		model.addAttribute("authType", authType);
+		model.addAttribute("authType", authType.getAuthType());
+		model.addAttribute("registerType", authType.getRegisterType());
 		return "/wifi/login";
 	}
 
@@ -74,5 +87,57 @@ public class WIFIUserController {
 			HttpServletResponse response) throws IOException {
 		phoneUserService.sendPhoneMessage(phoneNum);
 		response.getWriter().write("code sent");
+	}
+
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
+	public String resetPassword(String wifidogHost, String wifidogPort,
+			String gw_id, String authType, String registerType, Model model) {
+		model.addAttribute("wifidogHost", wifidogHost);
+		model.addAttribute("wifidogPort", wifidogPort);
+		model.addAttribute("gw_id", gw_id);
+		model.addAttribute("authType", authType);
+		model.addAttribute("registerType", registerType);
+		return "/wifi/resetPassword";
+	}
+
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public String resetPassword(String username, String wifidogHost,
+			String wifidogPort, String gw_id, String authType,
+			String registerType, Model model) {
+		boolean result = userService.resetPassword(username);
+		model.addAttribute("wifidogHost", wifidogHost);
+		model.addAttribute("wifidogPort", wifidogPort);
+		model.addAttribute("gw_id", gw_id);
+		model.addAttribute("authType", authType);
+		model.addAttribute("result", result);
+		model.addAttribute("registerType", registerType);
+		return "/wifi/resetPassword";
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register(String wifidogHost, String wifidogPort,
+			String gw_id, String authType, String registerType, Model model) {
+		model.addAttribute("wifidogHost", wifidogHost);
+		model.addAttribute("wifidogPort", wifidogPort);
+		model.addAttribute("gw_id", gw_id);
+		model.addAttribute("authType", authType);
+		model.addAttribute("registerType", registerType);
+		return "/wifi/register";
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(String userPassword, String phoneNum,
+			String phoneCode, String wifidogHost, String wifidogPort,
+			String gw_id, Model model) {
+		AuthType authType = authTypeService.getEnabledAuthType();
+		boolean result = userService.registerUser(userPassword, phoneNum,
+				phoneCode, authType.getRegisterType());
+		model.addAttribute("wifidogHost", wifidogHost);
+		model.addAttribute("wifidogPort", wifidogPort);
+		model.addAttribute("gw_id", gw_id);
+		model.addAttribute("authType", authType.getAuthType());
+		model.addAttribute("registerType", authType.getRegisterType());
+		model.addAttribute("result", result);
+		return "/wifi/register";
 	}
 }

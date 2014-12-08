@@ -58,6 +58,7 @@ public class LoginController {
 			model.addAttribute("wifidogHost", gw_address);
 			model.addAttribute("wifidogPort", gw_port);
 			model.addAttribute("authType", authType.getAuthType());
+			model.addAttribute("registerType", authType.getRegisterType());
 			model.addAttribute("gw_id", gw_id);
 			return "/wifi/login";
 		}

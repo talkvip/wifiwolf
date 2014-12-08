@@ -44,6 +44,8 @@ public class UserService {
 	public void createUser(User user) {
 
 		user.setAccountStatus(1);
+		user.setWifiStatus(1);
+		user.setUserType(2);
 		// 生成用户密码和加密
 		user.setCreateTime(new Date());
 		user.setPassword(entryptPassword(user.getPassword()));
@@ -128,12 +130,147 @@ public class UserService {
 		userDao.saveAndFlush(user);
 	}
 
+	public boolean resetPassword(String username) {
+		User userInDb = userDao.findByUsername(username);
+		if (userInDb == null) {
+			userInDb = userDao.findByPhone(username);
+			if (userInDb == null) {
+				return false;
+			}
+		}
+
+		String newPlainPassword = PhoneUserService.createRandom(false, 6);
+		userInDb.setPassword(entryptPassword(newPlainPassword));
+		// TODO: sent the new plainPassword to the user phone.
+		userDao.saveAndFlush(userInDb);
+		return true;
+	}
+
 	public void changePassword(User user) {
 		// 更新密码
 		if (user.getPassword() != null) {
 			user.setPassword(entryptPassword(user.getPassword()));
 		}
 		userDao.saveAndFlush(user);
+	}
+
+	public boolean registerUser(String userPassword, String phoneNum,
+			String phoneCode, String authType) {
+		if (authType == null || authType.isEmpty()) {
+			// TODO: return a code to inform the user select an authType.
+			return false;
+		}
+
+		if (authType.equalsIgnoreCase("PHONE")) {
+			return registerByPhoneNum(phoneNum);
+		} else if (authType.equalsIgnoreCase("PHONE_SMS")) {
+			return registerByPhoneNumAndSMS(phoneNum, phoneCode);
+		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD")) {
+			return registerByUserPassword(phoneNum, userPassword);
+		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD_SMS")) {
+			return registerByPhoneNum_Password_SMS(phoneNum, phoneCode,
+					userPassword);
+		} else {
+			// TODO: return a code to indicate successful.
+			return true;
+		}
+	}
+
+	private boolean registerByPhoneNum(String phoneNum) {
+		boolean isCorrectNum = validatePhoneNum(phoneNum);
+		if (isCorrectNum == false) {
+			return false;
+		}
+
+		// TODO: return a code to indicate successful.
+		User user = userDao.findByPhone(phoneNum);
+		if (user == null) {
+			user = new User();
+			user.setUsername(PhoneUserService.createRandom(false, 6));
+			user.setPassword(PhoneUserService.createRandom(true, 6));
+			user.setPhone(phoneNum);
+			createUser(user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean registerByPhoneNumAndSMS(String phoneNum, String phoneCode) {
+		boolean isCorrectNum = validatePhoneNum(phoneNum);
+		if (isCorrectNum == false) {
+			return false;
+		}
+
+		User user = userDao.findByPhone(phoneNum);
+		if (user != null) {
+			return false;
+		}
+
+		PhoneUser userInDb = phoneUserService.findByPhoneNum(phoneNum);
+		if (userInDb == null) {
+			return false;
+		}
+		if (!phoneCode.equalsIgnoreCase(userInDb.getVerifyCode())) {
+			return false;
+		}
+
+		user = new User();
+		user.setUsername(PhoneUserService.createRandom(false, 6));
+		user.setPassword(PhoneUserService.createRandom(false, 6));
+		user.setPhone(phoneNum);
+		user.setIsPhoneVerified(1);
+		createUser(user);
+		return true;
+	}
+
+	private boolean registerByUserPassword(String phoneNum, String userPassword) {
+		boolean isCorrectNum = validatePhoneNum(phoneNum);
+		if (isCorrectNum == false) {
+			return false;
+		}
+
+		User user = userDao.findByPhone(phoneNum);
+		if (user != null) {
+			return false;
+		}
+
+		user = new User();
+		user.setUsername(PhoneUserService.createRandom(false, 6));
+		user.setPassword(userPassword);
+		user.setPhone(phoneNum);
+		createUser(user);
+		return true;
+	}
+
+	private boolean registerByPhoneNum_Password_SMS(String phoneNum,
+			String phoneCode, String userPassword) {
+		boolean isCorrectNum = validatePhoneNum(phoneNum);
+		if (isCorrectNum == false) {
+			return false;
+		}
+
+		User user = userDao.findByPhone(phoneNum);
+		if (user != null) {
+			return false;
+		}
+
+		PhoneUser phoneUserInDb = phoneUserService.findByPhoneNum(phoneNum);
+		if (phoneUserInDb == null) {
+			return false;
+		}
+
+		if (!phoneCode.equalsIgnoreCase(phoneUserInDb.getVerifyCode())) {
+			return false;
+		}
+
+		user = new User();
+		user.setUsername(PhoneUserService.createRandom(false, 6));
+		user.setPassword(userPassword);
+		user.setPhone(phoneNum);
+		user.setIsPhoneVerified(1);
+		createUser(user);
+		return true;
 	}
 
 	public boolean validateUser(String userName, String userPassword,
@@ -143,12 +280,12 @@ public class UserService {
 			return false;
 		}
 
-		if (authType.equalsIgnoreCase("PHNOE")) {
+		if (authType.equalsIgnoreCase("PHONE")) {
 			return validateByPhoneNum(phoneNum);
 		} else if (authType.equalsIgnoreCase("PHONE_SMS")) {
 			return validateByPhoneNumAndSMS(phoneNum, phoneCode);
 		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD")) {
-			return validateByUserPassword(userName, phoneNum, userPassword);
+			return validateByUserPassword(userName, userPassword);
 		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD_SMS")) {
 			return validateByPhoneNum_Password_SMS(phoneNum, phoneCode,
 					userPassword);
@@ -182,13 +319,16 @@ public class UserService {
 		return true;
 	}
 
-	private boolean validateByUserPassword(String userName, String phoneNum,
-			String userPassword) {
+	private boolean validateByUserPassword(String userName, String userPassword) {
 		User userInDb = findUserByUsername(userName);
 		if (userInDb == null) {
-			userInDb = findUserByPhone(phoneNum);
-			if (userInDb == null || userInDb.getWifiStatus() != 1)
+			userInDb = findUserByPhone(userName);
+			if (userInDb == null) {
 				return false;
+			}
+			if (userInDb.getWifiStatus() != 1) {
+				return false;
+			}
 		}
 
 		if (!validatePassword(userPassword, userInDb.getPassword())) {
@@ -210,6 +350,16 @@ public class UserService {
 		}
 
 		if (!phoneCode.equalsIgnoreCase(phoneUserInDb.getVerifyCode())) {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean validatePhoneNum(String phoneNum) {
+		if (phoneNum.length() != 11) {
+			return false;
+		}
+		if (!isNumeric(phoneNum)) {
 			return false;
 		}
 		return true;
