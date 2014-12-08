@@ -55,7 +55,8 @@
 <body>
 	<div class="container">
 		<tags:message content="${message}" />
-		<form class="form-signin" id="loginForm" action="${ctx}/wifi/login/" method="post">
+		<form class="form-signin" id="loginForm" action="${ctx}/wifi/login/"
+			method="post">
 
 			<h2 class="form-signin-heading">Wifi Wolf 网络登录</h2>
 
@@ -68,26 +69,25 @@
 			</c:if>
 			<c:if test="${authType eq 'PHONE'}">
 				<div class="control-group">
-
-					<label for="phoneNum" class="control-label">手机号:</label> <input class="form-control"
-						type="text" id="phoneNum" name="phoneNum"  required autofocus /> <br>
+					<input class="form-control" type="text" id="phoneNum"
+						name="phoneNum" placeHolder="手机号" required autofocus /> <br>
 
 				</div>
 			</c:if>
 			<c:if
 				test="${authType eq 'PHONE_SMS' || authType eq 'PHONE_PASSWORD_SMS'}">
 				<div class="control-group">
-
-					<label for="phoneNum" class="control-label">手机号:</label> <input class="form-control"
-						type="text" id="phoneNum" name="phoneNum" value="${phoneNum}" required autofocus /> <br>
-					<button id="getSmsCode" class="btn btn-default" type="button" value="">获取验证码</button>
+					<input class="form-control" type="text" id="phoneNum"
+						name="phoneNum" value="${phoneNum}" placeHolder="手机号" required
+						autofocus /> <br>
+					<button id="getSmsCode" class="btn btn-default" type="button"
+						value="">获取验证码</button>
 					<br> <br>
 
 				</div>
 				<div class="control-group">
-
-					<label for="phoneCode" class="control-label">手机验证码:</label> <input class="form-control"
-						type="text" name="phoneCode" id="phoneCode" required autofocus /> <br>
+					<input class="form-control" type="text" name="phoneCode"
+						id="phoneCode" placeHolder="手机验证码" required autofocus /> <br>
 
 				</div>
 			</c:if>
@@ -95,25 +95,27 @@
 			<c:if
 				test="${authType eq 'PHONE_PASSWORD' || authType eq 'PHONE_PASSWORD_SMS'}">
 				<div class="control-group">
-
-					<label for="userPassword" class="control-label">密码:</label> <input class="form-control"
-						type="password" name="userPassword" id="userPassword" required autofocus />
+					<input class="form-control" type="password" name="userPassword"
+						id="userPassword" placeHolder="密码" required autofocus />
 
 				</div>
 			</c:if>
 
 			<div class="checkbox">
 
-				<label for="agreeLicense"> <input type="checkbox" id="agreeLicense" name="agreeLicense"
-					checked="checked"> 同意<a href="#" data-toggle="modal" data-target="#myModal">用户协议</a>
+				<label for="agreeLicense"> <input type="checkbox"
+					id="agreeLicense" name="agreeLicense" checked="checked"> 同意<a
+					href="#" data-toggle="modal" data-target="#myModal">用户协议</a>
 
 				</label>
 			</div>
 
-			<input type="hidden" name="wifidogHost" value="${wifidogHost}" /> <input type="hidden"
-				name="wifidogPort" value="${wifidogPort}" /> <input type="hidden" name="gw_id" value="${gw_id}" />
-			<input type="hidden" name="originUrl" value="${originUrl}" />
-			<button class="btn btn-lg btn-primary btn-block" id="submitForm" type="button">登录</button>
+			<input type="hidden" name="wifidogHost" value="${wifidogHost}" /> <input
+				type="hidden" name="wifidogPort" value="${wifidogPort}" /> <input
+				type="hidden" name="gw_id" value="${gw_id}" /> <input type="hidden"
+				name="originUrl" value="${originUrl}" />
+			<button class="btn btn-lg btn-primary btn-block" id="submitForm"
+				type="button">登录</button>
 			<br> <a
 				href="${ctx}/wifi/register/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">快速注册</a>&nbsp;&nbsp;&nbsp;<a
 				href="${ctx}/wifi/resetPassword/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">忘记密码</a>

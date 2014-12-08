@@ -281,7 +281,7 @@ public class UserService {
 			return ValidationCode.ERROR_SYSTEM_AUTH_TYPE;
 		}
 
-		if (authType.equalsIgnoreCase("PHNOE")) {
+		if (authType.equalsIgnoreCase("PHONE")) {
 			return validateByPhoneNum(phoneNum);
 		} else if (authType.equalsIgnoreCase("PHONE_SMS")) {
 			return validateByPhoneNumAndSMS(phoneNum, phoneCode);
@@ -334,7 +334,6 @@ public class UserService {
 		}
 		return ValidationCode.VALID;
 	}
-
 
 	private ValidationCode validateByPhoneNum_Password_SMS(String phoneNum,
 			String phoneCode, String userPassword) {
