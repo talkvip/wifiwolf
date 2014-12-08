@@ -27,6 +27,15 @@ public class Constants {
 	public static final Integer STATUS_USER_ACCOUNT_NORMAL = 1;
 	public static final Integer STATUS_USER_ACCOUNT_DISABLED = 2;
 
+	public static final Integer STATUS_USER_ROLE_ADMIN = 1;
+	public static final Integer STATUS_USER_ROLE_NORMAL = 2;
+
+	public static final Integer STATUS_USER_PHONE_VERIFIED = 1;
+	public static final Integer STATUS_USER_PHONE_UNVERIFIED = 2;
+
+	public static final Integer STATUS_USER_EMAIL_VERIFIED = 1;
+	public static final Integer STATUS_USER_EMAIL_UNVERIFIED = 2;
+
 	// auth type status
 	public static final String AUTH_TYPE_NONE = "NONE";
 	public static final String AUTH_TYPE_PHONE = "PHONE";

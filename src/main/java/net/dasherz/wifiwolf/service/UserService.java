@@ -35,6 +35,8 @@ public class UserService {
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
 	public static final int SALT_SIZE = 8;
+	public static final int DEFAULT_PASSWORD_SIZE = 6;
+	public static final int DEFAULT_USER_NAME_SIZE = 6;
 
 	@Inject
 	private UserRepository userDao;
@@ -45,9 +47,9 @@ public class UserService {
 	// 增加用户
 	public void createUser(User user) {
 
-		user.setAccountStatus(1);
-		user.setWifiStatus(1);
-		user.setUserType(2);
+		user.setAccountStatus(Constants.STATUS_USER_ACCOUNT_NORMAL);
+		user.setWifiStatus(Constants.STATUS_USER_WIFI_ENABLED);
+		user.setUserType(Constants.STATUS_USER_ROLE_NORMAL);
 		// 生成用户密码和加密
 		user.setCreateTime(new Date());
 		user.setPassword(entryptPassword(user.getPassword()));
@@ -101,7 +103,7 @@ public class UserService {
 	 * 判断是否超级管理员.
 	 */
 	public boolean isSupervisor(Integer userType) {
-		return userType == 1;
+		return userType == Constants.STATUS_USER_ROLE_ADMIN;
 	}
 
 	/**
@@ -124,7 +126,7 @@ public class UserService {
 
 	public void remove(Long id) {
 		User u = getUser(id);
-		u.setAccountStatus(0);
+		u.setAccountStatus(Constants.STATUS_USER_ACCOUNT_DISABLED);
 		userDao.saveAndFlush(u);
 	}
 
@@ -141,7 +143,8 @@ public class UserService {
 			}
 		}
 
-		String newPlainPassword = PhoneUserService.createRandom(false, 6);
+		String newPlainPassword = PhoneUserService.createRandom(false,
+				DEFAULT_PASSWORD_SIZE);
 		userInDb.setPassword(entryptPassword(newPlainPassword));
 		// TODO: sent the new plainPassword to the user phone.
 		userDao.saveAndFlush(userInDb);
@@ -185,8 +188,10 @@ public class UserService {
 		User user = userDao.findByPhone(phoneNum);
 		if (user == null) {
 			user = new User();
-			user.setUsername(PhoneUserService.createRandom(false, 6));
-			user.setPassword(PhoneUserService.createRandom(true, 6));
+			user.setUsername(PhoneUserService.createRandom(false,
+					DEFAULT_USER_NAME_SIZE));
+			user.setPassword(PhoneUserService.createRandom(false,
+					DEFAULT_PASSWORD_SIZE));
 			user.setPhone(phoneNum);
 			createUser(user);
 			return ValidationCode.VALID;
@@ -216,10 +221,12 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(PhoneUserService.createRandom(false, 6));
-		user.setPassword(PhoneUserService.createRandom(false, 6));
+		user.setUsername(PhoneUserService.createRandom(false,
+				DEFAULT_USER_NAME_SIZE));
+		user.setPassword(PhoneUserService.createRandom(false,
+				DEFAULT_PASSWORD_SIZE));
 		user.setPhone(phoneNum);
-		user.setIsPhoneVerified(1);
+		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
 		createUser(user);
 		return ValidationCode.VALID;
 	}
@@ -237,7 +244,8 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(PhoneUserService.createRandom(false, 6));
+		user.setUsername(PhoneUserService.createRandom(false,
+				DEFAULT_USER_NAME_SIZE));
 		user.setPassword(userPassword);
 		user.setPhone(phoneNum);
 		createUser(user);
@@ -266,10 +274,11 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(PhoneUserService.createRandom(false, 6));
+		user.setUsername(PhoneUserService.createRandom(false,
+				DEFAULT_USER_NAME_SIZE));
 		user.setPassword(userPassword);
 		user.setPhone(phoneNum);
-		user.setIsPhoneVerified(1);
+		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
 		createUser(user);
 		return ValidationCode.VALID;
 	}
