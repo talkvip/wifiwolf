@@ -163,7 +163,7 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${authTypes}" var="authType" varStatus="order">
-										<tr>
+										<tr <c:if test="${authType.status eq 1}">class="success"</c:if> >
 											<td style="text-align: center">${order.count}&nbsp;</td>
 											<td style="text-align: center">${ww:getLabel('register_type',authType.registerType,'') }&nbsp;</td>
 											<td style="text-align: center">${ww:getLabel('auth_type',authType.authType,'') }&nbsp;</td>

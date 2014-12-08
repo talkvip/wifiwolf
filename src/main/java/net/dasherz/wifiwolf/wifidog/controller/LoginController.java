@@ -3,6 +3,7 @@ package net.dasherz.wifiwolf.wifidog.controller;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.domain.Token;
@@ -53,6 +54,10 @@ public class LoginController {
 		if (authType.getAuthType().equalsIgnoreCase("NONE")) {
 			Token token = tokenService.createToken(authType, null, null, node,
 					url);
+			session.setAttribute(Constants.SESSION_ATTR_WIFIDOG_HOST,
+					gw_address);
+			session.setAttribute(Constants.SESSION_ATTR_WIFIDOG_PORT, gw_port);
+			session.setAttribute(Constants.SESSION_ATTR_TOKEN_ID, token.getId());
 			return "redirect:http://" + gw_address + ":" + gw_port
 					+ "/wifidog/auth?token=" + token.getToken();
 		} else {

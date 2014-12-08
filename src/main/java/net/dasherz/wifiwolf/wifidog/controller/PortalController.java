@@ -59,7 +59,7 @@ public class PortalController {
 		Token result = tokenService.findByToken(token);
 		if (result != null) {
 			Connection connection = result.getConnection();
-			connection.setStatus(2);
+			connection.setStatus(Constants.STATUS_CONNECTION_CLOSED);
 			connectionService.save(connection);
 		}
 		response.sendRedirect("http://" + wifidogHost + ":" + wifidogPort

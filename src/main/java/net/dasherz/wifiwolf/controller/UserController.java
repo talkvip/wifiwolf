@@ -146,7 +146,8 @@ public class UserController extends BaseController {
 		if (!beanValidator(model, user)) {
 			return form(user, model);
 		}
-		if (userService.findUserByUsername(user.getUsername()) != null) {
+		if (user.getId() == null
+				&& userService.findUserByUsername(user.getUsername()) != null) {
 			addMessage(model, "数据验证失败,用户名已存在！");
 			return form(user, model);
 		}

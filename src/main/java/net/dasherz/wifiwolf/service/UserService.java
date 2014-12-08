@@ -323,16 +323,22 @@ public class UserService {
 		return ValidationCode.VALID;
 	}
 
-	private ValidationCode validateByUserPassword(String userName,
+
+	private ValidationCode validateByUserPassword(String userNameOrPhoneNum,
 			String userPassword) {
-		User userInDb = findUserByUsername(userName);
+		User userInDb = findUserByUsername(userNameOrPhoneNum);
+
 		if (userInDb == null) {
-			userInDb = findUserByPhone(userName);
+
+			userInDb = findUserByPhone(userNameOrPhoneNum);
+
 			if (userInDb == null) {
 				return ValidationCode.ERROR_ID_PASSWORD;
 			}
-			if (!userInDb.getWifiStatus().equals(
-					Constants.STATUS_USER_WIFI_ENABLED)) {
+
+			if (userInDb.getWifiStatus().equals(
+					Constants.STATUS_USER_WIFI_DISABLED)) {
+
 				return ValidationCode.ERROR_WIFI_DISABLED;
 			}
 		}
@@ -350,8 +356,10 @@ public class UserService {
 		if (userInDb == null) {
 			return ValidationCode.ERROR_ID_PASSWORD;
 		}
-		if (!userInDb.getWifiStatus()
-				.equals(Constants.STATUS_USER_WIFI_ENABLED)) {
+
+		if (userInDb.getWifiStatus()
+				.equals(Constants.STATUS_USER_WIFI_DISABLED)) {
+
 			return ValidationCode.ERROR_WIFI_DISABLED;
 		}
 
