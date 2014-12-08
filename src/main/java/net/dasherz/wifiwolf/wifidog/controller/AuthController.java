@@ -28,7 +28,7 @@ public class AuthController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthController.class);
 	// two minutes
-	private static final long CHECK_INTERVAL = 2;
+	private static final long CHECK_INTERVAL = 3;
 
 	@Inject
 	TokenService tokenService;
@@ -63,8 +63,8 @@ public class AuthController {
 		} else {
 			Connection connection = currentToken.getConnection();
 			if (isUserOnline(connection)) {
-				connection.setIncoming(connection.getIncoming() + incoming);
-				connection.setOutgoing(connection.getOutgoing() + outgoing);
+				connection.setIncoming(incoming);
+				connection.setOutgoing(outgoing);
 				connection.setUpdateTime(new Date());
 				connectionService.save(connection);
 				response.getWriter().write(
