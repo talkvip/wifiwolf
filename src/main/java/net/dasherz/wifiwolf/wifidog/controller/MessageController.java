@@ -1,5 +1,8 @@
 package net.dasherz.wifiwolf.wifidog.controller;
 
+import net.dasherz.wifiwolf.common.util.Constants;
+import net.dasherz.wifiwolf.common.util.DictUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,9 +18,9 @@ public class MessageController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String handleMessage(String message, Model model) {
-		// TODO add proper message for all codes
-		model.addAttribute("message", message);
+		model.addAttribute("message", DictUtils.getName(
+				Constants.DICT_GROUP_GW_MESSAGE, message, message));
 		logger.debug("message: " + message);
-		return "showMessage";
+		return "/wifi/showMessage";
 	}
 }

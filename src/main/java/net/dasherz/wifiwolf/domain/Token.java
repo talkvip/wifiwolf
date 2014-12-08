@@ -53,6 +53,8 @@ public class Token extends IdLong {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private Connection connection;
 
+	private String originUrl;
+
 	public Connection getConnection() {
 		return connection;
 	}
@@ -121,4 +123,11 @@ public class Token extends IdLong {
 		this.createTime = createTime;
 	}
 
+	public String getOriginUrl() {
+		return originUrl;
+	}
+
+	public void setOriginUrl(String originUrl) {
+		this.originUrl = originUrl;
+	}
 }

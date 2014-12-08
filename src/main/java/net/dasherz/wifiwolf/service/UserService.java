@@ -16,6 +16,8 @@ import javax.transaction.Transactional;
 import net.dasherz.wifiwolf.common.shiro.Digests;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
 import net.dasherz.wifiwolf.common.shiro.ShiroDbRealm.ShiroUser;
+import net.dasherz.wifiwolf.common.util.Constants;
+import net.dasherz.wifiwolf.common.util.ValidationCode;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.UserRepository;
@@ -273,86 +275,86 @@ public class UserService {
 		return true;
 	}
 
-	public boolean validateUser(String userName, String userPassword,
+	public ValidationCode validateUser(String userName, String userPassword,
 			String phoneNum, String phoneCode, String authType) {
 		if (authType == null || authType.isEmpty()) {
-			// TODO: return a code to inform the user select an authType.
-			return false;
+			return ValidationCode.ERROR_SYSTEM_AUTH_TYPE;
 		}
 
-		if (authType.equalsIgnoreCase("PHONE")) {
+		if (authType.equalsIgnoreCase("PHNOE")) {
 			return validateByPhoneNum(phoneNum);
 		} else if (authType.equalsIgnoreCase("PHONE_SMS")) {
 			return validateByPhoneNumAndSMS(phoneNum, phoneCode);
 		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD")) {
-			return validateByUserPassword(userName, userPassword);
+			return validateByUserPassword(userName, phoneNum, userPassword);
 		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD_SMS")) {
 			return validateByPhoneNum_Password_SMS(phoneNum, phoneCode,
 					userPassword);
 		} else {
-			// TODO: return a code to indicate successful.
-			return true;
+			return ValidationCode.VALID;
 		}
 	}
 
-	private boolean validateByPhoneNum(String phoneNum) {
-		if (phoneNum.length() != 11) {
-			// TODO: return a code(Please input a correct phone number.).
-			return false;
+	private ValidationCode validateByPhoneNum(String phoneNum) {
+		boolean validPhone = Pattern.matches("^1\\d{10}$", phoneNum);
+		if (!validPhone) {
+			return ValidationCode.ERROR_PHONE_NUMBER_FORMAT;
 		}
-		if (isNumeric(phoneNum)) {
-			// TODO: return a code(Please input a correct phone number.).
-			return false;
-		}
-		// TODO: return a code to indicate successful.
-		return true;
+		return ValidationCode.VALID;
 	}
 
-	private boolean validateByPhoneNumAndSMS(String phoneNum, String phoneCode) {
+	private ValidationCode validateByPhoneNumAndSMS(String phoneNum,
+			String phoneCode) {
 		PhoneUser userInDb = phoneUserService.findByPhoneNum(phoneNum);
 		if (userInDb == null) {
-			return false;
+			return ValidationCode.ERROR_VERIFY_CODE_NOT_EXIST;
 		}
 		if (!phoneCode.equalsIgnoreCase(userInDb.getVerifyCode())) {
-			return false;
+			return ValidationCode.ERROR_VERIFY_CODE_WRONG;
 		}
-		return true;
+		return ValidationCode.VALID;
 	}
 
-	private boolean validateByUserPassword(String userName, String userPassword) {
+	private ValidationCode validateByUserPassword(String userName,
+			String phoneNum, String userPassword) {
 		User userInDb = findUserByUsername(userName);
 		if (userInDb == null) {
-			userInDb = findUserByPhone(userName);
+			userInDb = findUserByPhone(phoneNum);
 			if (userInDb == null) {
-				return false;
+				return ValidationCode.ERROR_ID_PASSWORD;
 			}
-			if (userInDb.getWifiStatus() != 1) {
-				return false;
+			if (userInDb.getWifiStatus().equals(
+					Constants.STATUS_USER_WIFI_ENABLED)) {
+				return ValidationCode.ERROR_WIFI_DISABLED;
 			}
 		}
 
 		if (!validatePassword(userPassword, userInDb.getPassword())) {
-			return false;
+			return ValidationCode.ERROR_ID_PASSWORD;
 		}
-		return true;
+		return ValidationCode.VALID;
 	}
 
-	private boolean validateByPhoneNum_Password_SMS(String phoneNum,
+
+	private ValidationCode validateByPhoneNum_Password_SMS(String phoneNum,
 			String phoneCode, String userPassword) {
 		PhoneUser phoneUserInDb = phoneUserService.findByPhoneNum(phoneNum);
 		User userInDb = this.findUserByPhone(phoneNum);
-		if (phoneUserInDb == null || userInDb.getWifiStatus() != 1) {
-			return false;
+		if (userInDb == null) {
+			return ValidationCode.ERROR_ID_PASSWORD;
+		}
+		if (userInDb.getWifiStatus().equals(Constants.STATUS_USER_WIFI_ENABLED)) {
+			return ValidationCode.ERROR_WIFI_DISABLED;
 		}
 
 		if (!validatePassword(userPassword, userInDb.getPassword())) {
-			return false;
+			return ValidationCode.ERROR_ID_PASSWORD;
 		}
 
 		if (!phoneCode.equalsIgnoreCase(phoneUserInDb.getVerifyCode())) {
-			return false;
+			return ValidationCode.ERROR_VERIFY_CODE_WRONG;
 		}
-		return true;
+		return ValidationCode.VALID;
 	}
 
 	private boolean validatePhoneNum(String phoneNum) {

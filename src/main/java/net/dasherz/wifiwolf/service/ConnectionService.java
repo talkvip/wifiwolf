@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.domain.Connection;
 import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.repository.ConnectionRepository;
@@ -48,7 +49,9 @@ public class ConnectionService {
 		connection.setIncoming(incoming);
 		connection.setOutgoing(outgoing);
 		connection.setCreateTime(new Date());
-		connection.setStatus(1);
+		connection.setUpdateTime(new Date());
+		connection.setStatus(Constants.STATUS_CONNECTION_NORMAL);
 		save(connection);
 	}
+
 }

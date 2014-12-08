@@ -155,6 +155,7 @@ body { padding-top: 70px;padding-bottom: 50px; }
 											<li><a href="" target="mainFrame">&nbsp;手机统计</a></li>
 											<li><a href="" target="mainFrame">&nbsp;日志</a></li>
 											<li><a href="" target="mainFrame">&nbsp;字典</a></li>
+											<li><a href="manage/verifyCode" target="mainFrame">&nbsp;验证码</a></li>
 										</ul>
 									</div>
 								</div>

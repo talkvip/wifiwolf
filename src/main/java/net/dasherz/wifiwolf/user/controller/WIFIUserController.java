@@ -6,7 +6,11 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.dasherz.wifiwolf.common.util.Constants;
+import net.dasherz.wifiwolf.common.util.DictUtils;
+import net.dasherz.wifiwolf.common.util.ValidationCode;
 import net.dasherz.wifiwolf.domain.AuthType;
+import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.service.AuthTypeService;
 import net.dasherz.wifiwolf.service.NodeService;
@@ -53,31 +57,49 @@ public class WIFIUserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String username, String userPassword, String phoneNum,
 			String phoneCode, String wifidogHost, String wifidogPort,
-			String gw_id, Model model, HttpSession session) throws IOException {
-		// TODO: validateUser() method should return a code to identify the
-		// errors.
+			String gw_id, String originUrl, Model model, HttpSession session)
+			throws IOException {
+
 		AuthType authType = authTypeService.getEnabledAuthType();
-		if (userService.validateUser(username, userPassword, phoneNum,
-				phoneCode, authType.getAuthType())) {
-			// TODO for PHONE type, store phone number
-			Token token = tokenService.createToken(
-					authType,
-					userService.findUserByUsername(username),
-					// TODO phone number should not be unique, for recording
-					// user behaver
-					phoneUserService.findByPhoneNum(phoneNum),
-					nodeService.findByGatewayId(gw_id));
-			session.setAttribute("tokenId", token.getId());
-			session.setAttribute("wifidogHost", wifidogHost);
-			session.setAttribute("wifidogPort", wifidogPort);
+		ValidationCode code = userService.validateUser(username, userPassword,
+				phoneNum, phoneCode, authType.getAuthType());
+		PhoneUser phoneUser;
+
+		if (code == ValidationCode.VALID) {
+			// for PHONE type, store phone number
+			if (authType.getAuthType().equals(Constants.AUTH_TYPE_PHONE)) {
+				phoneUserService.savePhoneNumber(phoneNum);
+			}
+
+			phoneUser = phoneUserService.findByPhoneNum(phoneNum);
+			Token token = tokenService.createToken(authType,
+					userService.findUserByUsername(username), phoneUser,
+					nodeService.findByGatewayId(gw_id), originUrl);
+
+			// set phone verify code to verified after validation
+			phoneUserService.verifiedForPhoneNumber(phoneUser);
+			session.setAttribute(Constants.SESSION_ATTR_WIFIDOG_HOST,
+					wifidogHost);
+			session.setAttribute(Constants.SESSION_ATTR_WIFIDOG_PORT,
+					wifidogPort);
+			session.setAttribute(Constants.SESSION_ATTR_TOKEN_ID, token.getId());
 			return "redirect:http://" + wifidogHost + ":" + wifidogPort
 					+ "/wifidog/auth?token=" + token.getToken();
 		}
+
 		model.addAttribute("wifidogHost", wifidogHost);
 		model.addAttribute("wifidogPort", wifidogPort);
 		model.addAttribute("gw_id", gw_id);
 		model.addAttribute("authType", authType.getAuthType());
+
 		model.addAttribute("registerType", authType.getRegisterType());
+
+		model.addAttribute("originUrl", originUrl);
+		model.addAttribute("phoneNum", phoneNum);
+		model.addAttribute("username", username);
+		model.addAttribute("message",
+				DictUtils.getName("validation_code", code.name(), "系统错误。"));
+
 		return "/wifi/login";
 	}
 

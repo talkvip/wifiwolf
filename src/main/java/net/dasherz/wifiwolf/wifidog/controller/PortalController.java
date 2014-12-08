@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.domain.Connection;
 import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.service.ConnectionService;
@@ -37,12 +38,17 @@ public class PortalController {
 	public String portal(@RequestParam("gw_id") String gatewayId, Model model,
 			HttpSession session) {
 		logger.debug("gateway id: " + gatewayId);
-		model.addAttribute("wifidogHost", session.getAttribute("wifidogHost"));
-		model.addAttribute("wifidogPort", session.getAttribute("wifidogPort"));
-		model.addAttribute("token",
-				tokenService.getToken((Long) session.getAttribute("tokenId"))
-						.getToken());
-		return "portal";
+		model.addAttribute("wifidogHost",
+				session.getAttribute(Constants.SESSION_ATTR_WIFIDOG_HOST));
+		model.addAttribute("wifidogPort",
+				session.getAttribute(Constants.SESSION_ATTR_WIFIDOG_PORT));
+		if (session.getAttribute("tokenId") != null) {
+			model.addAttribute(
+					"token",
+					tokenService.getToken(
+							(Long) session.getAttribute("tokenId")).getToken());
+		}
+		return "/wifi/portal";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

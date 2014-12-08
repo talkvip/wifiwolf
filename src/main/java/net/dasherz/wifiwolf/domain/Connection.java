@@ -44,8 +44,6 @@ public class Connection extends IdLong {
 
 	private Date createTime;
 
-	private String originUrl;
-
 	public String getIp() {
 		return ip;
 	}
@@ -108,14 +106,6 @@ public class Connection extends IdLong {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-
-	public String getOriginUrl() {
-		return originUrl;
-	}
-
-	public void setOriginUrl(String originUrl) {
-		this.originUrl = originUrl;
 	}
 
 }

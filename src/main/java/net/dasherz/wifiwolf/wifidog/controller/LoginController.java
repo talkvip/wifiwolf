@@ -1,6 +1,7 @@
 package net.dasherz.wifiwolf.wifidog.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.Node;
@@ -32,7 +33,7 @@ public class LoginController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String login(String gw_id, String gw_address, String gw_port,
-			String url, Model model) {
+			String url, Model model, HttpSession session) {
 		logger.debug("gateway id: " + gw_id);
 		logger.debug("gateway address: " + gw_address);
 		logger.debug("gateway port: " + gw_port);
@@ -41,17 +42,17 @@ public class LoginController {
 		if (authType == null) {
 			model.addAttribute("message",
 					"对不起，认证页面无法显示。请尽快通知管理员设置一种验证方式。给您带来的不便，敬请谅解");
-			return "showMessage";
+			return "/wifi/showMessage";
 		}
 
 		Node node = nodeService.findByGatewayId(gw_id);
 		if (node == null) {
 			model.addAttribute("message", "对不起，由于该路由器未在认证服务器上注册，暂无法进行认证");
-			return "showMessage";
+			return "/wifi/showMessage";
 		}
-
 		if (authType.getAuthType().equalsIgnoreCase("NONE")) {
-			Token token = tokenService.createToken(authType, null, null, node);
+			Token token = tokenService.createToken(authType, null, null, node,
+					url);
 			return "redirect:http://" + gw_address + ":" + gw_port
 					+ "/wifidog/auth?token=" + token.getToken();
 		} else {
@@ -60,6 +61,7 @@ public class LoginController {
 			model.addAttribute("authType", authType.getAuthType());
 			model.addAttribute("registerType", authType.getRegisterType());
 			model.addAttribute("gw_id", gw_id);
+			model.addAttribute("originUrl", url);
 			return "/wifi/login";
 		}
 	}

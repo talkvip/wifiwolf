@@ -2,10 +2,12 @@ package net.dasherz.wifiwolf.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.Connection;
 import net.dasherz.wifiwolf.domain.Node;
@@ -43,32 +45,23 @@ public class TokenService {
 	}
 
 	public Token createToken(AuthType authType, User registeredUser,
-			PhoneUser phoneUser, Node node) {
+			PhoneUser phoneUser, Node node, String originUrl) {
 		Token token = new Token();
-		// TODO generate unique token
-		token.setToken(String.valueOf(System.currentTimeMillis()));
+		token.setToken(UUID.randomUUID().toString().replace("-", ""));
 		token.setAuthType(authType);
 		token.setRegisteredUser(registeredUser);
 		token.setPhoneUser(phoneUser);
 		token.setNode(node);
 		token.setCreateTime(new Date());
-		// TODO extract constant
-		token.setStatus(1);
+		token.setStatus(Constants.STATUS_TOKEN_NORMAL);
+		token.setOriginUrl(originUrl);
 		return save(token);
-	}
-
-	public boolean validateToken(String token) {
-		Token result = tokenRepository.findByToken(token);
-		if (result == null || result.getStatus() != 1) {
-			return false;
-		} else {
-			return true;
-		}
 	}
 
 	public boolean isUserOnline(String token) {
 		Connection result = tokenRepository.findByToken(token).getConnection();
-		if (result == null || result.getStatus() != 1) {
+		if (result == null
+				|| result.getStatus() != Constants.STATUS_TOKEN_NORMAL) {
 			return false;
 		} else {
 			return true;
