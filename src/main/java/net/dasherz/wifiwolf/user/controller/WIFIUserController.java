@@ -72,9 +72,9 @@ public class WIFIUserController {
 		AuthType authType = authTypeService.getEnabledAuthType();
 		ValidationCode code = userService.validateUser(username, userPassword,
 				phoneNum, phoneCode, authType.getAuthType());
-		PhoneUser phoneUser = null;
 
 		if (code == ValidationCode.VALID) {
+			PhoneUser phoneUser = null;
 			// for PHONE type, store phone number, register automatically.
 			if (authType.getAuthType().equals(Constants.AUTH_TYPE_PHONE)
 					|| authType.getAuthType().equals(
@@ -82,6 +82,7 @@ public class WIFIUserController {
 				// phoneUserService.savePhoneNumber(phoneNum);
 				userService.registerUserAutomatically(phoneNum, phoneCode);
 			}
+
 			if (authType.getAuthType().equals(
 					Constants.AUTH_TYPE_PHONE_PASSWORD_SMS)
 					|| authType.getAuthType().equals(
@@ -91,6 +92,7 @@ public class WIFIUserController {
 				// mode
 				phoneUserService.verifiedForPhoneNumber(phoneUser);
 			}
+
 			Token token = tokenService.createToken(authType,
 					userService.findUserByUsername(username), phoneUser,
 					nodeService.findByGatewayId(gw_id), originUrl);
@@ -106,11 +108,7 @@ public class WIFIUserController {
 
 		AuthPage authPage = authPageService.getAuthPage();
 		if (authPage.getPageTemplate() == null) {
-			repsonse.getWriter()
-					.write("<html><head></head><body>"
-							+ DictUtils.getName("validation_code", code.name(),
-									"系统错误。")
-							+ "<a href='javascript:void(0)' onclick='history.go(-1)'>返回</a></body>");
+			outputErrorMessage(repsonse, code);
 			return null;
 		}
 
@@ -118,9 +116,7 @@ public class WIFIUserController {
 		model.addAttribute("wifidogPort", wifidogPort);
 		model.addAttribute("gw_id", gw_id);
 		model.addAttribute("authType", authType.getAuthType());
-
 		model.addAttribute("registerType", authType.getRegisterType());
-
 		model.addAttribute("originUrl", originUrl);
 		model.addAttribute("phoneNum", phoneNum);
 		model.addAttribute("username", username);
@@ -128,6 +124,15 @@ public class WIFIUserController {
 				DictUtils.getName("validation_code", code.name(), "系统错误。"));
 
 		return "/wifi/" + authPage.getPageTemplate().getTemplatePath();
+	}
+
+	private void outputErrorMessage(HttpServletResponse repsonse,
+			ValidationCode code) throws IOException {
+		repsonse.getWriter()
+				.write("<html><head><title>错误</title></head><body>"
+						+ DictUtils.getName("validation_code", code.name(),
+								"系统错误。")
+						+ "<a href='javascript:void(0)' onclick='history.go(-1)'>返回</a></body>");
 	}
 
 	@RequestMapping(value = "/login/phoneVerify")
@@ -144,13 +149,15 @@ public class WIFIUserController {
 			@RequestParam(value = "phoneNum", required = true) String phoneNum,
 			HttpServletResponse response) throws IOException {
 		SentSMSResult result = phoneUserService.sendPhoneMessage(phoneNum);
-		String message = DictUtils.getName("validation_code", result.name(),
+		String message = DictUtils.getName("sms-validation", result.name(),
 				"系统错误。");
 		if (result == SentSMSResult.SUCCESS) {
 			message = null;
 		}
+		response.setContentType("application/javascript");
 		if (message == null) {
-			response.getWriter().write("");
+			response.getWriter()
+					.write("SmsVerifyLock = true;setTimeout('SmsVerifyLock=false', 60000);");
 		} else {
 			response.getWriter().write("alert('" + message + "');");
 		}

@@ -1,5 +1,6 @@
 package net.dasherz.wifiwolf.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,8 +9,10 @@ import javax.transaction.Transactional;
 
 import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.domain.Connection;
+import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.repository.ConnectionRepository;
+import net.dasherz.wifiwolf.wifidog.constant.WifidogConstants;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,4 +57,23 @@ public class ConnectionService {
 		save(connection);
 	}
 
+	public int getLiveConnectionCount(Node node) {
+
+		return this.getLiveConnection(node).size();
+	}
+
+	public List<Connection> getLiveConnection(Node node) {
+		List<Connection> connections = connectionRepository
+				.findByTokenNodeIdAndStatus(node.getId(),
+						Constants.STATUS_CONNECTION_NORMAL);
+		Date lastCheckInteval = new Date(System.currentTimeMillis()
+				- WifidogConstants.CONNECTION_TIMEOUT_MINUTE * 60 * 1000);
+		List<Connection> result = new ArrayList<Connection>();
+		for (Connection connection : connections) {
+			if (connection.getUpdateTime().after(lastCheckInteval)) {
+				result.add(connection);
+			}
+		}
+		return result;
+	}
 }

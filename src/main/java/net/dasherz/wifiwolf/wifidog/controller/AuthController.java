@@ -27,8 +27,6 @@ public class AuthController {
 	private static final String AUTH_RESPONSE_PREFIX = "Auth: ";
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthController.class);
-	// two minutes
-	private static final long CHECK_INTERVAL = 3;
 
 	@Inject
 	TokenService tokenService;
@@ -102,7 +100,7 @@ public class AuthController {
 		if (connection.getStatus().equals(Constants.STATUS_CONNECTION_NORMAL)) {
 			Date lastUpdate = connection.getUpdateTime();
 			// if last update time is 2 minutes ago, then close the connection
-			if (DateUtil.getMinutesPasted(lastUpdate) > CHECK_INTERVAL) {
+			if (DateUtil.getMinutesPasted(lastUpdate) > WifidogConstants.CONNECTION_TIMEOUT_MINUTE) {
 				return false;
 			}
 

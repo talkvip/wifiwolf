@@ -7,14 +7,25 @@
 <script>
 	$(document).ready(function() {
 		$("#account-tab").addClass("active");
-		$(".confirm").confirm({
-			text : "确定要删除这个路由器？",
-			title : "请确认",
-
-			confirmButton : "确认",
-			cancelButton : "取消"
+		$('#myModal').on('shown.bs.modal', function (e) {
+			$.get("${ctx}/manage/liveConnection/?nodeid="
+					+ nodeid, function(data, status) {
+				console.log(status);
+				if(status=="success"){
+						$("#tableDiv").empty();
+				$("#tableDiv").append(data);
+				}
+			});
 		});
 	});
+	var nodeid;
+	function showModel(nodeId){
+		
+		nodeid=nodeId;
+		$('#myModal').modal();
+	}
+	
+	
 </script>
 </head>
 
@@ -62,6 +73,7 @@
 					<th>系统负载</th>
 					<th>上一次心跳IP</th>
 					<th>上一次心跳时间</th>
+					<th>在线用户</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -76,7 +88,8 @@
 						<td>${node.lastHeartbeatSysLoad}&nbsp;</td>
 						<td>${node.lastHeartbeatIp}&nbsp;</td>
 						<td>${node.lastHeartbeatTimestamp}&nbsp;</td>
-
+						<c:set var="key" >${node.id}</c:set>
+						<td><a href='javascript:void(0)' onclick='showModel(${key})' >&nbsp;${onlineUserMap[key]}</a></td>
 						<td><a href="${ctx}/manage/nodeForm?id=${node.id}"
 
 							id="editLink-${node.nodeDescription}">修改</a> <a
@@ -91,5 +104,25 @@
 
 	</div>
 	<%@ include file="/WEB-INF/views/layouts/page.jsp"%>
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">在线用户</h4>
+				</div>
+				<div class="modal-body" id="tableDiv">
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -29,7 +29,7 @@ public class Connection extends IdLong {
 	@Size(max = 17)
 	private String mac;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "token_id", unique = true)
 	@NotNull
 	private Token token;

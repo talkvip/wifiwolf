@@ -7,6 +7,7 @@ public class Constants {
 	public static final String PAGE_TYPE_USE_CUSTOMIZE_HTML = "useCustomizeHtml";
 	public static final String TEMPLATE_AUTH_PAGE_PREFIX = "authTemplate";
 	public static final String TEMPLATE_PORTAL_PAGE_PREFIX = "portalTemplate";
+	public static final int SMS_VERIFICATION_EXPIRE_MINUTES = 10;
 
 	// group name in dict table
 	public static final String DICT_GROUP_GW_MESSAGE = "gw_message";
@@ -27,7 +28,6 @@ public class Constants {
 	public static final Integer STATUS_USER_ACCOUNT_NORMAL = 1;
 	public static final Integer STATUS_USER_ACCOUNT_DISABLED = 2;
 
-
 	public static final Integer STATUS_USER_ROLE_ADMIN = 1;
 	public static final Integer STATUS_USER_ROLE_NORMAL = 2;
 
@@ -39,7 +39,6 @@ public class Constants {
 
 	public static final Integer STATUS_AUTH_TYPE_ENABLE = 1;
 	public static final Integer STATUS_AUTH_TYPE_DISABLED = 2;
-
 
 	// auth type status
 	public static final String AUTH_TYPE_NONE = "NONE";

@@ -338,7 +338,7 @@ public class UserService {
 			return ValidationCode.ERROR_VERIFY_CODE_NOT_EXIST;
 		}
 		long minutes = DateUtil.getMinutesPasted(userInDb.getCreateTime());
-		if (minutes > 1) {
+		if (minutes > Constants.SMS_VERIFICATION_EXPIRE_MINUTES) {
 			return ValidationCode.ERROR_VERIFY_CODE_EXPIRED;
 		}
 		if (!phoneCode.equalsIgnoreCase(userInDb.getVerifyCode())) {

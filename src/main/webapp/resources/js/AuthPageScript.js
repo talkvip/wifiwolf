@@ -61,7 +61,6 @@ function startAuth() {
 	$("#wifidogHost").val(gw_address);
 	$("#wifidogPort").val(gw_port);
 	$("#originUrl").val(url);
-
 	$("#myform").submit();
 
 }
@@ -93,27 +92,20 @@ function sendSmsVerifyCode() {
 	var script = document.createElement('script');  
 	script.setAttribute('src', url);  
 	document.getElementsByTagName('head')[0].appendChild(script);
-	
-
-	SmsVerifyLock = true;
-	setTimeout("SmsVerifyLock=false", 60000);
 }
 
 $(document).ready(function() {
 	$("#agree").attr("checked", true);
 	var authType = getQueryParameter("authType");
 	if (authType == "PHONE") {
-
 		$("#userPassword").attr("disabled", true);
 		$("#phoneCode").attr("disabled", true);
 		$("#getVerifyCode").attr("disabled", true);
 	}
 	if (authType == "PHONE_SMS") {
-
 		$("#userPassword").attr("disabled", true);
 	}
 	if (authType == "PHONE_PASSWORD") {
-
 		$("#phoneCode").attr("disabled", true);
 		$("#getVerifyCode").attr("disabled", true);
 	}
