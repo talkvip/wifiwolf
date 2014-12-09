@@ -66,9 +66,12 @@ public class WIFIUserController {
 		PhoneUser phoneUser = null;
 
 		if (code == ValidationCode.VALID) {
-			// for PHONE type, store phone number
-			if (authType.getAuthType().equals(Constants.AUTH_TYPE_PHONE)) {
-				phoneUserService.savePhoneNumber(phoneNum);
+			// for PHONE type, store phone number, register automatically.
+			if (authType.getAuthType().equals(Constants.AUTH_TYPE_PHONE)
+					|| authType.getAuthType().equals(
+							Constants.AUTH_TYPE_PHONE_SMS)) {
+				// phoneUserService.savePhoneNumber(phoneNum);
+				userService.registerUserAutomatically(phoneNum, phoneCode);
 			}
 			if (authType.getAuthType().equals(
 					Constants.AUTH_TYPE_PHONE_PASSWORD_SMS)
@@ -97,9 +100,7 @@ public class WIFIUserController {
 		model.addAttribute("gw_id", gw_id);
 		model.addAttribute("authType", authType.getAuthType());
 
-
 		model.addAttribute("registerType", authType.getRegisterType());
-
 
 		model.addAttribute("originUrl", originUrl);
 		model.addAttribute("phoneNum", phoneNum);

@@ -283,6 +283,25 @@ public class UserService {
 		return ValidationCode.VALID;
 	}
 
+	public void registerUserAutomatically(String phoneNum, String phoneCode) {
+		User user = userDao.findByPhone(phoneNum);
+		if (user != null) {
+			return;
+		}
+
+		user = new User();
+		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE)
+				+ System.currentTimeMillis());
+		user.setPassword(RandomUtil.createRandom(false, DEFAULT_PASSWORD_SIZE));
+		user.setPhone(phoneNum);
+		if (phoneCode != null) {
+			user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
+		} else {
+			user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_UNVERIFIED);
+		}
+		createUser(user);
+	}
+
 	public ValidationCode validateUser(String userName, String userPassword,
 			String phoneNum, String phoneCode, String authType) {
 		if (authType == null || authType.isEmpty()) {
