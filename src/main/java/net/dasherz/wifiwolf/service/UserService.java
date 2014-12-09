@@ -17,6 +17,7 @@ import net.dasherz.wifiwolf.common.shiro.Digests;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
 import net.dasherz.wifiwolf.common.shiro.ShiroDbRealm.ShiroUser;
 import net.dasherz.wifiwolf.common.util.Constants;
+import net.dasherz.wifiwolf.common.util.RandomUtil;
 import net.dasherz.wifiwolf.common.util.ValidationCode;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.User;
@@ -143,7 +144,7 @@ public class UserService {
 			}
 		}
 
-		String newPlainPassword = PhoneUserService.createRandom(false,
+		String newPlainPassword = RandomUtil.createRandom(false,
 				DEFAULT_PASSWORD_SIZE);
 		userInDb.setPassword(entryptPassword(newPlainPassword));
 		// TODO: sent the new plainPassword to the user phone.
@@ -188,9 +189,9 @@ public class UserService {
 		User user = userDao.findByPhone(phoneNum);
 		if (user == null) {
 			user = new User();
-			user.setUsername(PhoneUserService.createRandom(false,
+			user.setUsername(RandomUtil.createRandom(false,
 					DEFAULT_USER_NAME_SIZE));
-			user.setPassword(PhoneUserService.createRandom(false,
+			user.setPassword(RandomUtil.createRandom(false,
 					DEFAULT_PASSWORD_SIZE));
 			user.setPhone(phoneNum);
 			createUser(user);
@@ -221,10 +222,8 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(PhoneUserService.createRandom(false,
-				DEFAULT_USER_NAME_SIZE));
-		user.setPassword(PhoneUserService.createRandom(false,
-				DEFAULT_PASSWORD_SIZE));
+		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE));
+		user.setPassword(RandomUtil.createRandom(false, DEFAULT_PASSWORD_SIZE));
 		user.setPhone(phoneNum);
 		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
 		createUser(user);
@@ -244,8 +243,7 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(PhoneUserService.createRandom(false,
-				DEFAULT_USER_NAME_SIZE));
+		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE));
 		user.setPassword(userPassword);
 		user.setPhone(phoneNum);
 		createUser(user);
@@ -274,8 +272,7 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(PhoneUserService.createRandom(false,
-				DEFAULT_USER_NAME_SIZE));
+		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE));
 		user.setPassword(userPassword);
 		user.setPhone(phoneNum);
 		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);

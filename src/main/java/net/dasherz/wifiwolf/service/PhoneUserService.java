@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.common.util.DateUtil;
+import net.dasherz.wifiwolf.common.util.RandomUtil;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.repository.PhoneUserRepository;
 
@@ -21,6 +22,8 @@ public class PhoneUserService {
 
 	@Inject
 	private PhoneUserRepository phoneUserRepository;
+
+	public static final int DEFAULT_PHONE_CODE_SIZE = 4;
 
 	public List<PhoneUser> findAll() {
 		return phoneUserRepository.findAll();
@@ -78,7 +81,8 @@ public class PhoneUserService {
 		phoneUser = new PhoneUser();
 		phoneUser.setPhoneNum(phoneNum);
 		phoneUser.setCreateTime(new Date());
-		String verifyCode = createRandom(true, 4);
+		String verifyCode = RandomUtil.createRandom(true,
+				DEFAULT_PHONE_CODE_SIZE);
 		sendPhoneVerifyCode(phoneNum, verifyCode);
 		phoneUser.setVerifyCode(verifyCode);
 		phoneUser.setStatus(Constants.STATUS_PHONE_USER_NOT_USED);
@@ -91,32 +95,11 @@ public class PhoneUserService {
 		return false;
 	}
 
-	/**
-	 * 创建指定数量的随机字符串
-	 * 
-	 * @param numberFlag
-	 *            是否是数字
-	 * @param length
-	 * @return
-	 */
-	public static String createRandom(boolean numberFlag, int length) {
-		String result = "";
-		String strTable = numberFlag ? "1234567890"
-				: "1234567890abcdefghijkmnpqrstuvwxyz";
-		int len = strTable.length();
-		for (int i = 0; i < length; i++) {
-			double lR = Math.random() * len;
-			int r = (int) Math.floor(lR);
-			result += strTable.charAt(r);
-		}
-
-		return result;
-	}
-
 	public void verifiedForPhoneNumber(PhoneUser phoneUser) {
 		phoneUser.setVerifyTime(new Date());
 		phoneUser.setStatus(Constants.STATUS_PHONE_USER_USED);
 		phoneUserRepository.save(phoneUser);
 
 	}
+
 }
