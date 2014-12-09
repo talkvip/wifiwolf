@@ -210,7 +210,7 @@ CREATE TABLE `t_page_template` (
 
 LOCK TABLES `t_page_template` WRITE;
 /*!40000 ALTER TABLE `t_page_template` DISABLE KEYS */;
-INSERT INTO `t_page_template` VALUES (1,'template/template1.jsp',1,1,'Template1','fake-template.jpg'),(2,'template/template2.jsp',1,1,'Template2','fake-template.jpg'),(3,'template/template3.jsp',1,2,'Template3','fake-template.jpg'),(4,'template/template3.jsp',1,2,'Template4','fake-template.jpg');
+INSERT INTO `t_page_template` VALUES (1,'template/template1',1,1,'Template1','fake-template.jpg'),(2,'template/template2',1,1,'Template2','fake-template.jpg'),(3,'template/template3',1,2,'Template3','fake-template.jpg'),(4,'template/template3',1,2,'Template4','fake-template.jpg');
 /*!40000 ALTER TABLE `t_page_template` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-08 21:11:52
+-- Dump completed on 2014-12-09 15:21:44

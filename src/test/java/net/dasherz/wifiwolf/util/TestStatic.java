@@ -1,13 +1,12 @@
 package net.dasherz.wifiwolf.util;
 
-import net.dasherz.wifiwolf.common.util.ValidationCode;
+import net.dasherz.wifiwolf.common.util.PropertiesUtil;
 
 public class TestStatic {
 
 	public static void main(String[] args) {
-		o(ValidationCode.ERROR_ID_PASSWORD.name());
-		o(ValidationCode.ERROR_ID_PASSWORD.toString());
-		o(ValidationCode.ERROR_ID_PASSWORD.getDeclaringClass());
+		o(PropertiesUtil.getInstance().getProperty("server_url"));
+		o(PropertiesUtil.getInstance().getProperty("customAuthPage"));
 	}
 
 	private static void o(Object obj) {

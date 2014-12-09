@@ -1,12 +1,16 @@
 package net.dasherz.wifiwolf.wifidog.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.dasherz.wifiwolf.common.util.Constants;
+import net.dasherz.wifiwolf.common.util.PropertiesUtil;
+import net.dasherz.wifiwolf.domain.AuthPage;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.domain.Token;
+import net.dasherz.wifiwolf.service.AuthPageService;
 import net.dasherz.wifiwolf.service.AuthTypeService;
 import net.dasherz.wifiwolf.service.NodeService;
 import net.dasherz.wifiwolf.service.TokenService;
@@ -27,6 +31,9 @@ public class LoginController {
 	private AuthTypeService authService;
 
 	@Inject
+	private AuthPageService authPageService;
+
+	@Inject
 	private TokenService tokenService;
 
 	@Inject
@@ -34,7 +41,8 @@ public class LoginController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String login(String gw_id, String gw_address, String gw_port,
-			String url, Model model, HttpSession session) {
+			String url, Model model, HttpSession session,
+			HttpServletResponse response) {
 		logger.debug("gateway id: " + gw_id);
 		logger.debug("gateway address: " + gw_address);
 		logger.debug("gateway port: " + gw_port);
@@ -60,14 +68,52 @@ public class LoginController {
 			session.setAttribute(Constants.SESSION_ATTR_TOKEN_ID, token.getId());
 			return "redirect:http://" + gw_address + ":" + gw_port
 					+ "/wifidog/auth?token=" + token.getToken();
-		} else {
+		}
+		AuthPage authPage = authPageService.getAuthPage();
+		if (authPage.getCustomizeUrl() != null) {
+			return getCustomizeUrl(authPage.getCustomizeUrl(), gw_address,
+					gw_port, gw_id, url);
+		}
+		if (authPage.getCustomizeHtml() != null) {
+			return getCustomizeUrl(
+					PropertiesUtil.getInstance().getProperty("customAuthPage"),
+					gw_address, gw_port, gw_id, url);
+		}
+		if (authPage.getPageTemplate() != null) {
 			model.addAttribute("wifidogHost", gw_address);
 			model.addAttribute("wifidogPort", gw_port);
 			model.addAttribute("authType", authType.getAuthType());
 			model.addAttribute("registerType", authType.getRegisterType());
 			model.addAttribute("gw_id", gw_id);
 			model.addAttribute("originUrl", url);
-			return "/wifi/login";
+			return "/wifi/" + authPage.getPageTemplate().getTemplatePath();
 		}
+		model.addAttribute("wifidogHost", gw_address);
+		model.addAttribute("wifidogPort", gw_port);
+		model.addAttribute("authType", authType.getAuthType());
+		model.addAttribute("registerType", authType.getRegisterType());
+		model.addAttribute("gw_id", gw_id);
+		model.addAttribute("originUrl", url);
+		return "/wifi/login";
+	}
+
+	private String getCustomizeUrl(String url, String gw_address,
+			String gw_port, String gw_id, String originUrl) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("redirect:");
+		buffer.append(url);
+		buffer.append("?");
+		buffer.append("server_url=http://");
+		buffer.append(PropertiesUtil.getInstance().getProperty("server_url"));
+		buffer.append("/wifiwolf/wifi/login");
+		buffer.append("&gw_address=");
+		buffer.append(gw_address);
+		buffer.append("&gw_port=");
+		buffer.append(gw_port);
+		buffer.append("&gw_id=");
+		buffer.append(gw_id);
+		buffer.append("&url=");
+		buffer.append(originUrl);
+		return buffer.toString();
 	}
 }

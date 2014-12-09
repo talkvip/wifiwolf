@@ -1,10 +1,15 @@
 package net.dasherz.wifiwolf.controller;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
 import net.dasherz.wifiwolf.common.util.Constants;
+import net.dasherz.wifiwolf.common.util.PropertiesUtil;
 import net.dasherz.wifiwolf.domain.AuthPage;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.PortalPage;
@@ -52,15 +57,13 @@ public class AuthTypeController extends BaseController {
 
 		AuthPage authPage = authPageService.getAuthPage();
 		if (authPage.getCustomizeHtml() != null) {
-			authPage.setCustomizeHtml(Encodes.unescapeHtml(authPage
-					.getCustomizeHtml()));
+			authPage.setCustomizeHtml(authPage.getCustomizeHtml());
 		}
 		model.addAttribute("authPage", authPage);
 
 		PortalPage portalPage = portalPageService.getPortalPage();
 		if (portalPage.getCustomizeHtml() != null) {
-			portalPage.setCustomizeHtml(Encodes.unescapeHtml(portalPage
-					.getCustomizeHtml()));
+			portalPage.setCustomizeHtml(portalPage.getCustomizeHtml());
 		}
 		model.addAttribute("portalPage", portalPage);
 		model.addAttribute("authPageTemplates",
@@ -91,7 +94,8 @@ public class AuthTypeController extends BaseController {
 	public String saveSetting(String authTemplate, String authPageCustomizeUrl,
 			String authPageType, String authPageCustomizeHtml,
 			String portalTemplate, String portalPageCustomizeUrl,
-			String portalPageType, String portalPageCustomizeHtml, Model model) {
+			String portalPageType, String portalPageCustomizeHtml, Model model)
+			throws IOException {
 		// validate the params
 		if (!authTemplate.startsWith(Constants.TEMPLATE_AUTH_PAGE_PREFIX)) {
 			addMessage(model, "数据验证失败,authTemplate不合法");
@@ -110,7 +114,9 @@ public class AuthTypeController extends BaseController {
 			authPage.setCustomizeUrl(authPageCustomizeUrl);
 
 		} else if (authPageType.equals(Constants.PAGE_TYPE_USE_CUSTOMIZE_HTML)) {
-			authPage.setCustomizeHtml(Encodes.escapeHtml(authPageCustomizeHtml));
+			authPage.setCustomizeHtml(authPageCustomizeHtml);
+			saveHtmlToFile(Encodes.unescapeHtml(authPageCustomizeHtml),
+					"resources/custom/customAuthPage.htm");
 		}
 
 		// set portal page setting
@@ -129,13 +135,26 @@ public class AuthTypeController extends BaseController {
 			portalPage.setCustomizeUrl(portalPageCustomizeUrl);
 		} else if (portalPageType
 				.equals(Constants.PAGE_TYPE_USE_CUSTOMIZE_HTML)) {
-			portalPage.setCustomizeHtml(Encodes
-					.escapeHtml(portalPageCustomizeHtml));
+			portalPage.setCustomizeHtml(portalPageCustomizeHtml);
+			saveHtmlToFile(Encodes.unescapeHtml(authPageCustomizeHtml),
+					"resources/custom/customPortalPage.htm");
 		}
 
 		authPageService.save(authPage);
 		portalPageService.save(portalPage);
 		return "redirect:/manage/authType";
+
+	}
+
+	private void saveHtmlToFile(String authPageCustomizeHtml, String path)
+			throws IOException {
+		File file = new File(PropertiesUtil.getInstance().getProperty(
+				"web.root")
+				+ path);
+		FileWriter writer = new FileWriter(file);
+		writer.write(authPageCustomizeHtml);
+		writer.flush();
+		writer.close();
 
 	}
 }

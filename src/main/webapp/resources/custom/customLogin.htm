@@ -1,0 +1,29 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<script src="http://192.168.4.190:8080/wifiwolf/resources/js/AuthPageScript.js"></script>
+</head>
+<body>
+	<form name="myform" id="myform" action="" method="post">
+		<input type="hidden" id="wifidogHost" name="wifidogHost" value="">
+		<input type="hidden" id="gw_id" name="gw_id" value="">
+		<input type="hidden" id="wifidogPort" name="wifidogPort" value="">
+		<input type="hidden" id="originUrl" name="originUrl" value="">
+		热点介绍文本<br> 使用协议与条款文本...... <br>
+		<input name="agree" id="agree" type="checkbox" value="1" /> <label for="agree">我认同协议</label> <br>
+		用户名: <input name="username" id="username" type="text" value="" /> <br>
+		密码: <input name="userPassword" id="userPassword" type="password" /> <br>
+		手机号码: <input name="phoneNum" id="phoneNum" type="text" value="" />
+		<input type="button" value="获取验证码"
+			onclick="sendSmsVerifyCode(document.getElementById('phoneNum').value, getQueryParameter('gw_id'));" />
+		<br>
+		<!-- 参数: phonecode 代表手机验证码 -->
+		手机验证码: <input name="phoneCode" id="phoneCode" type="text" value="" /> <br>
+
+
+		<input type="button" id="login" name="login" value="   认证   " onclick="startAuth();" /> <br>
+	</form>
+</body>
+</html>

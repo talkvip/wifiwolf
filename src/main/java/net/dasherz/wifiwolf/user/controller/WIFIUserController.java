@@ -3,6 +3,7 @@ package net.dasherz.wifiwolf.user.controller;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -10,9 +11,11 @@ import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.common.util.DictUtils;
 import net.dasherz.wifiwolf.common.util.SentSMSResult;
 import net.dasherz.wifiwolf.common.util.ValidationCode;
+import net.dasherz.wifiwolf.domain.AuthPage;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.Token;
+import net.dasherz.wifiwolf.service.AuthPageService;
 import net.dasherz.wifiwolf.service.AuthTypeService;
 import net.dasherz.wifiwolf.service.NodeService;
 import net.dasherz.wifiwolf.service.PhoneUserService;
@@ -43,6 +46,9 @@ public class WIFIUserController {
 	@Inject
 	private AuthTypeService authTypeService;
 
+	@Inject
+	private AuthPageService authPageService;
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(String wifidogHost, String wifidogPort, String gw_id,
 			String authType, String registerType, Model model)
@@ -58,7 +64,8 @@ public class WIFIUserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String username, String userPassword, String phoneNum,
 			String phoneCode, String wifidogHost, String wifidogPort,
-			String gw_id, String originUrl, Model model, HttpSession session)
+			String gw_id, String originUrl, Model model, HttpSession session,
+			HttpServletResponse repsonse, HttpServletRequest request)
 			throws IOException {
 
 		AuthType authType = authTypeService.getEnabledAuthType();
@@ -96,6 +103,16 @@ public class WIFIUserController {
 					+ "/wifidog/auth?token=" + token.getToken();
 		}
 
+		AuthPage authPage = authPageService.getAuthPage();
+		if (authPage.getPageTemplate() == null) {
+			repsonse.getWriter()
+					.write("<html><head></head><body>"
+							+ DictUtils.getName("validation_code", code.name(),
+									"系统错误。")
+							+ "<a href='javascript:void(0)' onclick='history.go(-1)'>返回</a></body>");
+			return null;
+		}
+
 		model.addAttribute("wifidogHost", wifidogHost);
 		model.addAttribute("wifidogPort", wifidogPort);
 		model.addAttribute("gw_id", gw_id);
@@ -109,10 +126,10 @@ public class WIFIUserController {
 		model.addAttribute("message",
 				DictUtils.getName("validation_code", code.name(), "系统错误。"));
 
-		return "/wifi/login";
+		return "/wifi/" + authPage.getPageTemplate().getTemplatePath();
 	}
 
-	@RequestMapping(value = "/phoneVerify")
+	@RequestMapping(value = "/login/phoneVerify")
 	public void phoneVerify(
 			@RequestParam(value = "phoneNum", required = true) String phoneNum,
 			HttpServletResponse response) throws IOException {

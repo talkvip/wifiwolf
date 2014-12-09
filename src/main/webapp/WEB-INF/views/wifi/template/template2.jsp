@@ -17,7 +17,7 @@
 								alert("请输入 正确的手机号");
 								return;
 							}
-							$.get("${ctx}/wifi/login/phoneVerify/?phoneNum="
+							$.get("${ctx}/wifi/phoneVerify/?phoneNum="
 									+ phoneNum, function(data, status) {
 								//TODO
 							});
