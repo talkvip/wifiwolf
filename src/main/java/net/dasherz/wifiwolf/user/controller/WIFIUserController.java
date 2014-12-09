@@ -138,6 +138,24 @@ public class WIFIUserController {
 		response.getWriter().write(result.name());
 	}
 
+	// for customize auth page only
+	@RequestMapping(value = "/login/sendVerifyCode")
+	public void getPhoneVerifyCode(
+			@RequestParam(value = "phoneNum", required = true) String phoneNum,
+			HttpServletResponse response) throws IOException {
+		SentSMSResult result = phoneUserService.sendPhoneMessage(phoneNum);
+		String message = DictUtils.getName("validation_code", result.name(),
+				"系统错误。");
+		if (result == SentSMSResult.SUCCESS) {
+			message = null;
+		}
+		if (message == null) {
+			response.getWriter().write("");
+		} else {
+			response.getWriter().write("alert('" + message + "');");
+		}
+	}
+
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
 	public String resetPassword(String wifidogHost, String wifidogPort,
 			String gw_id, String authType, String registerType, Model model) {

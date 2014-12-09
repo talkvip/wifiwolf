@@ -79,7 +79,7 @@ function sendSmsVerifyCode() {
 	if (serverUrl == null) {
 		return;
 	} else {
-		serverUrl = serverUrl + "/phoneVerify";
+		serverUrl = serverUrl + "/sendVerifyCode";
 	}
 
 	var phoneNum = $.trim($("#phoneNum").val());
@@ -88,20 +88,6 @@ function sendSmsVerifyCode() {
 		alert("请输入 正确的手机号");
 		return;
 	}
-//	$.get(serverUrl + "?phoneNum=" + phoneNum, function(data, status) {
-//		if (data == "ERROR_REQUEST_LESS_ONE_MIN") {
-//			alert("再次请求间隔太短");
-//		}
-//		if (data == "ERROR_REQUEST_EXCEED_MAX") {
-//			alert("超出了当日最大短信使用量");
-//		}
-//		if (data == "ERROR_PHONE_NUM") {
-//			alert("手机号码格式错误");
-//		}
-//		if (data == "ERROR_SYSTEM_EXCEPTION") {
-//			alert("系统错误");
-//		}
-//	});
 	var url = serverUrl + "?phoneNum=" + phoneNum;
 	 
 	var script = document.createElement('script');  
