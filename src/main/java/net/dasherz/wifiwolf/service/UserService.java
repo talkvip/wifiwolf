@@ -314,7 +314,7 @@ public class UserService {
 		} else if (authType.equalsIgnoreCase("PHONE_SMS")) {
 			return validateByPhoneNumAndSMS(phoneNum, phoneCode);
 		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD")) {
-			return validateByUserPassword(userName, userPassword);
+			return validateByUserPassword(userName, phoneNum, userPassword);
 		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD_SMS")) {
 			return validateByPhoneNum_Password_SMS(phoneNum, phoneCode,
 					userPassword);
@@ -347,8 +347,12 @@ public class UserService {
 		return ValidationCode.VALID;
 	}
 
-	private ValidationCode validateByUserPassword(String userNameOrPhoneNum,
-			String userPassword) {
+	private ValidationCode validateByUserPassword(String userName,
+			String phoneNum, String userPassword) {
+		String userNameOrPhoneNum = phoneNum;
+		if (userNameOrPhoneNum == null) {
+			userNameOrPhoneNum = userName;
+		}
 		User userInDb = findUserByUsername(userNameOrPhoneNum);
 
 		if (userInDb == null) {

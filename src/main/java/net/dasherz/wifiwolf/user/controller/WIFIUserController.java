@@ -62,9 +62,10 @@ public class WIFIUserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(String username, String userPassword, String phoneNum,
-			String phoneCode, String wifidogHost, String wifidogPort,
-			String gw_id, String originUrl, Model model, HttpSession session,
+	public String login(@RequestParam(required = false) String username,
+			String userPassword, String phoneNum, String phoneCode,
+			String wifidogHost, String wifidogPort, String gw_id,
+			String originUrl, Model model, HttpSession session,
 			HttpServletResponse repsonse, HttpServletRequest request)
 			throws IOException {
 

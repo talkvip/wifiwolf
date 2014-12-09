@@ -72,12 +72,12 @@ public class LoginController {
 		AuthPage authPage = authPageService.getAuthPage();
 		if (authPage.getCustomizeUrl() != null) {
 			return getCustomizeUrl(authPage.getCustomizeUrl(), gw_address,
-					gw_port, gw_id, url);
+					gw_port, gw_id, url, authType.getAuthType());
 		}
 		if (authPage.getCustomizeHtml() != null) {
 			return getCustomizeUrl(
 					PropertiesUtil.getInstance().getProperty("customAuthPage"),
-					gw_address, gw_port, gw_id, url);
+					gw_address, gw_port, gw_id, url, authType.getAuthType());
 		}
 		if (authPage.getPageTemplate() != null) {
 			model.addAttribute("wifidogHost", gw_address);
@@ -98,7 +98,7 @@ public class LoginController {
 	}
 
 	private String getCustomizeUrl(String url, String gw_address,
-			String gw_port, String gw_id, String originUrl) {
+			String gw_port, String gw_id, String originUrl, String authType) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("redirect:");
 		buffer.append(url);
@@ -114,6 +114,8 @@ public class LoginController {
 		buffer.append(gw_id);
 		buffer.append("&url=");
 		buffer.append(originUrl);
+		buffer.append("&authType=");
+		buffer.append(authType);
 		return buffer.toString();
 	}
 }
