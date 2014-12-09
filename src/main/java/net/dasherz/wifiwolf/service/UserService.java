@@ -190,7 +190,7 @@ public class UserService {
 		if (user == null) {
 			user = new User();
 			user.setUsername(RandomUtil.createRandom(false,
-					DEFAULT_USER_NAME_SIZE));
+					DEFAULT_USER_NAME_SIZE) + System.currentTimeMillis());
 			user.setPassword(RandomUtil.createRandom(false,
 					DEFAULT_PASSWORD_SIZE));
 			user.setPhone(phoneNum);
@@ -222,7 +222,8 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE));
+		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE)
+				+ System.currentTimeMillis());
 		user.setPassword(RandomUtil.createRandom(false, DEFAULT_PASSWORD_SIZE));
 		user.setPhone(phoneNum);
 		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
@@ -243,7 +244,8 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE));
+		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE)
+				+ System.currentTimeMillis());
 		user.setPassword(userPassword);
 		user.setPhone(phoneNum);
 		createUser(user);
@@ -272,7 +274,8 @@ public class UserService {
 		}
 
 		user = new User();
-		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE));
+		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE)
+				+ System.currentTimeMillis());
 		user.setPassword(userPassword);
 		user.setPhone(phoneNum);
 		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
@@ -319,7 +322,6 @@ public class UserService {
 		}
 		return ValidationCode.VALID;
 	}
-
 
 	private ValidationCode validateByUserPassword(String userNameOrPhoneNum,
 			String userPassword) {
