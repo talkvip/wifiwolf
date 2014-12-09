@@ -13,4 +13,6 @@ public interface PhoneUserRepository extends BaseRepository<PhoneUser, Long> {
 			String phoneNum, Integer status);
 
 	public List<PhoneUser> findTop100ByOrderByIdDesc();
+
+	public List<PhoneUser> findTop10ByPhoneNumOrderByIdDesc(String phoneNum);
 }

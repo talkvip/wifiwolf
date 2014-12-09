@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.common.util.DateUtil;
 import net.dasherz.wifiwolf.common.util.RandomUtil;
+import net.dasherz.wifiwolf.common.util.SentSMSResult;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.repository.PhoneUserRepository;
 
@@ -59,16 +60,28 @@ public class PhoneUserService {
 		return phoneUserRepository.save(phoneUser);
 	}
 
-	public void sendPhoneMessage(String phoneNum) {
-		// TODO add SMS count restriction for use, set a max count for every day
+	public SentSMSResult sendPhoneMessage(String phoneNum) {
+
 		PhoneUser phoneUser = this.findByPhoneNum(phoneNum);
 		if (phoneUser != null) {
 			long minutes = DateUtil.getMinutesPasted(phoneUser.getCreateTime());
 			// in case the user request the verify code too often
 			if (minutes < 1) {
-				return;
+				return SentSMSResult.ERROR_REQUEST_LESS_ONE_MIN;
 			}
 		}
+
+		// add SMS count restriction for use, set a max count 10 for every day
+		List<PhoneUser> latestCodes = phoneUserRepository
+				.findTop10ByPhoneNumOrderByIdDesc(phoneNum);
+		if (latestCodes.size() == 10) {
+			long days = DateUtil.getDaysPasted(latestCodes.get(9)
+					.getCreateTime());
+			if (days <= 1) {
+				return SentSMSResult.ERROR_REQUEST_EXCEED_MAX;
+			}
+		}
+
 		// clear previous verify code for this phone
 		List<PhoneUser> existingCode = phoneUserRepository
 				.findByPhoneNumAndStatusOrderByIdDesc(phoneNum,
@@ -83,16 +96,19 @@ public class PhoneUserService {
 		phoneUser.setCreateTime(new Date());
 		String verifyCode = RandomUtil.createRandom(true,
 				DEFAULT_PHONE_CODE_SIZE);
-		sendPhoneVerifyCode(phoneNum, verifyCode);
+		SentSMSResult result = sendPhoneVerifyCode(phoneNum, verifyCode);
+		if (!result.equals(SentSMSResult.SUCCESS)) {
+			return result;
+		}
 		phoneUser.setVerifyCode(verifyCode);
 		phoneUser.setStatus(Constants.STATUS_PHONE_USER_NOT_USED);
 		save(phoneUser);
-
+		return SentSMSResult.SUCCESS;
 	}
 
-	private boolean sendPhoneVerifyCode(String phoneNum, String code) {
+	private SentSMSResult sendPhoneVerifyCode(String phoneNum, String code) {
 		// TODO: use 3rd-party method to send
-		return false;
+		return SentSMSResult.SUCCESS;
 	}
 
 	public void verifiedForPhoneNumber(PhoneUser phoneUser) {

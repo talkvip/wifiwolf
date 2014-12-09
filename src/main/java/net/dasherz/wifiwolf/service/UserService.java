@@ -17,6 +17,7 @@ import net.dasherz.wifiwolf.common.shiro.Digests;
 import net.dasherz.wifiwolf.common.shiro.Encodes;
 import net.dasherz.wifiwolf.common.shiro.ShiroDbRealm.ShiroUser;
 import net.dasherz.wifiwolf.common.util.Constants;
+import net.dasherz.wifiwolf.common.util.DateUtil;
 import net.dasherz.wifiwolf.common.util.RandomUtil;
 import net.dasherz.wifiwolf.common.util.ValidationCode;
 import net.dasherz.wifiwolf.domain.PhoneUser;
@@ -336,6 +337,10 @@ public class UserService {
 		if (userInDb == null) {
 			return ValidationCode.ERROR_VERIFY_CODE_NOT_EXIST;
 		}
+		long minutes = DateUtil.getMinutesPasted(userInDb.getCreateTime());
+		if (minutes > 1) {
+			return ValidationCode.ERROR_VERIFY_CODE_EXPIRED;
+		}
 		if (!phoneCode.equalsIgnoreCase(userInDb.getVerifyCode())) {
 			return ValidationCode.ERROR_VERIFY_CODE_WRONG;
 		}
@@ -383,6 +388,15 @@ public class UserService {
 
 		if (!validatePassword(userPassword, userInDb.getPassword())) {
 			return ValidationCode.ERROR_ID_PASSWORD;
+		}
+
+		if (phoneUserInDb == null) {
+			return ValidationCode.ERROR_VERIFY_CODE_NOT_EXIST;
+		}
+
+		long minutes = DateUtil.getMinutesPasted(phoneUserInDb.getCreateTime());
+		if (minutes > 1) {
+			return ValidationCode.ERROR_VERIFY_CODE_EXPIRED;
 		}
 
 		if (!phoneCode.equalsIgnoreCase(phoneUserInDb.getVerifyCode())) {

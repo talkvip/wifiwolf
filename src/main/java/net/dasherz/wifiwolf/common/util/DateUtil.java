@@ -7,4 +7,9 @@ public class DateUtil {
 		Date now = new Date();
 		return (now.getTime() - date.getTime()) / (1000 * 60);
 	}
+
+	public static long getDaysPasted(Date date) {
+		Date now = new Date();
+		return (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+	}
 }

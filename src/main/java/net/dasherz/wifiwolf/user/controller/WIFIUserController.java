@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.common.util.DictUtils;
+import net.dasherz.wifiwolf.common.util.SentSMSResult;
 import net.dasherz.wifiwolf.common.util.ValidationCode;
 import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.PhoneUser;
@@ -115,8 +116,8 @@ public class WIFIUserController {
 	public void phoneVerify(
 			@RequestParam(value = "phoneNum", required = true) String phoneNum,
 			HttpServletResponse response) throws IOException {
-		phoneUserService.sendPhoneMessage(phoneNum);
-		response.getWriter().write("code sent");
+		SentSMSResult result = phoneUserService.sendPhoneMessage(phoneNum);
+		response.getWriter().write(result.name());
 	}
 
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
