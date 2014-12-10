@@ -44,6 +44,7 @@
 			<div class="col-xs-12 col-sm-12">
 				<form:form id="searchForm" modelAttribute="node" action="${ctx}/manage/nodeList" method="post"
 					class="form-inline" role="form">
+					<input type="hidden" id="targetPage" name="page" value=""/>
 					<div class="form-group">
 						<label for="nodeDescription">路由器名：</label>
 						<form:input type="text" name="search_nodeDescription" class="form-control"

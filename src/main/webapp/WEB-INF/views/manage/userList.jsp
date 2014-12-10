@@ -34,6 +34,7 @@
 				<form:form id="searchForm" modelAttribute="user"
 					action="${ctx}/manage/userList" method="post" class="form-inline"
 					role="form">
+					<input type="hidden" id="targetPage" name="page" value=""/>
 					<div class="form-group">
 						<label for="phoneNum">手机号：</label>
 						<form:input type="text" name="search_phoneNum"
