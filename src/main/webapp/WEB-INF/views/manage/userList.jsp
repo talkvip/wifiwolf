@@ -6,6 +6,7 @@
 <title>用户管理</title>
 <script>
 	$(document).ready(function() {
+		$("#cmsTab").addClass("active");
 		$("#account-tab").addClass("active");
 		$(".confirm").confirm({
 		    text: "确定要删除这个用户？",

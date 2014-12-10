@@ -4,54 +4,6 @@
 <head>
 <title>WifiWolf</title>
 <meta name="decorator" content="default" />
-<style type="text/css">
-#main {
-	padding: 0;
-	margin: 0;
-}
-
-#main .container-fluid {
-	padding: 0 7px 0 10px;
-}
-
-#header {
-	margin: 0 0 10px;
-	position: static;
-}
-
-#header li {
-	font-size: 14px;
-	_font-size: 12px;
-}
-
-#header .brand {
-	font-family: Helvetica, Georgia, Arial, sans-serif, 黑体;
-	font-size: 26px;
-	padding-left: 33px;
-}
-
-#footer {
-	margin: 8px 0 0 0;
-	padding: 3px 0 0 0;
-	font-size: 11px;
-	text-align: center;
-	border-top: 2px solid #0663A2;
-}
-
-#footer,#footer a {
-	color: #999;
-}
-
-html,body {
-	height: 100%;
-}
-
-.fill {
-	min-height: 100%;
-	height: 100%;
-}
-body { padding-top: 70px;padding-bottom: 50px; }
-</style>
 
 </head>
 <body>

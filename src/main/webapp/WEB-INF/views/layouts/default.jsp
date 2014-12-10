@@ -1,8 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib prefix="sitemesh" uri="http://www.opensymphony.com/sitemesh/decorator"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 
 <!DOCTYPE html>
 <html lang="zh-cn" style="overflow-x: hidden; overflow-y: auto;">
@@ -18,6 +15,7 @@
 <script src="${ctx}/resources/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/bootstrap.min.js" type="text/javascript"></script>
+
 <script src="${ctx}/resources/js/jquery-ui.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/jquery.i18n.properties.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/jquery.validate.min.js" type="text/javascript"></script>
@@ -37,7 +35,65 @@
 <sitemesh:head />
 </head>
 <body>
+
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="${ctx}/">WifiWolf</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			
+				<ul class="nav navbar-nav">
+				<shiro:hasRole name="admin">
+					<li id="nodeTab"><a href="${ctx}/manage/nodeList">路由器管理</a></li>
+					<li id="authTab"><a href="${ctx}/manage/authType">认证管理</a></li>
+					<li id="cmsTab"><a href="${ctx}/manage/userList">客户关系管理</a></li>
+					<li id="systemTab" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">系统 <span
+							class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li id="phoneStatTab"><a href="#">手机统计</a></li>
+							<li id="sysLogTab"><a href="#">日志</a></li>
+							<li id="verifyCodeTab"><a href="${ctx}/manage/verifyCode">验证码</a></li>
+						</ul></li>
+						</shiro:hasRole>
+						<shiro:hasRole name="user">
+						<li id="userInfoTab"><a href="${ctx}/user/myinfo">个人信息</a></li>
+						</shiro:hasRole>
+				</ul>
+				
+
+				<ul class="nav navbar-nav navbar-right">
+						<li><p class="navbar-text">
+								您好,
+								<shiro:principal />
+							</p></li>
+						<li><a href="${ctx}/logout" title="退出登录">退出</a></li>
+						<li>&nbsp;</li>
+					</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
 	<sitemesh:body />
+
+
+	<!-- <div class="footer">
+		<div class="container">
+			<p class="text-muted">Place sticky footer content here.</p>
+		</div>
+	</div> -->
+	<div id="footer" class="navbar-fixed-bottom">
+	Copyright &copy; 2014-2014 <a href="http://dasherz.net/">DasHerz Studio</a>
+</div>
+	
+
 
 </body>
 </html>

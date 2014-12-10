@@ -6,6 +6,7 @@
 <title>路由器管理</title>
 <script>
 	$(document).ready(function() {
+		$("#nodeTab").addClass("active");
 		$("#account-tab").addClass("active");
 		$('#myModal').on('shown.bs.modal', function (e) {
 			
@@ -86,7 +87,7 @@
 						<td>${node.lastHeartbeatIp}&nbsp;</td>
 						<td>${node.lastHeartbeatTimestamp}&nbsp;</td>
 						<c:set var="key">${node.id}</c:set>
-						<td><a href='javascript:void(0)' onclick='showModel(${key},"liveConnection")'>&nbsp;${onlineUserMap[key]}</a></td>
+						<td><a href='javascript:void(0)' onclick='showModel(${key},"liveConnectionFragment")'>&nbsp;${onlineUserMap[key]}</a></td>
 						<td>&nbsp;${registeredUserMap[key]}</td>
 						<td><a href="${ctx}/manage/nodeForm?id=${node.id}" id="editLink-${node.nodeDescription}">修改</a>
 							<a href="${ctx}/manage/deleteNode?id=${node.id}" id="editLink-${node.nodeDescription}"

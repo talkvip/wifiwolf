@@ -2,7 +2,11 @@
 <decorators defaultdir="/WEB-INF/views/layouts/">
 	 <excludes>
         <pattern>/resources/*</pattern>
+        <pattern>/*Fragment*</pattern>
     </excludes>
+    <decorator name="login" page="loginTemplate.jsp">
+		<pattern>/*login*</pattern>
+	</decorator>
 	<decorator name="default" page="default.jsp">
 		<pattern>/*</pattern>
 	</decorator>

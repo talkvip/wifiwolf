@@ -34,13 +34,13 @@ public class HomeController {
 		String username = subject.getPrincipal().toString();
 		UserController.isValidateCodeLogin(username, false, true);
 		if (subject.hasRole("admin")) {
-			return "manage/index";
+			return "manage/home";
 		} else {
-			return "user/index";
+			return "user/home";
 		}
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	// @RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 

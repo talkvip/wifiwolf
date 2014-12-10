@@ -8,6 +8,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
+		$("#nodeTab").addClass("active");
 		$('#inputForm').validate({
 			rules : {
 				gatewayId : {

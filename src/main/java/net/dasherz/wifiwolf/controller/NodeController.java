@@ -129,7 +129,7 @@ public class NodeController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "/liveConnection", method = RequestMethod.GET)
+	@RequestMapping(value = "/liveConnectionFragment", method = RequestMethod.GET)
 	public String getLiveConnection(String nodeid, Model model)
 			throws IOException {
 		Node node = nodeService.getNode(Long.parseLong(nodeid));

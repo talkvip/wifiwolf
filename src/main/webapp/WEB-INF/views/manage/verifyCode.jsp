@@ -6,7 +6,8 @@
 <title>路由器管理</title>
 <script>
 	$(document).ready(function() {
-		
+		$("#systemTab").addClass("active");
+		$("#verifyCodeTab").addClass("active");
 	});
 </script>
 </head>

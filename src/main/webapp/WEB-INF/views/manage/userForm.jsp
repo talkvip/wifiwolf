@@ -5,7 +5,8 @@
 <title>用户管理</title>
 <meta name="decorator" content="default" />
 <script type="text/javascript">
-	$().ready(function() {
+	$(document).ready(function() {
+		$("#cmsTab").addClass("active");
 		$("#inputForm").validate({
 			rules : {
 				username : {

@@ -4,9 +4,8 @@
 <head>
 <title>认证方式设置</title>
 <script>
-	$(document)
-			.ready(
-					function() {
+$(document).ready(function() {
+	$("#authTab").addClass("active");
 						$("#form").validate({
 							rules : {
 								authPageCustomizeUrl : {
