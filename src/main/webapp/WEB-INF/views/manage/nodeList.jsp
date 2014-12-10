@@ -8,19 +8,19 @@
 	$(document).ready(function() {
 		$("#account-tab").addClass("active");
 		$('#myModal').on('shown.bs.modal', function (e) {
-			$.get("${ctx}/manage/liveConnection/?nodeid="
+			
+			$.get("${ctx}/manage/"+modelType+"/?nodeid="
 					+ nodeid, function(data, status) {
-				console.log(status);
 				if(status=="success"){
-						$("#tableDiv").empty();
-				$("#tableDiv").append(data);
+					$("#tableDiv").empty();
+					$("#tableDiv").append(data);
 				}
 			});
 		});
 	});
-	var nodeid;
-	function showModel(nodeId){
-		
+	var nodeid,modelType;
+	function showModel(nodeId,type){
+		modelType=type;
 		nodeid=nodeId;
 		$('#myModal').modal();
 	}
@@ -41,28 +41,24 @@
 		<tags:message content="${message}" />
 		<div class="row">
 			<div class="col-xs-12 col-sm-12">
-				<form:form id="searchForm" modelAttribute="node"
-					action="${ctx}/manage/nodeList" method="post" class="form-inline"
-					role="form">
+				<form:form id="searchForm" modelAttribute="node" action="${ctx}/manage/nodeList" method="post"
+					class="form-inline" role="form">
 					<div class="form-group">
 						<label for="nodeDescription">路由器名：</label>
-						<form:input type="text" name="search_nodeDescription"
-							class="form-control" path="nodeDescription"></form:input>
+						<form:input type="text" name="search_nodeDescription" class="form-control"
+							path="nodeDescription"></form:input>
 					</div>
 					<div class="form-group">
 						<label for="gatewayId">网关ID：</label>
-						<form:input type="text" name="search_gatewayId"
-							class="form-control" path="gatewayId"></form:input>
+						<form:input type="text" name="search_gatewayId" class="form-control" path="gatewayId"></form:input>
 					</div>&nbsp;&nbsp;
-					<input id="btnSubmit" class="btn btn-primary" type="submit"
-						value="查询" />
+					<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" />
 				</form:form>
 			</div>
 		</div>
 		<br>
 
-		<table id="contentTable"
-			class="table table-striped table-bordered table-condensed">
+		<table id="contentTable" class="table table-striped table-bordered table-condensed">
 			<thead>
 				<tr>
 					<th>路由器名</th>
@@ -74,6 +70,7 @@
 					<th>上一次心跳IP</th>
 					<th>上一次心跳时间</th>
 					<th>在线用户</th>
+					<th>注册用户</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -88,13 +85,11 @@
 						<td>${node.lastHeartbeatSysLoad}&nbsp;</td>
 						<td>${node.lastHeartbeatIp}&nbsp;</td>
 						<td>${node.lastHeartbeatTimestamp}&nbsp;</td>
-						<c:set var="key" >${node.id}</c:set>
-						<td><a href='javascript:void(0)' onclick='showModel(${key})' >&nbsp;${onlineUserMap[key]}</a></td>
-						<td><a href="${ctx}/manage/nodeForm?id=${node.id}"
-
-							id="editLink-${node.nodeDescription}">修改</a> <a
-							href="${ctx}/manage/deleteNode?id=${node.id}"
-							id="editLink-${node.nodeDescription}"
+						<c:set var="key">${node.id}</c:set>
+						<td><a href='javascript:void(0)' onclick='showModel(${key},"liveConnection")'>&nbsp;${onlineUserMap[key]}</a></td>
+						<td>&nbsp;${registeredUserMap[key]}</td>
+						<td><a href="${ctx}/manage/nodeForm?id=${node.id}" id="editLink-${node.nodeDescription}">修改</a>
+							<a href="${ctx}/manage/deleteNode?id=${node.id}" id="editLink-${node.nodeDescription}"
 							onclick="return confirm('确定删除该路由器？')">删除</a></td>
 					</tr>
 				</c:forEach>
@@ -104,7 +99,7 @@
 
 	</div>
 	<%@ include file="/WEB-INF/views/layouts/page.jsp"%>
-	
+
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -115,9 +110,7 @@
 					</button>
 					<h4 class="modal-title" id="myModalLabel">在线用户</h4>
 				</div>
-				<div class="modal-body" id="tableDiv">
-				
-				</div>
+				<div class="modal-body" id="tableDiv"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 				</div>

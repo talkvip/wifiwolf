@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.util.PageInfo;
@@ -65,12 +64,24 @@ public class NodeController extends BaseController {
 
 		Map<String, Integer> onlineUserMap = getOnlineUserMap(nodes
 				.getContent());
+		Map<String, Integer> registeredUserMap = getRegisteredUserMap(nodes
+				.getContent());
 		model.addAttribute("onlineUserMap", onlineUserMap);
+		model.addAttribute("registeredUserMap", registeredUserMap);
 		model.addAttribute("nodes", nodes.getContent());
 		model.addAttribute("totalPages", pageInfo.getTotalPage());
 		model.addAttribute("page", pageNum);
 		model.addAttribute("pageList", pageInfo.getPageList());
 		return "/manage/nodeList";
+	}
+
+	private Map<String, Integer> getRegisteredUserMap(List<Node> nodes) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		for (Node node : nodes) {
+			map.put(String.valueOf(node.getId()),
+					nodeService.getRegisterUserCount(node));
+		}
+		return map;
 	}
 
 	private Map<String, Integer> getOnlineUserMap(List<Node> nodes) {
@@ -119,39 +130,14 @@ public class NodeController extends BaseController {
 	}
 
 	@RequestMapping(value = "/liveConnection", method = RequestMethod.GET)
-	public void getLiveConnection(String nodeid, HttpServletResponse response)
+	public String getLiveConnection(String nodeid, Model model)
 			throws IOException {
+		Node node = nodeService.getNode(Long.parseLong(nodeid));
 		List<Connection> connections = connectionService
-				.getLiveConnection(nodeService.getNode(Long.parseLong(nodeid)));
-		String message;
-		if (connections == null || connections.size() == 0) {
-			message = "";
-		} else {
-			message = buildTable(connections);
-		}
-		response.getWriter().write(message);
+				.getLiveConnection(node);
+		model.addAttribute("node", node);
+		model.addAttribute("connections", connections);
+		return "/manage/connectionTable";
 	}
 
-	private String buildTable(List<Connection> connections) {
-
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("<table class='table table-striped'><thead><tr><th>IP</th><th>MAC地址</th><th>TOKEN令牌</th><th>输入</th><th>输出</th><th>初始URL</th></tr></thead><tbody>");
-		for (Connection connection : connections) {
-			buffer.append("<tr>");
-			buffer.append(buildCell(connection.getIp()));
-			buffer.append(buildCell(connection.getMac()));
-			buffer.append(buildCell(connection.getToken().getToken()));
-			buffer.append(buildCell(connection.getIncoming().toString()));
-			buffer.append(buildCell(connection.getOutgoing().toString()));
-			buffer.append(buildCell(connection.getToken().getOriginUrl()));
-			buffer.append("</tr>");
-		}
-		buffer.append("</tbody></table>");
-		return buffer.toString();
-	}
-
-	private String buildCell(String str) {
-
-		return "<td>" + str + "</td>";
-	}
 }

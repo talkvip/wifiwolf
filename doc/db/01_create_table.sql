@@ -320,6 +320,7 @@ CREATE TABLE `t_user` (
   `create_time` datetime DEFAULT NULL,
   `is_phone_verified` int(11) DEFAULT '2',
   `is_email_verified` int(11) DEFAULT '2',
+  `register_node_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='table for user information';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -330,7 +331,7 @@ CREATE TABLE `t_user` (
 
 LOCK TABLES `t_user` WRITE;
 /*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
-INSERT INTO `t_user` VALUES (1,'admin','a17b951f12a1e1c8cbae85507daf44cd656f5425310470eaa0cb0315',1,25,'13134524356','admin@wifiwolf.com',1,1,1,'2014-11-20 16:24:38',1,1),(2,'user','bfaac9bc44f437aeb85ebe02ce39ce91abb1145c0b0efe8e95e84106',0,20,NULL,NULL,1,1,2,NULL,2,2);
+INSERT INTO `t_user` VALUES (1,'admin','a17b951f12a1e1c8cbae85507daf44cd656f5425310470eaa0cb0315',1,25,'12345678901','admin@wifiwolf.com',1,1,1,'2014-11-20 16:24:38',1,1,1),(2,'user','bfaac9bc44f437aeb85ebe02ce39ce91abb1145c0b0efe8e95e84106',0,20,NULL,NULL,1,1,2,NULL,2,2,1),(3,'cbedss1418119592217','041bd14e457f0194923aef2c68528f3c6c771415b957a0a17b9cccdd',NULL,NULL,'12345678900',NULL,1,1,2,'2014-12-09 18:06:32',1,NULL,1);
 /*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -343,4 +344,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-09 22:43:53
+-- Dump completed on 2014-12-10 11:50:44

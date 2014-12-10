@@ -32,6 +32,9 @@
 	<cache name="net.dasherz.wifiwolf.domain.Node.tokens"
 		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
 		maxEntriesLocalDisk="100000" />
+	<cache name="net.dasherz.wifiwolf.domain.Node.registeredUsers"
+		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
 	<cache name="net.dasherz.wifiwolf.domain.PhoneUser"
 		maxEntriesLocalHeap="100" eternal="false" overflowToDisk="true"
 		maxEntriesLocalDisk="100000" />

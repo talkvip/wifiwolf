@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Transient;
@@ -64,6 +66,10 @@ public class User extends IdLong {
 	private Integer isPhoneVerified;
 
 	private Integer isEmailVerified;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "register_node_id")
+	private Node registerNode;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	@OrderBy("id DESC")
@@ -131,6 +137,14 @@ public class User extends IdLong {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Node getRegisterNode() {
+		return registerNode;
+	}
+
+	public void setRegisterNode(Node registerNode) {
+		this.registerNode = registerNode;
 	}
 
 	public Integer getWifiStatus() {

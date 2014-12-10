@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import net.dasherz.wifiwolf.domain.Node;
+import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.NodeRepository;
 
 import org.springframework.data.domain.Page;
@@ -54,6 +55,12 @@ public class NodeService {
 			return nodeRepository.findAll(spec, new PageRequest(pageNum - 1,
 					pageSize));
 		}
+	}
+
+	public int getRegisterUserCount(Node node) {
+		node = this.getNode(node.getId());
+		List<User> users = node.getRegisteredUsers();
+		return users.size();
 	}
 
 	private Specification<Node> buildSpecification(final Node node) {

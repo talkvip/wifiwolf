@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -50,6 +51,12 @@ public class Node extends IdLong {
 	@JoinColumn(name = "owner_id")
 	@NotNull
 	private User user;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "registerNode")
+	@OrderBy("id DESC")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private List<User> registeredUsers;
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id")
@@ -143,6 +150,14 @@ public class Node extends IdLong {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public List<User> getRegisteredUsers() {
+		return registeredUsers;
+	}
+
+	public void setRegisteredUsers(List<User> registeredUsers) {
+		this.registeredUsers = registeredUsers;
 	}
 
 }
