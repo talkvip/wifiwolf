@@ -7,7 +7,11 @@ public class Constants {
 	public static final String PAGE_TYPE_USE_CUSTOMIZE_HTML = "useCustomizeHtml";
 	public static final String TEMPLATE_AUTH_PAGE_PREFIX = "authTemplate";
 	public static final String TEMPLATE_PORTAL_PAGE_PREFIX = "portalTemplate";
+
+	// SMS all kinds of situation
 	public static final int SMS_VERIFICATION_EXPIRE_MINUTES = 10;
+	public static final int SMS_VERIFICATION_REQUEST_MINUTES = 1;
+	public static final int SMS_VERIFICATION_REQUEST_MAX_TIME_ONE_DAY = 10;
 
 	// group name in dict table
 	public static final String DICT_GROUP_GW_MESSAGE = "gw_message";

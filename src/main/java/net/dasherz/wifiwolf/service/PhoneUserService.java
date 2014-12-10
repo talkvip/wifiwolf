@@ -66,7 +66,7 @@ public class PhoneUserService {
 		if (phoneUser != null) {
 			long minutes = DateUtil.getMinutesPasted(phoneUser.getCreateTime());
 			// in case the user request the verify code too often
-			if (minutes < 1) {
+			if (minutes < Constants.SMS_VERIFICATION_REQUEST_MINUTES) {
 				return SentSMSResult.ERROR_REQUEST_LESS_ONE_MIN;
 			}
 		}
@@ -74,8 +74,9 @@ public class PhoneUserService {
 		// add SMS count restriction for use, set a max count 10 for every day
 		List<PhoneUser> latestCodes = phoneUserRepository
 				.findTop10ByPhoneNumOrderByIdDesc(phoneNum);
-		if (latestCodes.size() == 10) {
-			long days = DateUtil.getDaysPasted(latestCodes.get(9)
+		if (latestCodes.size() == Constants.SMS_VERIFICATION_REQUEST_MAX_TIME_ONE_DAY) {
+			long days = DateUtil.getDaysPasted(latestCodes.get(
+					Constants.SMS_VERIFICATION_REQUEST_MAX_TIME_ONE_DAY - 1)
 					.getCreateTime());
 			if (days <= 1) {
 				return SentSMSResult.ERROR_REQUEST_EXCEED_MAX;

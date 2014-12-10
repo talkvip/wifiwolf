@@ -218,6 +218,10 @@ public class UserService {
 		if (userInDb == null) {
 			return ValidationCode.ERROR_VERIFY_CODE_NOT_EXIST;
 		}
+		long minutes = DateUtil.getMinutesPasted(userInDb.getCreateTime());
+		if (minutes > Constants.SMS_VERIFICATION_EXPIRE_MINUTES) {
+			return ValidationCode.ERROR_VERIFY_CODE_EXPIRED;
+		}
 		if (!phoneCode.equalsIgnoreCase(userInDb.getVerifyCode())) {
 			return ValidationCode.ERROR_VERIFY_CODE_WRONG;
 		}
@@ -268,6 +272,11 @@ public class UserService {
 		PhoneUser phoneUserInDb = phoneUserService.findByPhoneNum(phoneNum);
 		if (phoneUserInDb == null) {
 			return ValidationCode.ERROR_VERIFY_CODE_NOT_EXIST;
+		}
+
+		long minutes = DateUtil.getMinutesPasted(phoneUserInDb.getCreateTime());
+		if (minutes > Constants.SMS_VERIFICATION_EXPIRE_MINUTES) {
+			return ValidationCode.ERROR_VERIFY_CODE_EXPIRED;
 		}
 
 		if (!phoneCode.equalsIgnoreCase(phoneUserInDb.getVerifyCode())) {
@@ -399,7 +408,7 @@ public class UserService {
 		}
 
 		long minutes = DateUtil.getMinutesPasted(phoneUserInDb.getCreateTime());
-		if (minutes > 1) {
+		if (minutes > Constants.SMS_VERIFICATION_EXPIRE_MINUTES) {
 			return ValidationCode.ERROR_VERIFY_CODE_EXPIRED;
 		}
 
