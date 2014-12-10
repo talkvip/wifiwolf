@@ -31,17 +31,23 @@
 		<tags:message content="${message}" />
 		<div class="row">
 			<div class="col-xs-12 col-sm-12">
-				<form:form id="searchForm" modelAttribute="user" action="${ctx}/manage/userList" method="post"
-					class="form-inline" role="form">
+				<form:form id="searchForm" modelAttribute="user"
+					action="${ctx}/manage/userList" method="post" class="form-inline"
+					role="form">
 					<div class="form-group">
-						<label for="username">登录名：</label>
-						<form:input type="text" name="search_LIKE_username" class="form-control" path="username"></form:input>
+						<label for="phoneNum">手机号：</label>
+						<form:input type="text" name="search_phoneNum"
+							class="form-control" path="phone"></form:input>
 					</div>
 					<div class="form-group">
-						<label for="email">邮件名：</label>
-						<form:input type="text" name="search_EQ_email" class="form-control" path="email"></form:input>
+						<label for="nodeName">路由器名：</label> <form:select path="registerNode.id" class="form-control">
+						<form:option value="" label="请选择" />
+						<form:options items="${nodes}" itemLabel="nodeDescription"
+							itemValue="id" htmlEscape="false" />
+					</form:select>
 					</div>&nbsp;&nbsp;
-					<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" />
+					<input id="btnSubmit" class="btn btn-primary" type="submit"
+						value="查询" />
 				</form:form>
 			</div>
 		</div>
@@ -55,6 +61,7 @@
 					<th>邮箱</th>
 					<th>WIFI-状态</th>
 					<th>用户类型</th>
+					<th>路由器名</th>
 					<th>注册时间</th>
 					<th>操作</th>
 				</tr>
@@ -67,6 +74,8 @@
 						<td>${user.email}(${ww:getLabel('is_verified',user.isEmailVerified,'') })&nbsp;</td>
 						<td>${ww:getLabel('wifi_status',user.wifiStatus,'') }&nbsp;</td>
 						<td>${ww:getLabel('user_type',user.userType,'') }&nbsp;</td>
+						<c:set var="key">${user.id}</c:set>
+						<td>&nbsp;${userRegisterNodeMap[key]}</td>
 						<td>${user.createTime}&nbsp;</td>
 						<td><a href="${ctx}/manage/userForm?id=${user.id}"
 							id="editLink-${user.username}">修改</a> <a

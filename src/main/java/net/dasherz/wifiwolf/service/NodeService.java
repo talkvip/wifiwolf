@@ -30,6 +30,10 @@ public class NodeService {
 		return nodeRepository.findAll();
 	}
 
+	public List<String> findAllNodeName() {
+		return nodeRepository.findAllNodeName();
+	}
+
 	public void save(Node node) {
 		nodeRepository.save(node);
 	}

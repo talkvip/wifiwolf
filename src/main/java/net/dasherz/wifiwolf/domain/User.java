@@ -71,7 +71,7 @@ public class User extends IdLong {
 	@JoinColumn(name = "register_node_id")
 	private Node registerNode;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
 	@OrderBy("id DESC")
 	@NotFound(action = NotFoundAction.IGNORE)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

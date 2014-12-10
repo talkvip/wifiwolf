@@ -50,7 +50,7 @@ public class Node extends IdLong {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id")
 	@NotNull
-	private User user;
+	private User owner;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "registerNode")
 	@OrderBy("id DESC")
@@ -89,11 +89,11 @@ public class Node extends IdLong {
 	}
 
 	public User getOwner() {
-		return user;
+		return owner;
 	}
 
-	public void setOwner(User user) {
-		this.user = user;
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
 	public Integer getLastHeartbeatSysUptime() {
@@ -145,11 +145,11 @@ public class Node extends IdLong {
 	}
 
 	public User getUser() {
-		return user;
+		return owner;
 	}
 
 	public void setUser(User user) {
-		this.user = user;
+		this.owner = user;
 	}
 
 	public List<User> getRegisteredUsers() {

@@ -20,6 +20,7 @@ import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.common.util.DateUtil;
 import net.dasherz.wifiwolf.common.util.RandomUtil;
 import net.dasherz.wifiwolf.common.util.ValidationCode;
+import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.UserRepository;
@@ -94,6 +95,16 @@ public class UserService {
 	// 通过手机号查找用户
 	public User findUserByPhone(String phoneNum) {
 		return userDao.findByPhone(phoneNum);
+	}
+
+	public String getUserRegisterNodeName(User user) {
+		user = this.getUser(user.getId());
+		Node node = user.getRegisterNode();
+		if (node != null) {
+			return user.getRegisterNode().getNodeDescription();
+		} else {
+			return "非路由器注册";
+		}
 	}
 
 	public boolean isExist(String username) {
@@ -459,16 +470,13 @@ public class UserService {
 					 * 连接查询条件, 不定参数，可以连接0..N个查询条件
 					 */
 					List<Predicate> list = new ArrayList<Predicate>();
-					if (user.getUsername() != null
-							&& !user.getUsername().isEmpty()) {
-						list.add(cb.equal(root.get("username"),
-								user.getUsername()));
-					}
 					if (user.getPhone() != null && !user.getPhone().isEmpty()) {
 						list.add(cb.equal(root.get("phone"), user.getPhone()));
 					}
-					if (user.getEmail() != null && !user.getEmail().isEmpty()) {
-						list.add(cb.equal(root.get("email"), user.getEmail()));
+					if (user.getRegisterNode() != null
+							&& user.getRegisterNode().getId() != null) {
+						list.add(cb.equal(root.get("registerNode"),
+								user.getRegisterNode()));
 					}
 					list.add(cb.equal(root.get("accountStatus"), 1));
 

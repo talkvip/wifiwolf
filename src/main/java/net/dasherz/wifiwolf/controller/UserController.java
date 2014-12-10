@@ -5,6 +5,8 @@
  *******************************************************************************/
 package net.dasherz.wifiwolf.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -14,6 +16,7 @@ import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.util.CacheUtils;
 import net.dasherz.wifiwolf.common.util.PageInfo;
 import net.dasherz.wifiwolf.domain.User;
+import net.dasherz.wifiwolf.service.NodeService;
 import net.dasherz.wifiwolf.service.UserService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +45,9 @@ public class UserController extends BaseController {
 
 	@Inject
 	private UserService userService;
+
+	@Inject
+	private NodeService nodeService;
 
 	@ModelAttribute
 	public User get(@RequestParam(required = false) Long id) {
@@ -87,6 +93,11 @@ public class UserController extends BaseController {
 
 		PageInfo pageInfo = new PageInfo(users.getTotalPages(), pageNum);
 
+		Map<String, String> userRegisterNodeMap = getUserRegisterNodeMap(users
+				.getContent());
+
+		model.addAttribute("nodes", nodeService.findAll());
+		model.addAttribute("userRegisterNodeMap", userRegisterNodeMap);
 		model.addAttribute("users", users.getContent());
 		model.addAttribute("totalPages", pageInfo.getTotalPage());
 		model.addAttribute("page", pageNum);
@@ -196,5 +207,14 @@ public class UserController extends BaseController {
 			loginFailMap.remove(useruame);
 		}
 		return loginFailNum >= 3;
+	}
+
+	private Map<String, String> getUserRegisterNodeMap(List<User> users) {
+		Map<String, String> map = new HashMap<String, String>();
+		for (User user : users) {
+			String name = userService.getUserRegisterNodeName(user);
+			map.put(String.valueOf(user.getId()), name);
+		}
+		return map;
 	}
 }
