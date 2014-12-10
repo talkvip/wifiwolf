@@ -9,6 +9,9 @@
 		<pattern>/portal*</pattern>
 		<pattern>/gw_message*</pattern>
 		<pattern>/wifi*</pattern>
+		<pattern>/*404*</pattern>
+		<pattern>/*500*</pattern>
+		<pattern>/*403*</pattern>
 	</decorator>
 	<decorator name="default" page="default.jsp">
 		<pattern>/*</pattern>

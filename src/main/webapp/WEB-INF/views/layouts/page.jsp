@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-	function jumpTo(maxPage, currentPage) {
-		var page = $("#jumpTo").val();
+	function jumpTo(maxPage, page) {
+		currentPage=$(".currentPage").text();
 		if (isNaN(page)) {
 			alert("请输入数字");
 		} 
@@ -11,7 +11,9 @@
 			alert("对不起，无法到达该页")
 		} else if(page == currentPage){
 		}else {
-			$('body').load('${pagePath}?page=' + page);
+			$("#targetPage").val(page);
+			$("#searchForm").submit();
+			//$('body').load('${pagePath}?page=' + page);
 		}
 	}
 </script>
@@ -24,7 +26,7 @@
 				<!-- 上一页 按钮 -->
 				<c:choose>
 					<c:when test="${page != 1}">
-						<li><a href="${pagePath}?page=${page-1}">&laquo;</a></li>
+						<li><a href="javascript:void(0)" onclick="jumpTo(${totalPages},${page-1})">&laquo;</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="disabled"><a href="#">&laquo;</a></li>
@@ -37,29 +39,25 @@
 							<li class="disabled"><a href="#" class="currentPage">${item}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${pagePath}?page=${item}">${item}</a></li>
+							<li><a href="javascript:void(0)" onclick="jumpTo(${totalPages},${item})">${item}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<!-- 下一页 按钮 -->
 				<c:choose>
 					<c:when test="${page != totalPages}">
-						<li><a href="${pagePath}?page=${page+1}">&raquo;</a></li>
+						<li><a href="javascript:void(0)" onclick="jumpTo(${totalPages},${page-1})">&raquo;</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="disabled"><a href="#">&raquo;</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
-			<c:choose>
-				<c:when test="${item == page}">
-					<a href="${pagePath}?page=${item}">${item}</a>
-				</c:when>
-			</c:choose>
+
 			<input type="text" class="form-control page-editbox" id="jumpTo">
 
 			<button class="btn btn-default page-button"
-				onclick="jumpTo(${totalPages},${page})">跳转</button>
+				onclick="jumpTo(${totalPages},$('#jumpTo').val());">跳转</button>
 
 
 		</div>

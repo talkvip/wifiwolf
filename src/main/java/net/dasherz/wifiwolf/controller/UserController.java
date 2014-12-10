@@ -119,7 +119,7 @@ public class UserController extends BaseController {
 		return "/user/userForm";
 	}
 
-	@RequestMapping(value = "/user/save")
+	@RequestMapping(value = "/user/saveInfo")
 	public String saveNormalUser(User user, HttpServletRequest request,
 			Model model, RedirectAttributes redirectAttributes) {
 		// 如果新密码为空，则不更换密码
@@ -146,7 +146,7 @@ public class UserController extends BaseController {
 		return "redirect:/user/myinfo";
 	}
 
-	@RequestMapping(value = "/manage/userSave")
+	@RequestMapping(value = "/manage/saveUser")
 	public String save(User user, HttpServletRequest request, Model model,
 			RedirectAttributes redirectAttributes) {
 		// 如果新密码为空，则不更换密码

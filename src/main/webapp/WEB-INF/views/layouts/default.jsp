@@ -59,7 +59,7 @@
 					</a>
 						<ul class="dropdown-menu" role="menu">
 							<li id="phoneStatTab"><a href="#">手机统计</a></li>
-							<li id="sysLogTab"><a href="#">日志</a></li>
+							<li id="sysLogTab"><a href="${ctx}/manage/listLog">管理日志</a></li>
 							<li id="verifyCodeTab"><a href="${ctx}/manage/verifyCode">验证码</a></li>
 						</ul></li>
 						</shiro:hasRole>

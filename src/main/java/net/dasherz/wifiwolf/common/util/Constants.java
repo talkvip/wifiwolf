@@ -58,5 +58,6 @@ public class Constants {
 	public static final String SESSION_ATTR_WIFIDOG_HOST = "wifidogHost";
 	public static final String SESSION_ATTR_WIFIDOG_PORT = "wifidogPort";
 	public static final String SESSION_ATTR_TOKEN_ID = "tokenId";
+	public static final String PATH_MANAGE = "/manage";
 
 }

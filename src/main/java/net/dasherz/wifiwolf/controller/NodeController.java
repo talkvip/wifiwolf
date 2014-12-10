@@ -110,7 +110,7 @@ public class NodeController extends BaseController {
 		return "redirect:/manage/nodeList";
 	}
 
-	@RequestMapping(value = "/nodeSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveNode", method = RequestMethod.POST)
 	public String save(Model model, Node node) {
 		if (node.getOwner() == null) {
 			node.setOwner(userService.findUserByUsername(SecurityUtils

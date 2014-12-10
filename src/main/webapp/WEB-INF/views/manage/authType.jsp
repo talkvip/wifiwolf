@@ -167,7 +167,7 @@ $(document).ready(function() {
 											<td style="text-align: center">${ww:getLabel('register_type',authType.registerType,'') }&nbsp;</td>
 											<td style="text-align: center">${ww:getLabel('auth_type',authType.authType,'') }&nbsp;</td>
 											<td style="text-align: center"><a
-												href="${ctx}/manage/authTypeStatus?id=${authType.id}" id="editLink-${order.count}">${ww:getLabel('auth_type_status', authType.status,'') }</a></td>
+												href="${ctx}/manage/saveAuthType?id=${authType.id}" id="editLink-${order.count}">${ww:getLabel('auth_type_status', authType.status,'') }</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>

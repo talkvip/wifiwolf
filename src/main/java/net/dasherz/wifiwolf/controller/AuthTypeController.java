@@ -73,7 +73,7 @@ public class AuthTypeController extends BaseController {
 		return "/manage/authType";
 	}
 
-	@RequestMapping(value = "/authTypeStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveAuthType", method = RequestMethod.GET)
 	public String changeAuthTypeStatus(AuthType authType, Model model,
 			RedirectAttributes redirectAttributes) {
 		if (authType.getId() != null) {

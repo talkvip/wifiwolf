@@ -39,7 +39,7 @@
 		</ul>
 		<br>
 		<tags:message content="${message}" />
-		<form:form id="inputForm" modelAttribute="node" action="${ctx}/manage/nodeSave" method="post"
+		<form:form id="inputForm" modelAttribute="node" action="${ctx}/manage/saveNode" method="post"
 			class="form-horizontal">
 			<form:hidden path="id" />
 

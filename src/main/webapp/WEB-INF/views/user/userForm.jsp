@@ -34,7 +34,7 @@
 		<br />
 		<tags:message content="${message}" />
 		<form:form id="inputForm" modelAttribute="user"
-			action="${ctx}/user/save" method="post" class="form-horizontal">
+			action="${ctx}/user/saveInfo" method="post" class="form-horizontal">
 			<form:hidden path="id" />
 
 			<div class="form-group">
