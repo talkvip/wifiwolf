@@ -36,7 +36,8 @@
 						<td>${connection.token.token}</td>
 						<td>${connection.incoming}</td>
 						<td>${connection.outgoing}</td>
-						<td>${connection.token.originUrl}</td>
+						<c:set var="url">${connection.token.originUrl}</c:set>
+						<td title="${url}">${ww:shrimUrl(url)}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

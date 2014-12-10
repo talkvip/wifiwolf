@@ -11,6 +11,10 @@
 <meta http-equiv="Expires" content="0" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="${ctx}/resources/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="${ctx}/resources/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="${ctx}/resources/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="${ctx}/resources/js/bootstrap.min.js" type="text/javascript"></script>
 
 <script src="${ctx}/resources/js/jquery-ui.js" type="text/javascript"></script>
 <script src="${ctx}/resources/js/jquery.i18n.properties.js" type="text/javascript"></script>
@@ -36,16 +40,10 @@
 	<sitemesh:body />
 
 
-	<div class="footer">
-		<div class="container">
-			<p class="text-muted">Place sticky footer content here.</p>
-		</div>
+	<div id="footer" class="navbar-fixed-bottom">
+		Copyright &copy; 2014-2014 <a href="http://dasherz.net/">DasHerz Studio</a>
 	</div>
 
 
-	<script src="${ctx}/resources/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-	<script src="${ctx}/resources/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
-	<script src="${ctx}/resources/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
-	<script src="${ctx}/resources/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
