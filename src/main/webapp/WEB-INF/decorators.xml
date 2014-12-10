@@ -4,8 +4,11 @@
         <pattern>/resources/*</pattern>
         <pattern>/*Fragment*</pattern>
     </excludes>
-    <decorator name="login" page="loginTemplate.jsp">
+    <decorator name="annoymous" page="annoymousTemplate.jsp">
 		<pattern>/*login*</pattern>
+		<pattern>/portal*</pattern>
+		<pattern>/gw_message*</pattern>
+		<pattern>/wifi*</pattern>
 	</decorator>
 	<decorator name="default" page="default.jsp">
 		<pattern>/*</pattern>

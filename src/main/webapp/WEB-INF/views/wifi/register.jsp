@@ -94,8 +94,8 @@
 					href="#" data-toggle="modal" data-target="#myModal">用户协议</a>
 				</label>
 			</div>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-				href="${ctx}/wifi/login/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">返回登录</a>
+			<p style="text-align: right;"><a
+				 href="${ctx}/wifi/login/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">返回登录</a></p>
 			<input type="hidden" name="wifidogHost" value="${wifidogHost}" /> <input
 				type="hidden" name="wifidogPort" value="${wifidogPort}" /> <input
 				type="hidden" name="gw_id" value="${gw_id}" /><input type="hidden"

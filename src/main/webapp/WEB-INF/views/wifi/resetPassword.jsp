@@ -38,12 +38,14 @@
 					name="username" value="${username}" placeHolder="用户名/手机号" required
 					autofocus /> <br>
 			</div>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-				href="${ctx}/wifi/login/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">返回登录</a>
+			<p style="text-align: right;"><a
+				 href="${ctx}/wifi/login/?wifidogHost=${wifidogHost}&wifidogPort=${wifidogPort}&registerType=${registerType}&authType=${authType}&gw_id=${gw_id}">返回登录</a></p>
+			
 			<input type="hidden" name="wifidogHost" value="${wifidogHost}" /> <input
 				type="hidden" name="wifidogPort" value="${wifidogPort}" /> <input
 				type="hidden" name="gw_id" value="${gw_id}" /><input type="hidden"
 				name="authType" value="${authType}" />
+				<input type="hidden" name="registerType" value="${registerType}" />
 			<button class="btn btn-lg btn-primary btn-block" id="submitForm"
 				type="button">重置密码</button>
 		</form>
