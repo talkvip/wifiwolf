@@ -311,7 +311,7 @@ $(document).ready(function() {
 			<!-- auth page selector Modal -->
 			<div class="modal fade" id="authPageTemplates" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">
@@ -323,7 +323,7 @@ $(document).ready(function() {
 							<div class="row">
 								<c:forEach items="${authPageTemplates }" var="authPageTemplate" varStatus="i">
 
-									<div class="col-xs-6 col-md-3">
+									<div class="col-xs-6 col-md-4">
 										<a href="#" class="thumbnail" id="authTemplate${authPageTemplate.id}Img"> <img
 											src="${ctx}/resources/img/template_thumbnail/${authPageTemplate.templateThumbnail}"
 											alt="template_thumbnail">
@@ -343,7 +343,7 @@ $(document).ready(function() {
 			<!-- portal page selector Modal -->
 			<div class="modal fade" id="portalPageTemplates" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">
@@ -355,7 +355,7 @@ $(document).ready(function() {
 							<div class="row">
 								<c:forEach items="${portalPageTemplates }" var="portalPageTemplate" varStatus="i">
 
-									<div class="col-xs-6 col-md-3">
+									<div class="col-xs-6 col-md-4">
 										<a href="#" class="thumbnail" id="portalTemplate${portalPageTemplate.id}Img"> <img
 											src="${ctx}/resources/img/template_thumbnail/${portalPageTemplate.templateThumbnail}"
 											alt="template_thumbnail">

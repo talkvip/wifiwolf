@@ -216,7 +216,7 @@ CREATE TABLE `t_page_template` (
 
 LOCK TABLES `t_page_template` WRITE;
 /*!40000 ALTER TABLE `t_page_template` DISABLE KEYS */;
-INSERT INTO `t_page_template` VALUES (1,'template/template1',1,1,'Template1','fake-template.jpg'),(2,'template/template2',1,1,'Template2','fake-template.jpg'),(3,'template/template3',1,2,'Template3','fake-template.jpg'),(4,'template/template3',1,2,'Template4','fake-template.jpg');
+INSERT INTO `t_page_template` VALUES (1,'template/template1',1,1,'登录页面1','template1.png'),(2,'template/template2',1,1,'登录页面2','template2.png'),(3,'template/template3',1,2,'门户页面1','template3.png'),(4,'template/template4',1,2,'门户页面2','template4.png');
 /*!40000 ALTER TABLE `t_page_template` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,4 +350,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-10 21:57:55
+-- Dump completed on 2014-12-11 11:03:52

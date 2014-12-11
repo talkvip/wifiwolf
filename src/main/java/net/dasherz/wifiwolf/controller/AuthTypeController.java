@@ -136,7 +136,7 @@ public class AuthTypeController extends BaseController {
 		} else if (portalPageType
 				.equals(Constants.PAGE_TYPE_USE_CUSTOMIZE_HTML)) {
 			portalPage.setCustomizeHtml(portalPageCustomizeHtml);
-			saveHtmlToFile(Encodes.unescapeHtml(authPageCustomizeHtml),
+			saveHtmlToFile(Encodes.unescapeHtml(portalPageCustomizeHtml),
 					"resources/custom/customPortalPage.htm");
 		}
 

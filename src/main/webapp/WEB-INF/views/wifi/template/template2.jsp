@@ -5,7 +5,9 @@
 <title>Wifi Wolf 网络登录</title>
 <link href="${ctx}/resources/css/signin.css" type="text/css"
 	rel="stylesheet" />
-
+<style type="text/css">
+body {background-color: #5cb85c;}
+</style>
 <script>
 	$(document).ready(
 			function() {
