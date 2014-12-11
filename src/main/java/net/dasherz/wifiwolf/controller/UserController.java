@@ -83,8 +83,11 @@ public class UserController extends BaseController {
 	public String listUsers(User user, HttpServletRequest request, Model model) {
 
 		String currentPage = request.getParameter("page");
+		String isConditionChanged = request.getParameter("isConditionChanged");
 		int pageNum = 1;
-		if (StringUtils.isNumeric(currentPage)) {
+		if (isConditionChanged != null
+				&& isConditionChanged.equalsIgnoreCase("false")
+				&& StringUtils.isNumeric(currentPage)) {
 			pageNum = Integer.parseInt(currentPage);
 		}
 

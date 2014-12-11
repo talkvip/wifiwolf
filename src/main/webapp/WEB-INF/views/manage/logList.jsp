@@ -9,6 +9,9 @@
 		$("#sysLogTab").addClass("active");
 		
 	});
+	function conditionChange(isConditionChanged) {
+		$("#isConditionChanged").val(isConditionChanged);
+	}
 </script>
 <style type="text/css">
 td {word-wrap:break-word; word-break:break-all;}
@@ -30,13 +33,14 @@ td {word-wrap:break-word; word-break:break-all;}
 					action="${ctx}/manage/listLog" method="post" class="form-inline"
 					role="form">
 					<input type="hidden" id="targetPage" name="page" value=""/>
+					<input type="hidden" id="isConditionChanged" name="isConditionChanged" value="false" />
 					<div class="form-group">
 						<label for="requestUri">Request Uri：</label>
 						<form:input path="requestUri" 
-							class="form-control" />
+							class="form-control" onchange="conditionChange(true)" />
 					</div>
 					<div class="form-group">
-						<label for="nodeName">日志类型：</label> <form:select path="logType" class="form-control">
+						<label for="nodeName">日志类型：</label> <form:select path="logType" class="form-control" onchange="conditionChange(true)">
 						<form:option value="" label="" />
 						<form:option value="1" label="访问" />
 						<form:option value="2" label="异常" />

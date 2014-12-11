@@ -25,7 +25,9 @@
 		nodeid=nodeId;
 		$('#myModal').modal();
 	}
-	
+	function conditionChange(isConditionChanged) {
+		$("#isConditionChanged").val(isConditionChanged);
+	}
 	
 </script>
 </head>
@@ -45,14 +47,15 @@
 				<form:form id="searchForm" modelAttribute="node" action="${ctx}/manage/nodeList" method="post"
 					class="form-inline" role="form">
 					<input type="hidden" id="targetPage" name="page" value=""/>
+					<input type="hidden" id="isConditionChanged" name="isConditionChanged" value="false" />
 					<div class="form-group">
 						<label for="nodeDescription">路由器名：</label>
-						<form:input type="text" name="search_nodeDescription" class="form-control"
+						<form:input type="text" name="search_nodeDescription" class="form-control" onchange="conditionChange(true)"
 							path="nodeDescription"></form:input>
 					</div>
 					<div class="form-group">
 						<label for="gatewayId">网关ID：</label>
-						<form:input type="text" name="search_gatewayId" class="form-control" path="gatewayId"></form:input>
+						<form:input type="text" name="search_gatewayId" class="form-control" onchange="conditionChange(true)" path="gatewayId"></form:input>
 					</div>&nbsp;&nbsp;
 					<input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" />
 				</form:form>

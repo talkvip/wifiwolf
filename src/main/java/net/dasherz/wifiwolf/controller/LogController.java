@@ -23,8 +23,11 @@ public class LogController {
 	@RequestMapping(value = "/listLog")
 	public String list(Model model, HttpServletRequest request, Log log) {
 		String currentPage = request.getParameter("page");
+		String isConditionChanged = request.getParameter("isConditionChanged");
 		int pageNum = 1;
-		if (StringUtils.isNumeric(currentPage)) {
+		if (isConditionChanged != null
+				&& isConditionChanged.equalsIgnoreCase("false")
+				&& StringUtils.isNumeric(currentPage)) {
 			pageNum = Integer.parseInt(currentPage);
 		}
 		Page<Log> logs = logService.getLogs(pageNum, PageInfo.PAGE_SIZE, log);

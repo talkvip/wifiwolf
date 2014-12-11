@@ -52,8 +52,11 @@ public class NodeController extends BaseController {
 	@RequestMapping(value = "/nodeList")
 	public String list(Node node, HttpServletRequest request, Model model) {
 		String currentPage = request.getParameter("page");
+		String isConditionChanged = request.getParameter("isConditionChanged");
 		int pageNum = 1;
-		if (StringUtils.isNumeric(currentPage)) {
+		if (isConditionChanged != null
+				&& isConditionChanged.equalsIgnoreCase("false")
+				&& StringUtils.isNumeric(currentPage)) {
 			pageNum = Integer.parseInt(currentPage);
 		}
 

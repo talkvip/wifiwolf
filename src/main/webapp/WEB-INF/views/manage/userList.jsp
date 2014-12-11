@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
-<c:set var="pagePath" value="${ctx}/manage/userList"/>
+<c:set var="pagePath" value="${ctx}/manage/userList" />
 <html>
 <head>
 <title>用户管理</title>
@@ -16,6 +16,9 @@
 		    cancelButton: "取消"
 		});
 	});
+	function conditionChange(isConditionChanged) {
+		$("#isConditionChanged").val(isConditionChanged);
+	}
 </script>
 </head>
 
@@ -34,18 +37,21 @@
 				<form:form id="searchForm" modelAttribute="user"
 					action="${ctx}/manage/userList" method="post" class="form-inline"
 					role="form">
-					<input type="hidden" id="targetPage" name="page" value=""/>
+					<input type="hidden" id="targetPage" name="page" value="" />
+					<input type="hidden" id="isConditionChanged" name="isConditionChanged" value="false" />
 					<div class="form-group">
 						<label for="phoneNum">手机号：</label>
 						<form:input type="text" name="search_phoneNum"
-							class="form-control" path="phone"></form:input>
+							class="form-control" onchange="conditionChange(true)"
+							path="phone"></form:input>
 					</div>
 					<div class="form-group">
-						<label for="nodeName">路由器名：</label> <form:select path="registerNode.id" class="form-control">
-						<form:option value="" label="请选择" />
-						<form:options items="${nodes}" itemLabel="nodeDescription"
-							itemValue="id" htmlEscape="false" />
-					</form:select>
+						<label for="nodeName">路由器名：</label>
+						<form:select path="registerNode.id" class="form-control" onchange="conditionChange(true)">
+							<form:option value="" label="请选择" />
+							<form:options items="${nodes}" itemLabel="nodeDescription"
+								itemValue="id" htmlEscape="false" />
+						</form:select>
 					</div>&nbsp;&nbsp;
 					<input id="btnSubmit" class="btn btn-primary" type="submit"
 						value="查询" />
@@ -54,7 +60,8 @@
 		</div>
 		<br>
 
-		<table id="contentTable" class="table table-striped table-bordered table-condensed">
+		<table id="contentTable"
+			class="table table-striped table-bordered table-condensed">
 			<thead>
 				<tr>
 					<th>登录名</th>
@@ -81,12 +88,13 @@
 						<td><a href="${ctx}/manage/userForm?id=${user.id}"
 							id="editLink-${user.username}">修改</a> <a
 							href="${ctx}/manage/deleteUser?id=${user.id}"
-							id="editLink-${user.username}" onclick="return confirm('确定删除该用户？')">删除</a></td>
+							id="editLink-${user.username}"
+							onclick="return confirm('确定删除该用户？')">删除</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
+
 
 	</div>
 	<%@ include file="/WEB-INF/views/layouts/page.jsp"%>
