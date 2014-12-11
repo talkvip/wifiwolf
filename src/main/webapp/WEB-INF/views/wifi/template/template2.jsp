@@ -147,8 +147,7 @@ body {background-color: #5cb85c;}
 					</button>
 					<h4 class="modal-title" id="myModalLabel">用户协议</h4>
 				</div>
-				<div class="modal-body">点击下面的按钮即可通过 JavaScript
-					启动一个模态框。此模态框将从上到下、逐渐浮现到页面前。</div>
+				<div class="modal-body">最终解释权归本公司所有，</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 				</div>
