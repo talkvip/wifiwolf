@@ -19,9 +19,20 @@ body {background-color: #428bca;}
 								alert("请输入 正确的手机号");
 								return;
 							}
-							$.get("${ctx}/wifi/phoneVerify/?phoneNum="
+							$.get("${ctx}/wifi/login/phoneVerify/?phoneNum="
 									+ phoneNum, function(data, status) {
-								//TODO
+										if (data == "ERROR_REQUEST_LESS_ONE_MIN") {
+											alert("再次请求间隔太短");
+										}
+										if (data == "ERROR_REQUEST_EXCEED_MAX") {
+											alert("超出了当日最大短信使用量");
+										}
+										if (data == "ERROR_PHONE_NUM") {
+											alert("手机号码格式错误");
+										}
+										if (data == "ERROR_SYSTEM_EXCEPTION") {
+											alert("系统错误");
+										}
 							});
 							$("#getSmsCode").attr("disabled", true);
 							var step = 59;
@@ -136,8 +147,7 @@ body {background-color: #428bca;}
 					</button>
 					<h4 class="modal-title" id="myModalLabel">用户协议</h4>
 				</div>
-				<div class="modal-body">点击下面的按钮即可通过 JavaScript
-					启动一个模态框。此模态框将从上到下、逐渐浮现到页面前。</div>
+				<div class="modal-body">最终解释权归本公司所有，</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 				</div>
