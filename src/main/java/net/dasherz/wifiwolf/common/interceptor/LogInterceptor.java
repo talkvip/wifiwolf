@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.dasherz.wifiwolf.common.shiro.Encodes;
 import net.dasherz.wifiwolf.common.util.CommonUtil;
 import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.domain.Log;
@@ -65,8 +66,8 @@ public class LogInterceptor implements HandlerInterceptor {
 				for (Object param : request.getParameterMap().keySet()) {
 					params.append((index++ == 0 ? "" : "&") + param + "=");
 					params.append(StringUtils.endsWithIgnoreCase(
-							(String) param, "password") ? "" : request
-							.getParameter((String) param));
+							(String) param, "password") ? "" : Encodes
+							.escapeHtml(request.getParameter((String) param)));
 				}
 
 				Log log = new Log();
