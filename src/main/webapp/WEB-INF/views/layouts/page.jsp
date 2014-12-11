@@ -46,7 +46,7 @@
 				<!-- 下一页 按钮 -->
 				<c:choose>
 					<c:when test="${page != totalPages}">
-						<li><a href="javascript:void(0)" onclick="jumpTo(${totalPages},${page-1})">&raquo;</a></li>
+						<li><a href="javascript:void(0)" onclick="jumpTo(${totalPages},${page+1})">&raquo;</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="disabled"><a href="#">&raquo;</a></li>
