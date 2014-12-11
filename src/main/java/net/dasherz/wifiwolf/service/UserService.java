@@ -169,26 +169,26 @@ public class UserService {
 	}
 
 	public ValidationCode registerUser(String userPassword, String phoneNum,
-			String phoneCode, String authType) {
+			String phoneCode, String authType, Node node) {
 		if (authType == null || authType.isEmpty()) {
 			return ValidationCode.ERROR_SYSTEM_AUTH_TYPE;
 		}
 
 		if (authType.equalsIgnoreCase("PHONE")) {
-			return registerByPhoneNum(phoneNum);
+			return registerByPhoneNum(phoneNum, node);
 		} else if (authType.equalsIgnoreCase("PHONE_SMS")) {
-			return registerByPhoneNumAndSMS(phoneNum, phoneCode);
+			return registerByPhoneNumAndSMS(phoneNum, phoneCode, node);
 		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD")) {
-			return registerByUserPassword(phoneNum, userPassword);
+			return registerByUserPassword(phoneNum, userPassword, node);
 		} else if (authType.equalsIgnoreCase("PHONE_PASSWORD_SMS")) {
 			return registerByPhoneNum_Password_SMS(phoneNum, phoneCode,
-					userPassword);
+					userPassword, node);
 		} else {
 			return ValidationCode.ERROR_SYSTEM_AUTH_TYPE;
 		}
 	}
 
-	private ValidationCode registerByPhoneNum(String phoneNum) {
+	private ValidationCode registerByPhoneNum(String phoneNum, Node node) {
 		boolean validPhone = validatePhoneNum(phoneNum);
 		if (!validPhone) {
 			return ValidationCode.ERROR_PHONE_NUMBER_FORMAT;
@@ -203,6 +203,7 @@ public class UserService {
 			user.setPassword(RandomUtil.createRandom(false,
 					DEFAULT_PASSWORD_SIZE));
 			user.setPhone(phoneNum);
+			user.setRegisterNode(node);
 			createUser(user);
 			return ValidationCode.VALID;
 		} else {
@@ -211,7 +212,7 @@ public class UserService {
 	}
 
 	private ValidationCode registerByPhoneNumAndSMS(String phoneNum,
-			String phoneCode) {
+			String phoneCode, Node node) {
 		boolean validPhone = validatePhoneNum(phoneNum);
 		if (!validPhone) {
 			return ValidationCode.ERROR_PHONE_NUMBER_FORMAT;
@@ -241,12 +242,13 @@ public class UserService {
 		user.setPassword(RandomUtil.createRandom(false, DEFAULT_PASSWORD_SIZE));
 		user.setPhone(phoneNum);
 		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
+		user.setRegisterNode(node);
 		createUser(user);
 		return ValidationCode.VALID;
 	}
 
 	private ValidationCode registerByUserPassword(String phoneNum,
-			String userPassword) {
+			String userPassword, Node node) {
 		boolean validPhone = validatePhoneNum(phoneNum);
 		if (!validPhone) {
 			return ValidationCode.ERROR_PHONE_NUMBER_FORMAT;
@@ -263,12 +265,13 @@ public class UserService {
 				+ System.currentTimeMillis());
 		user.setPassword(userPassword);
 		user.setPhone(phoneNum);
+		user.setRegisterNode(node);
 		createUser(user);
 		return ValidationCode.VALID;
 	}
 
 	private ValidationCode registerByPhoneNum_Password_SMS(String phoneNum,
-			String phoneCode, String userPassword) {
+			String phoneCode, String userPassword, Node node) {
 		boolean validPhone = validatePhoneNum(phoneNum);
 		if (!validPhone) {
 			return ValidationCode.ERROR_PHONE_NUMBER_FORMAT;
@@ -300,11 +303,13 @@ public class UserService {
 		user.setPassword(userPassword);
 		user.setPhone(phoneNum);
 		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
+		user.setRegisterNode(node);
 		createUser(user);
 		return ValidationCode.VALID;
 	}
 
-	public void registerUserAutomatically(String phoneNum, String phoneCode) {
+	public void registerUserAutomatically(String phoneNum, String phoneCode,
+			Node node) {
 		User user = userDao.findByPhone(phoneNum);
 		if (user != null) {
 			return;
@@ -316,6 +321,7 @@ public class UserService {
 				+ System.currentTimeMillis());
 		user.setPassword(RandomUtil.createRandom(false, DEFAULT_PASSWORD_SIZE));
 		user.setPhone(phoneNum);
+		user.setRegisterNode(node);
 		if (phoneCode != null) {
 			user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_VERIFIED);
 		} else {

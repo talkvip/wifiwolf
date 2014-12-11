@@ -13,6 +13,7 @@ import net.dasherz.wifiwolf.common.util.SentSMSResult;
 import net.dasherz.wifiwolf.common.util.ValidationCode;
 import net.dasherz.wifiwolf.domain.AuthPage;
 import net.dasherz.wifiwolf.domain.AuthType;
+import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.service.AuthPageService;
@@ -74,13 +75,15 @@ public class WIFIUserController {
 				phoneNum, phoneCode, authType.getAuthType());
 
 		if (code == ValidationCode.VALID) {
+			Node node = nodeService.findByGatewayId(gw_id);
 			PhoneUser phoneUser = null;
 			// for PHONE type, store phone number, register automatically.
 			if (authType.getAuthType().equals(Constants.AUTH_TYPE_PHONE)
 					|| authType.getAuthType().equals(
 							Constants.AUTH_TYPE_PHONE_SMS)) {
 				// phoneUserService.savePhoneNumber(phoneNum);
-				userService.registerUserAutomatically(phoneNum, phoneCode);
+				userService
+						.registerUserAutomatically(phoneNum, phoneCode, node);
 			}
 
 			if (authType.getAuthType().equals(
@@ -95,7 +98,7 @@ public class WIFIUserController {
 
 			Token token = tokenService.createToken(authType,
 					userService.findUserByUsername(username), phoneUser,
-					nodeService.findByGatewayId(gw_id), originUrl);
+					node, originUrl);
 
 			session.setAttribute(Constants.SESSION_ATTR_WIFIDOG_HOST,
 					wifidogHost);
@@ -204,8 +207,9 @@ public class WIFIUserController {
 			String phoneCode, String wifidogHost, String wifidogPort,
 			String gw_id, Model model) {
 		AuthType authType = authTypeService.getEnabledAuthType();
+		Node node = nodeService.findByGatewayId(gw_id);
 		ValidationCode code = userService.registerUser(userPassword, phoneNum,
-				phoneCode, authType.getRegisterType());
+				phoneCode, authType.getRegisterType(), node);
 		model.addAttribute("wifidogHost", wifidogHost);
 		model.addAttribute("wifidogPort", wifidogPort);
 		model.addAttribute("gw_id", gw_id);
