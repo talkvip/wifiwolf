@@ -233,6 +233,10 @@ public class UserService {
 		}
 		if (!phoneCode.equalsIgnoreCase(userInDb.getVerifyCode())) {
 			return ValidationCode.ERROR_VERIFY_CODE_WRONG;
+		} else {
+			// set phone verify code to verified after validation for SMS
+			// mode
+			phoneUserService.verifiedForPhoneNumber(userInDb);
 		}
 
 		user = new User();
@@ -294,6 +298,10 @@ public class UserService {
 
 		if (!phoneCode.equalsIgnoreCase(phoneUserInDb.getVerifyCode())) {
 			return ValidationCode.ERROR_VERIFY_CODE_WRONG;
+		} else {
+			// set phone verify code to verified after validation for SMS
+			// mode
+			phoneUserService.verifiedForPhoneNumber(phoneUserInDb);
 		}
 
 		user = new User();
@@ -466,7 +474,7 @@ public class UserService {
 		return password.equals(Encodes.encodeHex(salt)
 				+ Encodes.encodeHex(hashPassword));
 	}
-	
+
 	private User setUserDefaultSettings(User user) {
 		user.setWifiStatus(Constants.STATUS_USER_WIFI_ENABLED);
 		user.setUserType(Constants.STATUS_USER_ROLE_NORMAL);
