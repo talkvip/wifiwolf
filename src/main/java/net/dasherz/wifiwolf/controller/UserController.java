@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.util.CacheUtils;
+import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.common.util.PageInfo;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.service.NodeService;
@@ -171,6 +172,10 @@ public class UserController extends BaseController {
 			return form(user, model);
 		}
 		if (user.getId() == null) {
+			// User register by administrator, but the phone and email still
+			// haven't been verified.
+			user.setIsEmailVerified(Constants.STATUS_USER_EMAIL_UNVERIFIED);
+			user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_UNVERIFIED);
 			userService.createUser(user);
 		} else {
 			userService.updateUser(user);

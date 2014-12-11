@@ -38,7 +38,8 @@
 					action="${ctx}/manage/userList" method="post" class="form-inline"
 					role="form">
 					<input type="hidden" id="targetPage" name="page" value="" />
-					<input type="hidden" id="isConditionChanged" name="isConditionChanged" value="false" />
+					<input type="hidden" id="isConditionChanged"
+						name="isConditionChanged" value="false" />
 					<div class="form-group">
 						<label for="phoneNum">手机号：</label>
 						<form:input type="text" name="search_phoneNum"
@@ -47,7 +48,8 @@
 					</div>
 					<div class="form-group">
 						<label for="nodeName">路由器名：</label>
-						<form:select path="registerNode.id" class="form-control" onchange="conditionChange(true)">
+						<form:select path="registerNode.id" class="form-control"
+							onchange="conditionChange(true)">
 							<form:option value="" label="请选择" />
 							<form:options items="${nodes}" itemLabel="nodeDescription"
 								itemValue="id" htmlEscape="false" />
@@ -78,8 +80,22 @@
 				<c:forEach items="${users}" var="user">
 					<tr>
 						<td>${user.username}&nbsp;</td>
-						<td>${user.phone}(${ww:getLabel('is_verified',user.isPhoneVerified,'') })&nbsp;</td>
-						<td>${user.email}(${ww:getLabel('is_verified',user.isEmailVerified,'') })&nbsp;</td>
+						<c:choose>
+							<c:when test="${user.phone != null && user.phone ne ''}">
+								<td>${user.phone}(${ww:getLabel('is_verified',user.isPhoneVerified,'') })&nbsp;</td>
+							</c:when>
+							<c:otherwise>
+								<td>暂无&nbsp;</td>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${user.email != null && user.email ne ''}">
+								<td>${user.email}(${ww:getLabel('is_verified',user.isEmailVerified,'') })&nbsp;</td>
+							</c:when>
+							<c:otherwise>
+								<td>暂无&nbsp;</td>
+							</c:otherwise>
+						</c:choose>
 						<td>${ww:getLabel('wifi_status',user.wifiStatus,'') }&nbsp;</td>
 						<td>${ww:getLabel('user_type',user.userType,'') }&nbsp;</td>
 						<c:set var="key">${user.id}</c:set>

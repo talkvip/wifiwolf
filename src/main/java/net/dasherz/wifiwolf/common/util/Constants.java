@@ -35,6 +35,9 @@ public class Constants {
 	public static final Integer STATUS_USER_ROLE_ADMIN = 1;
 	public static final Integer STATUS_USER_ROLE_NORMAL = 2;
 
+	public static final Integer STATUS_USER_FAMALE = 1;
+	public static final Integer STATUS_USER_MALE = 2;
+
 	public static final Integer STATUS_USER_PHONE_VERIFIED = 1;
 	public static final Integer STATUS_USER_PHONE_UNVERIFIED = 2;
 

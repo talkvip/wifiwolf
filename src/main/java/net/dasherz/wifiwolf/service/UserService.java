@@ -49,11 +49,7 @@ public class UserService {
 
 	// 增加用户
 	public void createUser(User user) {
-
 		user.setAccountStatus(Constants.STATUS_USER_ACCOUNT_NORMAL);
-		user.setWifiStatus(Constants.STATUS_USER_WIFI_ENABLED);
-		user.setUserType(Constants.STATUS_USER_ROLE_NORMAL);
-		// 生成用户密码和加密
 		user.setCreateTime(new Date());
 		user.setPassword(entryptPassword(user.getPassword()));
 		userDao.saveAndFlush(user);
@@ -201,6 +197,7 @@ public class UserService {
 		User user = userDao.findByPhone(phoneNum);
 		if (user == null) {
 			user = new User();
+			user = setUserDefaultSettings(user);
 			user.setUsername(RandomUtil.createRandom(false,
 					DEFAULT_USER_NAME_SIZE) + System.currentTimeMillis());
 			user.setPassword(RandomUtil.createRandom(false,
@@ -238,6 +235,7 @@ public class UserService {
 		}
 
 		user = new User();
+		user = setUserDefaultSettings(user);
 		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE)
 				+ System.currentTimeMillis());
 		user.setPassword(RandomUtil.createRandom(false, DEFAULT_PASSWORD_SIZE));
@@ -260,6 +258,7 @@ public class UserService {
 		}
 
 		user = new User();
+		user = setUserDefaultSettings(user);
 		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE)
 				+ System.currentTimeMillis());
 		user.setPassword(userPassword);
@@ -295,6 +294,7 @@ public class UserService {
 		}
 
 		user = new User();
+		user = setUserDefaultSettings(user);
 		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE)
 				+ System.currentTimeMillis());
 		user.setPassword(userPassword);
@@ -311,6 +311,7 @@ public class UserService {
 		}
 
 		user = new User();
+		user = setUserDefaultSettings(user);
 		user.setUsername(RandomUtil.createRandom(false, DEFAULT_USER_NAME_SIZE)
 				+ System.currentTimeMillis());
 		user.setPassword(RandomUtil.createRandom(false, DEFAULT_PASSWORD_SIZE));
@@ -458,6 +459,15 @@ public class UserService {
 				HASH_INTERATIONS);
 		return password.equals(Encodes.encodeHex(salt)
 				+ Encodes.encodeHex(hashPassword));
+	}
+	
+	private User setUserDefaultSettings(User user) {
+		user.setWifiStatus(Constants.STATUS_USER_WIFI_ENABLED);
+		user.setUserType(Constants.STATUS_USER_ROLE_NORMAL);
+		user.setSex(Constants.STATUS_USER_FAMALE);
+		user.setIsEmailVerified(Constants.STATUS_USER_EMAIL_UNVERIFIED);
+		user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_UNVERIFIED);
+		return user;
 	}
 
 	private Specification<User> buildSpecification(final User user) {

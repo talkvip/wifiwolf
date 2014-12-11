@@ -17,9 +17,21 @@
 								alert("请输入 正确的手机号");
 								return;
 							}
-							$.get("${ctx}/wifi/phoneVerify/?phoneNum="
+							$.get("${ctx}/wifi/login/phoneVerify/?phoneNum="
 									+ phoneNum, function(data, status) {
-								//TODO
+								if (data == "ERROR_REQUEST_LESS_ONE_MIN") {
+									alert("再次请求间隔太短");
+								}
+								if (data == "ERROR_REQUEST_EXCEED_MAX") {
+									alert("超出了当日最大短信使用量");
+								}
+								if (data == "ERROR_PHONE_NUM") {
+									alert("手机号码格式错误");
+								}
+								if (data == "ERROR_SYSTEM_EXCEPTION") {
+									alert("系统错误");
+								}
+
 							});
 							$("#getSmsCode").attr("disabled", true);
 							var step = 59;
