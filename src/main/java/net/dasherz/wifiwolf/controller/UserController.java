@@ -155,8 +155,7 @@ public class UserController extends BaseController {
 			RedirectAttributes redirectAttributes) {
 		// 如果新密码为空，则不更换密码
 		if (StringUtils.isNotBlank(user.getPlainPassword())) {
-			user.setPassword(UserService.entryptPassword(user
-					.getPlainPassword()));
+			user.setPassword(user.getPlainPassword());
 		}
 		if (!beanValidator(model, user)) {
 			return form(user, model);

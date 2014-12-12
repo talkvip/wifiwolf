@@ -25,6 +25,7 @@ import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.UserRepository;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -145,6 +146,9 @@ public class UserService {
 	}
 
 	public void updateUser(User user) {
+		if (StringUtils.isNotBlank(user.getPlainPassword())) {
+			user.setPassword(entryptPassword(user.getPassword()));
+		}
 		userDao.saveAndFlush(user);
 	}
 
