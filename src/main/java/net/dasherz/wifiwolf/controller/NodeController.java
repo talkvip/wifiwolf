@@ -12,6 +12,7 @@ import net.dasherz.wifiwolf.common.controller.BaseController;
 import net.dasherz.wifiwolf.common.util.PageInfo;
 import net.dasherz.wifiwolf.domain.Connection;
 import net.dasherz.wifiwolf.domain.Node;
+import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.service.ConnectionService;
 import net.dasherz.wifiwolf.service.NodeService;
 import net.dasherz.wifiwolf.service.UserService;
@@ -141,6 +142,16 @@ public class NodeController extends BaseController {
 		model.addAttribute("node", node);
 		model.addAttribute("connections", connections);
 		return "/manage/connectionTable";
+	}
+
+	@RequestMapping(value = "/liveNodeUserFragment", method = RequestMethod.GET)
+	public String getRegisterUser(String nodeid, Model model)
+			throws IOException {
+		Node node = nodeService.getNode(Long.parseLong(nodeid));
+		List<User> nodeUsers = userService.getNodeUsers(node);
+		model.addAttribute("node", node);
+		model.addAttribute("nodeUsers", nodeUsers);
+		return "/manage/nodeUserTable";
 	}
 
 }

@@ -65,6 +65,11 @@ public class UserService {
 		return userDao.findByUserId(userId);
 	}
 
+	// 通过注册的路由器查找用户
+	public List<User> getNodeUsers(Node node) {
+		return userDao.findByRegisterNode(node);
+	}
+
 	// 通过页码查找用户
 	public Page<User> getPageUsers(int pageNum, int pageSize) {
 

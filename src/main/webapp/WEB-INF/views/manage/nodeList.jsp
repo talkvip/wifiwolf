@@ -20,10 +20,11 @@
 		});
 	});
 	var nodeid,modelType;
-	function showModel(nodeId,type){
+	function showModel(nodeId,type,title){
 		modelType=type;
 		nodeid=nodeId;
 		$('#myModal').modal();
+		$("#myModalLabel").html(title);
 	}
 	function conditionChange(isConditionChanged) {
 		$("#isConditionChanged").val(isConditionChanged);
@@ -91,8 +92,8 @@
 						<td>${node.lastHeartbeatIp}&nbsp;</td>
 						<td>${node.lastHeartbeatTimestamp}&nbsp;</td>
 						<c:set var="key">${node.id}</c:set>
-						<td><a href='javascript:void(0)' onclick='showModel(${key},"liveConnectionFragment")'>&nbsp;${onlineUserMap[key]}</a></td>
-						<td>&nbsp;${registeredUserMap[key]}</td>
+						<td><a href='javascript:void(0)' onclick='showModel(${key},"liveConnectionFragment", "在线用户")'>&nbsp;${onlineUserMap[key]}</a></td>
+						<td><a href='javascript:void(0)' onclick='showModel(${key},"liveNodeUserFragment", "注册用户")'>&nbsp;${registeredUserMap[key]}</a></td>
 						<td><a href="${ctx}/manage/nodeForm?id=${node.id}" id="editLink-${node.nodeDescription}">修改</a>
 							<a href="${ctx}/manage/deleteNode?id=${node.id}" id="editLink-${node.nodeDescription}"
 							onclick="return confirm('确定删除该路由器？')">删除</a></td>
@@ -113,7 +114,7 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">在线用户</h4>
+					<h4 class="modal-title" id="myModalLabel"></h4>
 				</div>
 				<div class="modal-body" id="tableDiv"></div>
 				<div class="modal-footer">
