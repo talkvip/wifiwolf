@@ -8,7 +8,7 @@
 	$(document).ready(function() {
 		$("#nodeTab").addClass("active");
 		$("#account-tab").addClass("active");
-		$('#myModal').on('shown.bs.modal', function (e) {
+		$('#myModal').on('show.bs.modal', function (e) {
 			
 			$.get("${ctx}/manage/"+modelType+"/?nodeid="
 					+ nodeid, function(data, status) {
