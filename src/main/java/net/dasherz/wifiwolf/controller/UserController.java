@@ -157,30 +157,26 @@ public class UserController extends BaseController {
 		if (StringUtils.isNotBlank(user.getPlainPassword())) {
 			user.setPassword(user.getPlainPassword());
 		}
-		if (!beanValidator(model, user)) {
-			return form(user, model);
+
+		String result = validateUserInfo(model, user);
+		if (!result.equalsIgnoreCase("success")) {
+			return result;
 		}
-		if (user.getId() == null
-				&& userService.findUserByUsername(user.getUsername()) != null) {
-			addMessage(model, "数据验证失败,用户名已存在！");
-			return form(user, model);
-		}
-		if (user.getId() == null
-				&& StringUtils.isEmpty(user.getPlainPassword())) {
-			addMessage(model, "数据验证失败,请填入密码！");
-			return form(user, model);
-		}
+
 		if (user.getId() == null) {
 			// User register by administrator, but the phone and email still
 			// haven't been verified.
 			user.setIsEmailVerified(Constants.STATUS_USER_EMAIL_UNVERIFIED);
 			user.setIsPhoneVerified(Constants.STATUS_USER_PHONE_UNVERIFIED);
+			addMessage(redirectAttributes, "注册用户'" + user.getUsername() + "'成功");
 			userService.createUser(user);
 		} else {
+			addMessage(redirectAttributes, "用户'" + user.getUsername()
+					+ "'信息已经保存成功！");
 			userService.updateUser(user);
 		}
-		addMessage(redirectAttributes, "保存用户'" + user.getUsername() + "'成功");
-		return "redirect:/manage/userForm?id=" + user.getId();
+
+		return "redirect:/manage/userList";
 	}
 
 	@RequestMapping(value = "/manage/deleteUser", method = RequestMethod.GET)
@@ -223,5 +219,37 @@ public class UserController extends BaseController {
 			map.put(String.valueOf(user.getId()), name);
 		}
 		return map;
+	}
+
+	private String validateUserInfo(Model model, User user) {
+		if (!beanValidator(model, user)) {
+			return form(user, model);
+		}
+		if (user.getUsername() != null) {
+			User userInDb = userService.findUserByUsername(user.getUsername());
+			if (user.getId() != null) {
+				// Update Node validation
+				if ((userInDb != null)
+						&& (userInDb.getId().longValue() != user.getId()
+								.longValue())) {
+					addMessage(model, "数据验证失败,用户名已存在！");
+					return form(user, model);
+				}
+			} else {
+				// Create Node validation
+				if (userInDb != null) {
+					addMessage(model, "数据验证失败,用户名已存在！");
+					return form(user, model);
+				}
+			}
+
+		}
+
+		if (user.getId() == null
+				&& StringUtils.isEmpty(user.getPlainPassword())) {
+			addMessage(model, "数据验证失败,请填入密码！");
+			return form(user, model);
+		}
+		return "success";
 	}
 }
