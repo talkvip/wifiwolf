@@ -115,18 +115,24 @@ public class NodeController extends BaseController {
 	}
 
 	@RequestMapping(value = "/saveNode", method = RequestMethod.POST)
-	public String save(Model model, Node node) {
+	public String save(Model model, Node node,
+			RedirectAttributes redirectAttributes) {
 		if (node.getOwner() == null) {
 			node.setOwner(userService.findUserByUsername(SecurityUtils
 					.getSubject().getPrincipal().toString()));
 		}
-		if (!beanValidator(model, node)) {
-			return form(node, model);
+
+		String result = validateNodeInfo(model, node);
+		if (!result.equalsIgnoreCase("success")) {
+			return result;
 		}
-		if (node.getId() == null
-				&& nodeService.findByGatewayId(node.getGatewayId()) != null) {
-			addMessage(model, "数据验证失败,网关ID已存在！");
-			return form(node, model);
+
+		if (node.getId() == null) {
+			addMessage(redirectAttributes, "新的路由器'" + node.getNodeDescription()
+					+ "'已经注册成功！");
+		} else {
+			addMessage(redirectAttributes, "路由器'" + node.getNodeDescription()
+					+ "'信息已经保存成功！");
 		}
 		nodeService.save(node);
 		return "redirect:/manage/nodeList";
@@ -154,4 +160,47 @@ public class NodeController extends BaseController {
 		return "/manage/nodeUserTable";
 	}
 
+	private String validateNodeInfo(Model model, Node node) {
+		if (!beanValidator(model, node)) {
+			return form(node, model);
+		}
+		if (node.getGatewayId() != null) {
+			Node nodeInDb = nodeService.findByGatewayId(node.getGatewayId());
+			if (node.getId() != null) {
+				// Update Node validation
+				if ((nodeInDb != null)
+						&& (nodeInDb.getId().longValue() != node.getId()
+								.longValue())) {
+					addMessage(model, "数据验证失败,网关ID已存在！");
+					return form(node, model);
+				}
+			} else {
+				// Create Node validation
+				if (nodeInDb != null) {
+					addMessage(model, "数据验证失败,网关ID已存在！");
+					return form(node, model);
+				}
+			}
+
+		}
+		if (node.getNodeDescription() != null) {
+			Node nodeInDb = nodeService.findByNodeName(node
+					.getNodeDescription());
+			if (node.getId() != null) {
+				// Update Node validation
+				if ((nodeInDb != null)
+						&& (nodeInDb.getId().longValue() != node.getId()
+								.longValue())) {
+					addMessage(model, "数据验证失败,路由器名已存在！");
+					return form(node, model);
+				}
+			} else {
+				if (nodeInDb != null) {
+					addMessage(model, "数据验证失败,路由器名已存在！");
+					return form(node, model);
+				}
+			}
+		}
+		return "success";
+	}
 }

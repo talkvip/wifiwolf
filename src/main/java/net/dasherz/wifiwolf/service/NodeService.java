@@ -42,6 +42,10 @@ public class NodeService {
 		return nodeRepository.findByGatewayId(gatewayId);
 	}
 
+	public Node findByNodeName(String nodeName) {
+		return nodeRepository.findByNodeDescription(nodeName);
+	}
+
 	public Node getNode(Long id) {
 		return nodeRepository.findOne(id);
 	}

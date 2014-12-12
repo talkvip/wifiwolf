@@ -11,6 +11,8 @@ public interface NodeRepository extends BaseRepository<Node, Long> {
 
 	public Node findByGatewayId(String gatewayId);
 
+	public Node findByNodeDescription(String nodeDescription);
+
 	@Query("select node.nodeDescription from Node node")
 	public List<String> findAllNodeName();
 }
