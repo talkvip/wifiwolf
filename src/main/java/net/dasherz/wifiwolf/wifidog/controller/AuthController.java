@@ -13,6 +13,7 @@ import net.dasherz.wifiwolf.domain.Connection;
 import net.dasherz.wifiwolf.domain.Token;
 import net.dasherz.wifiwolf.service.ConnectionService;
 import net.dasherz.wifiwolf.service.TokenService;
+import net.dasherz.wifiwolf.wifidog.constant.AuthStage;
 import net.dasherz.wifiwolf.wifidog.constant.WifidogConstants;
 
 import org.slf4j.Logger;
@@ -47,7 +48,10 @@ public class AuthController {
 		logger.debug("incoming: " + incoming);
 		logger.debug("outgoing: " + outgoing);
 		Token currentToken = tokenService.findByToken(token);
-		if (isLogin(stage)) {
+		AuthStage currentStage = AuthStage.getAuthStage(stage);
+
+		switch (currentStage) {
+		case LOGIN:
 			boolean isTokenValid = validateToken(currentToken);
 			if (isTokenValid) {
 				connectionService.createConnection(ip, mac,
@@ -58,7 +62,9 @@ public class AuthController {
 				response.getWriter().write(
 						AUTH_RESPONSE_PREFIX + WifidogConstants.AUTH_DENIED);
 			}
-		} else {
+
+			break;
+		case COUNTERS:
 			Connection connection = currentToken.getConnection();
 			if (isUserOnline(connection)) {
 				connection.setIncoming(incoming);
@@ -71,6 +77,17 @@ public class AuthController {
 				response.getWriter().write(
 						AUTH_RESPONSE_PREFIX + WifidogConstants.AUTH_DENIED);
 			}
+			break;
+		case LOGOUT:
+			Connection toBeKilled = currentToken.getConnection();
+			toBeKilled.setStatus(Constants.STATUS_CONNECTION_CLOSED);
+			connectionService.save(toBeKilled);
+			break;
+		default:
+			logger.warn(
+					"Unknown request: [stage={}, ip={}, mac={},token={},incoming={},outgoing={}]",
+					stage, ip, mac, token, incoming, outgoing);
+			break;
 		}
 	}
 
@@ -108,14 +125,6 @@ public class AuthController {
 		}
 		return false;
 
-	}
-
-	private boolean isLogin(String stage) {
-		if (stage.equalsIgnoreCase(WifidogConstants.STAGE_LOGIN)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 }
