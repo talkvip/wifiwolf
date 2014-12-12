@@ -9,10 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.common.util.PropertiesUtil;
-import net.dasherz.wifiwolf.domain.Connection;
 import net.dasherz.wifiwolf.domain.PortalPage;
 import net.dasherz.wifiwolf.domain.Token;
-import net.dasherz.wifiwolf.service.ConnectionService;
 import net.dasherz.wifiwolf.service.PortalPageService;
 import net.dasherz.wifiwolf.service.TokenService;
 
@@ -33,9 +31,6 @@ public class PortalController {
 
 	@Inject
 	private TokenService tokenService;
-
-	@Inject
-	private ConnectionService connectionService;
 
 	@Inject
 	private PortalPageService portalPageService;
@@ -93,12 +88,6 @@ public class PortalController {
 			HttpServletResponse response, String token, String wifidogHost,
 			String wifidogPort) throws IOException {
 		logger.debug("User is logging out: " + token);
-		Token result = tokenService.findByToken(token);
-		if (result != null) {
-			Connection connection = result.getConnection();
-			connection.setStatus(Constants.STATUS_CONNECTION_CLOSED);
-			connectionService.save(connection);
-		}
 		response.sendRedirect("http://" + wifidogHost + ":" + wifidogPort
 				+ "/wifidog/auth?logout=1&token=" + token);
 	}
