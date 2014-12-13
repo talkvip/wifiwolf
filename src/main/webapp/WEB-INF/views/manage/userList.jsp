@@ -8,13 +8,6 @@
 	$(document).ready(function() {
 		$("#cmsTab").addClass("active");
 		$("#account-tab").addClass("active");
-		$(".confirm").confirm({
-		    text: "确定要删除这个用户？",
-		    title: "请确认",
-		    
-		    confirmButton: "确认",
-		    cancelButton: "取消"
-		});
 	});
 	function conditionChange(isConditionChanged) {
 		$("#isConditionChanged").val(isConditionChanged);
