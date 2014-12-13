@@ -116,7 +116,7 @@ public class AuthTypeController extends BaseController {
 		} else if (authPageType.equals(Constants.PAGE_TYPE_USE_CUSTOMIZE_HTML)) {
 			authPage.setCustomizeHtml(authPageCustomizeHtml);
 			saveHtmlToFile(Encodes.unescapeHtml(authPageCustomizeHtml),
-					"resources/custom/customAuthPage.htm");
+					"/resources/custom/customAuthPage.htm");
 		}
 
 		// set portal page setting
@@ -137,7 +137,7 @@ public class AuthTypeController extends BaseController {
 				.equals(Constants.PAGE_TYPE_USE_CUSTOMIZE_HTML)) {
 			portalPage.setCustomizeHtml(portalPageCustomizeHtml);
 			saveHtmlToFile(Encodes.unescapeHtml(portalPageCustomizeHtml),
-					"resources/custom/customPortalPage.htm");
+					"/resources/custom/customPortalPage.htm");
 		}
 
 		authPageService.save(authPage);
