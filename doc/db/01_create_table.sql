@@ -286,13 +286,11 @@ CREATE TABLE `t_token` (
   `token` varchar(40) DEFAULT NULL,
   `auth_type_id` bigint(20) DEFAULT NULL,
   `registered_user_id` bigint(20) DEFAULT NULL,
-  `phone_user_id` bigint(20) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `node_id` bigint(20) DEFAULT NULL,
   `origin_url` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `phone_user_id_UNIQUE` (`phone_user_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -350,4 +348,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-11 11:03:52
+-- Dump completed on 2014-12-13 11:49:24

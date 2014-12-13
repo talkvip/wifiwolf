@@ -9,4 +9,7 @@ public interface ConnectionRepository extends BaseRepository<Connection, Long> {
 
 	public List<Connection> findByTokenNodeIdAndStatus(Long id, Integer status);
 
+	public Connection findByTokenRegisteredUserIdAndStatus(Long id,
+			Integer status);
+
 }

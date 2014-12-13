@@ -11,6 +11,7 @@ import net.dasherz.wifiwolf.common.util.Constants;
 import net.dasherz.wifiwolf.domain.Connection;
 import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.domain.Token;
+import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.repository.ConnectionRepository;
 import net.dasherz.wifiwolf.wifidog.constant.WifidogConstants;
 
@@ -77,4 +78,25 @@ public class ConnectionService {
 		return result;
 	}
 
+	public Connection getLiveConnectionByUser(User user) {
+		Connection connection = connectionRepository
+				.findByTokenRegisteredUserIdAndStatus(user.getId(),
+						Constants.STATUS_CONNECTION_NORMAL);
+		if (connection != null) {
+			Date lastCheckInteval = new Date(System.currentTimeMillis()
+					- WifidogConstants.CONNECTION_TIMEOUT_MINUTE * 60 * 1000);
+			if (connection.getUpdateTime().after(lastCheckInteval)) {
+				return connection;
+			}
+		}
+		return null;
+	}
+
+	public void setUserToOffline(User user) {
+		Connection connection = getLiveConnectionByUser(user);
+		if (connection != null) {
+			connection.setStatus(Constants.STATUS_CONNECTION_CLOSED);
+			save(connection);
+		}
+	}
 }

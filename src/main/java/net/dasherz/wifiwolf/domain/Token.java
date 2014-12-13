@@ -39,11 +39,6 @@ public class Token extends IdLong {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private User registeredUser;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "phone_user_id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	private PhoneUser phoneUser;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id")
 	@NotNull
@@ -97,14 +92,6 @@ public class Token extends IdLong {
 
 	public void setRegisteredUser(User registeredUser) {
 		this.registeredUser = registeredUser;
-	}
-
-	public PhoneUser getPhoneUser() {
-		return phoneUser;
-	}
-
-	public void setPhoneUser(PhoneUser phoneUser) {
-		this.phoneUser = phoneUser;
 	}
 
 	public Integer getStatus() {

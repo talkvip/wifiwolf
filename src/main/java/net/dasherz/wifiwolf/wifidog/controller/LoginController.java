@@ -60,8 +60,7 @@ public class LoginController {
 			return "/wifi/showMessage";
 		}
 		if (authType.getAuthType().equalsIgnoreCase("NONE")) {
-			Token token = tokenService.createToken(authType, null, null, node,
-					url);
+			Token token = tokenService.createToken(authType, null, node, url);
 			session.setAttribute(Constants.SESSION_ATTR_WIFIDOG_HOST,
 					gw_address);
 			session.setAttribute(Constants.SESSION_ATTR_WIFIDOG_PORT, gw_port);

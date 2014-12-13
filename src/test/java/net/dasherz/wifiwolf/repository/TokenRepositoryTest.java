@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import javax.inject.Inject;
 
-import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.Token;
 
 import org.junit.Before;
@@ -17,8 +16,6 @@ public class TokenRepositoryTest extends BaseRepositoryTest {
 	@Inject
 	private UserRepository userRepository;
 	@Inject
-	private PhoneUserRepository phoneUserRepository;
-	@Inject
 	private AuthTypeRepository authTypeRepository;
 	@Inject
 	private NodeRepository nodeRepository;
@@ -28,7 +25,6 @@ public class TokenRepositoryTest extends BaseRepositoryTest {
 	@Before
 	public void init() {
 		token = new Token();
-		token.setPhoneUser(phoneUserRepository.save(new PhoneUser()));
 		token.setRegisteredUser(userRepository.findOne(1L));
 		token.setNode(nodeRepository.findOne(1L));
 		token.setStatus(1);

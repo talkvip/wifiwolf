@@ -16,8 +16,10 @@ import net.dasherz.wifiwolf.domain.AuthType;
 import net.dasherz.wifiwolf.domain.Node;
 import net.dasherz.wifiwolf.domain.PhoneUser;
 import net.dasherz.wifiwolf.domain.Token;
+import net.dasherz.wifiwolf.domain.User;
 import net.dasherz.wifiwolf.service.AuthPageService;
 import net.dasherz.wifiwolf.service.AuthTypeService;
+import net.dasherz.wifiwolf.service.ConnectionService;
 import net.dasherz.wifiwolf.service.NodeService;
 import net.dasherz.wifiwolf.service.PhoneUserService;
 import net.dasherz.wifiwolf.service.TokenService;
@@ -40,6 +42,9 @@ public class WIFIUserController {
 
 	@Inject
 	private TokenService tokenService;
+
+	@Inject
+	private ConnectionService connectionService;
 
 	@Inject
 	private NodeService nodeService;
@@ -81,7 +86,6 @@ public class WIFIUserController {
 			if (authType.getAuthType().equals(Constants.AUTH_TYPE_PHONE)
 					|| authType.getAuthType().equals(
 							Constants.AUTH_TYPE_PHONE_SMS)) {
-				// phoneUserService.savePhoneNumber(phoneNum);
 				userService
 						.registerUserAutomatically(phoneNum, phoneCode, node);
 			}
@@ -96,9 +100,15 @@ public class WIFIUserController {
 				phoneUserService.verifiedForPhoneNumber(phoneUser);
 			}
 
-			Token token = tokenService.createToken(authType,
-					userService.findUserByUsername(username), phoneUser,
-					node, originUrl);
+			// make sure one user only has one live connection.
+			User user = userService.findUserByPhone(phoneNum);
+			if (user == null) {
+				user = userService.findUserByUsername(username);
+			}
+			connectionService.setUserToOffline(user);
+
+			Token token = tokenService.createToken(authType, user, node,
+					originUrl);
 
 			session.setAttribute(Constants.SESSION_ATTR_WIFIDOG_HOST,
 					wifidogHost);
